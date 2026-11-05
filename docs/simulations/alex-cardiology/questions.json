@@ -1,0 +1,269 @@
+[
+  {
+    "number": 1,
+    "question": "What's your name?",
+    "expected_topics": [
+      "name"
+    ],
+    "answer_checks": [
+      "\\balex\\b"
+    ]
+  },
+  {
+    "number": 2,
+    "question": "How old are you?",
+    "expected_topics": [
+      "age"
+    ],
+    "answer_checks": [
+      "\\b35\\b|thirty[ -]five"
+    ]
+  },
+  {
+    "number": 3,
+    "question": "What do you do for work?",
+    "expected_topics": [
+      "occupation"
+    ],
+    "answer_checks": [
+      "teach"
+    ]
+  },
+  {
+    "number": 4,
+    "question": "Can you tell me about your usual daily routine?",
+    "expected_topics": [
+      "daily_routine"
+    ],
+    "answer_checks": [
+      "school|teach",
+      "eight|\\b8\\b",
+      "four|\\b4\\b",
+      "family"
+    ]
+  },
+  {
+    "number": 5,
+    "question": "What do you normally eat during the day?",
+    "expected_topics": [
+      "diet_meals"
+    ],
+    "answer_checks": [
+      "rice|dal|vegetable",
+      "home|three|\\b3\\b"
+    ]
+  },
+  {
+    "number": 6,
+    "question": "What did you eat yesterday?",
+    "expected_topics": [
+      "diet_meals"
+    ],
+    "answer_checks": [
+      "rice|dal|vegetable|same|usual"
+    ]
+  },
+  {
+    "number": 7,
+    "question": "What time do you usually go to sleep and wake up?",
+    "expected_topics": [
+      "sleep"
+    ],
+    "answer_checks": [
+      "eleven|\\b11\\b",
+      "\\bsix\\b|\\b6\\b"
+    ]
+  },
+  {
+    "number": 8,
+    "question": "Do you exercise or go for walks regularly?",
+    "expected_topics": [
+      "exercise"
+    ],
+    "answer_checks": [
+      "walk",
+      "market"
+    ]
+  },
+  {
+    "number": 9,
+    "question": "Who do you live with?",
+    "expected_topics": [
+      "home_situation"
+    ],
+    "answer_checks": [
+      "family"
+    ]
+  },
+  {
+    "number": 10,
+    "question": "Do you smoke or drink alcohol?",
+    "expected_topics": [
+      "social_history"
+    ],
+    "answer_checks": [
+      "(do not|don.t|never|no|non).{0,15}smok",
+      "rare|occasion"
+    ]
+  },
+  {
+    "number": 11,
+    "question": "Has your appetite or weight changed recently?",
+    "expected_topics": [
+      "appetite_weight"
+    ],
+    "answer_checks": [
+      "appetite.{0,20}(normal|fine|same|usual|good)|normal.{0,15}appetite",
+      "weight.{0,25}(not|no|same|stable|unchanged)|no.{0,20}weight|not.{0,15}(gain|los)"
+    ]
+  },
+  {
+    "number": 12,
+    "question": "Are you worried about anything?",
+    "expected_topics": [
+      "mood_stress"
+    ],
+    "answer_checks": [
+      "worr|concern|anxious",
+      "problem|chest|discomfort|tight|health|this"
+    ]
+  },
+  {
+    "number": 13,
+    "question": "What brings you here today?",
+    "expected_topics": [
+      "complaint"
+    ],
+    "answer_checks": [
+      "chest",
+      "tight|pressure",
+      "walk|uphill"
+    ]
+  },
+  {
+    "number": 14,
+    "question": "When did the chest discomfort first start?",
+    "expected_topics": [
+      "duration"
+    ],
+    "answer_checks": [
+      "two days|2 days"
+    ]
+  },
+  {
+    "number": 15,
+    "question": "How long does each episode last?",
+    "expected_topics": [
+      "duration"
+    ],
+    "answer_checks": [
+      "five minutes|5 minutes"
+    ]
+  },
+  {
+    "number": 16,
+    "question": "Where exactly do you feel the discomfort?",
+    "expected_topics": [
+      "symptom_details"
+    ],
+    "answer_checks": [
+      "cent[er]{2}|middle",
+      "chest"
+    ]
+  },
+  {
+    "number": 17,
+    "question": "Can you describe what it feels like?",
+    "expected_topics": [
+      "symptom_details"
+    ],
+    "answer_checks": [
+      "tight|pressure|squeez"
+    ]
+  },
+  {
+    "number": 18,
+    "question": "What activities bring on the discomfort?",
+    "expected_topics": [
+      "complaint",
+      "symptom_details"
+    ],
+    "answer_checks": [
+      "uphill|hill"
+    ]
+  },
+  {
+    "number": 19,
+    "question": "What helps relieve it?",
+    "expected_topics": [
+      "symptom_details"
+    ],
+    "answer_checks": [
+      "rest"
+    ]
+  },
+  {
+    "number": 20,
+    "question": "Apart from the chest discomfort, have you noticed any other symptoms?",
+    "expected_topics": [
+      "associated"
+    ],
+    "answer_checks": [
+      "breathless|short.{0,5}(of )?breath"
+    ]
+  },
+  {
+    "number": 21,
+    "question": "Do you feel breathless during these episodes?",
+    "expected_topics": [
+      "associated"
+    ],
+    "answer_checks": [
+      "breathless|short.{0,5}(of )?breath"
+    ]
+  },
+  {
+    "number": 22,
+    "question": "Have you fainted or had a fever?",
+    "expected_topics": [
+      "associated"
+    ],
+    "answer_checks": [
+      "(not|no|haven.t|never|neither).{0,35}faint",
+      "fever"
+    ]
+  },
+  {
+    "number": 23,
+    "question": "Do you have any other known medical conditions?",
+    "expected_topics": [
+      "past_history"
+    ],
+    "answer_checks": [
+      "no|not|don.t",
+      "condition|illness|medical|health problem"
+    ]
+  },
+  {
+    "number": 24,
+    "question": "Are you currently taking any medicines?",
+    "expected_topics": [
+      "medications"
+    ],
+    "answer_checks": [
+      "no|not|don.t|none",
+      "medic|tablet|drug"
+    ]
+  },
+  {
+    "number": 25,
+    "question": "Do you have any known allergies?",
+    "expected_topics": [
+      "allergies"
+    ],
+    "answer_checks": [
+      "no|not|don.t|none",
+      "allerg"
+    ]
+  }
+]

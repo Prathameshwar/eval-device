@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "questions": [
+    {"question":"What did you eat yesterday?","expected":"Rice, dal and vegetables; explicitly authored yesterday's usual meal."},
+    {"question":"What do you normally have for breakfast?","expected":"Usual home-cooked food can be given; no new breakfast-specific foods or habits."},
+    {"question":"Do you prefer tea or coffee?","expected":"Unknown preference."},
+    {"question":"How much water do you usually drink?","expected":"Unknown amount; do not invent a number."},
+    {"question":"Do you usually cook at home?","expected":"Home-cooked meals are known; who cooks is unknown."},
+    {"question":"How did you sleep last night?","expected":"Usual seven-hour sleep can be given; last night's exact quality/duration is unknown."},
+    {"question":"How many hours do you usually sleep?","expected":"About seven hours."},
+    {"question":"What do you do for exercise?","expected":"Market walks most days, no other regular exercise."},
+    {"question":"What is a usual morning like for you?","expected":"Wakes around six, leaves for school at eight; no new activities."},
+    {"question":"What kind of work do you do?","expected":"Schoolteacher."},
+    {"question":"Who do you live with?","expected":"Family; no invented relatives."},
+    {"question":"How do you normally travel to work?","expected":"Unknown transport; market walks do not establish a work commute."},
+    {"question":"How busy is your usual workday?","expected":"Relevant school schedule until four; do not invent workload details."},
+    {"question":"What do you do to relax?","expected":"Evenings at home with family can support the answer; no invented activities."},
+    {"question":"What are your hobbies?","expected":"Unknown hobbies; market walks are exercise, not an authored hobby."},
+    {"question":"Are you worried about being here?","expected":"A little worried about the problem."},
+    {"question":"What did you do last weekend?","expected":"Unknown exact event."},
+    {"question":"Have you travelled recently?","expected":"Unknown; no travel denial or invented trip."},
+    {"question":"Do you have any pets?","expected":"Unknown; no unsupported denial."},
+    {"question":"What were you doing before coming here?","expected":"Unknown specific event; no invented clinical exposure or trigger."},
+    {"question":"What is nine multiplied by seven?","expected":"63; answer an unrelated general arithmetic question."},
+    {"question":"Why does ice float on water?","expected":"Ice is less dense than liquid water; concise general knowledge."},
+    {"question":"How do you wash your hands?","expected":"General soap-and-water procedure, not uncertainty about patient habits."},
+    {"question":"Good morning!","expected":"Brief greeting, no unrelated patient facts."},
+    {"question":"Could you explain that?","expected":"No referent/history: ask a clarification question, not an uncertainty statement.","history":"empty"}
+  ]
+}

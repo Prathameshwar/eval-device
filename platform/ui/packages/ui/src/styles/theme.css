@@ -1,0 +1,72 @@
+/*
+ * @pms/ui — the theme switcher, kept beside the theme system it belongs to rather
+ * than in the general shell chrome.
+ *
+ * Contains no colour values — every colour reads a --pms-* token.
+ */
+
+/* ---------- segmented theme switcher ---------- */
+/*
+ * One bordered pill holding four icon-only radios. The group reads as a single control, so
+ * the border and radius belong to the group and the options only carry state — that is also
+ * why the divider is a hairline between options rather than a border on each.
+ */
+.pms-theme-switcher {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 1px; /* the hairline: the group's background shows through between options */
+  /* 4px, not 2px: the option's focus ring is a 2px solid stop plus a 5px halo, and at 2px
+   * the solid stop landed on top of the group's own border — two edges fighting for the
+   * same pixel row. This buys the ring its own room without softening the pill. */
+  padding: 4px;
+  background: var(--pms-surface-2);
+  /* The group border is this control's entire boundary (WCAG 1.4.11), so it takes the
+   * 3:1 control edge rather than the decorative ledger rule. */
+  border: 1px solid var(--pms-control-line);
+  border-radius: var(--pms-radius-pill);
+}
+
+.pms-theme-switcher__option {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--pms-radius-pill);
+  background: transparent;
+  color: var(--pms-ink-soft);
+  font: inherit;
+  cursor: pointer;
+  transition: background var(--pms-dur-fast) var(--pms-ease),
+    color var(--pms-dur-fast) var(--pms-ease);
+}
+
+.pms-theme-switcher__option:hover {
+  background: var(--pms-hover);
+  color: var(--pms-ink);
+}
+
+.pms-theme-switcher__option:focus-visible {
+  outline: none;
+  box-shadow: var(--pms-focus-ring);
+}
+
+/* State is the ARIA attribute, not a class — one source of truth for "selected", and the
+ * style cannot drift from what a screen reader announces. */
+.pms-theme-switcher__option[aria-checked='true'] {
+  background: var(--pms-brand-tint);
+  border-color: var(--pms-brand-line);
+  color: var(--pms-brand-ink);
+}
+
+.pms-theme-switcher__icon {
+  display: grid;
+  place-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pms-theme-switcher__option {
+    transition: none;
+  }
+}

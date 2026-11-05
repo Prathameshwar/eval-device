@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "fixture": "Fictional Alex starter with qualification-rich-background.json; reviewed English in memory only.",
+  "questions": [
+    {"question":"What did you eat yesterday?","expected":"Rice, dal and vegetables."},
+    {"question":"What do you normally have for breakfast?","expected":"Oats."},
+    {"question":"Do you prefer tea or coffee?","expected":"Tea; explicitly authored, not unknown."},
+    {"question":"How much water do you usually drink?","expected":"About two litres daily."},
+    {"question":"Do you usually cook at home?","expected":"Yes; the patient explicitly cooks meals at home."},
+    {"question":"How did you sleep last night?","expected":"Seven hours and woke feeling rested; explicit event, not only routine."},
+    {"question":"How many hours do you usually sleep?","expected":"About seven hours."},
+    {"question":"What do you do for exercise?","expected":"Walks to market most days; no other regular exercise."},
+    {"question":"When do you start teaching?","expected":"Nine; leaving at eight does not establish a start at eight."},
+    {"question":"What kind of work do you do?","expected":"Schoolteacher."},
+    {"question":"Who do you live with?","expected":"Family; no invented relatives."},
+    {"question":"How do you normally travel to work?","expected":"Bus; explicitly authored, not market walks or unknown."},
+    {"question":"How busy is your usual workday?","expected":"Teaching starts at nine, finishes at four; no invented workload."},
+    {"question":"What do you do to relax?","expected":"Reading novels and gardening."},
+    {"question":"What are your hobbies?","expected":"Reading novels and gardening; explicitly authored."},
+    {"question":"Are you worried about being here?","expected":"A little worried about the problem."},
+    {"question":"What did you do last weekend?","expected":"Visited parents; explicitly authored."},
+    {"question":"Have you travelled recently?","expected":"No; explicit negative is known, not unknown."},
+    {"question":"Do you have any pets?","expected":"Dog named Milo; explicitly authored."},
+    {"question":"What were you doing before coming here?","expected":"Reading a book; explicit event, not a routine."},
+    {"question":"What is nine multiplied by seven?","expected":"63; no patient numbers."},
+    {"question":"Why does ice float on water?","expected":"Ice has lower density than liquid water."},
+    {"question":"How do you wash your hands?","expected":"Wet, soap, scrub, rinse and dry; generic procedure."},
+    {"question":"Good morning!","expected":"Brief greeting without profile or invented wellbeing."},
+    {"question":"Could you explain that?","expected":"Ask clarification; intentionally no history.","history":"empty"}
+  ],
+  "acceptance":"Manually inspect every answer against supplied facts, including affirmative and negative personal details, actor and event distinctions. Measure the same complete-answer timing and 2048-token fit as the original matrix."
+}

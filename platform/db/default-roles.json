@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "status": "Implementation contract for fixed default roles; the application must enforce these grants and scope checks.",
+  "assignment_fields": {
+    "users.platform_role": {
+      "allowed_values": [
+        "platform_admin"
+      ],
+      "default": null
+    },
+    "organization_memberships.role": {
+      "allowed_values": [
+        "org_admin",
+        "org_user",
+        "org_read_only",
+        "org_trainee"
+      ],
+      "required": true
+    },
+    "devices.role": {
+      "allowed_values": [
+        "org_device"
+      ],
+      "default": "org_device"
+    }
+  },
+  "conventions": {
+    "default_access": "deny",
+    "wildcard_permissions": false,
+    "manage_permission": "Read/create/update/activate/deactivate the named resource, subject to scope, lifecycle, and specific admin protections.",
+    "platform_scope": "No implied org.* grant. Tenant processing/data requires an explicit active accepted organization membership.",
+    "organization_scope": "Resolve current membership and optional department scope on the server. org_admin must have no department restriction.",
+    "device_scope": "Resolve organization/device from the device credential. No human membership or platform role is available to a device.",
+    "trainee_media": "Results and media are readable only within the trainee's assigned organization/department, with authorized temporary download URLs.",
+    "current_identity": "Authenticate the current identity and resolve current assignments. Active status is required for business operations; inactive devices have only the explicit lifecycle exceptions below. Token role claims alone are insufficient.",
+    "identity_routes": "Active authenticated humans may read their own identity/memberships and update permitted contact fields without an org role. Verified humans may accept a valid invitation; organization creation additionally requires self_service mode. These routes never accept role or identity-authority changes from caller input.",
+    "history_scope": "Read historical records using their recorded organization/department context, not the device's new department.",
+    "mutations": "Role, administrator, platform settings, and organization changes produce administrative audit events.",
+    "catalog_changes": "Change through reviewed application releases, not platform-settings JSON or tenant APIs."
+  },
+  "lifecycle_rules": {
+    "last_platform_admin": "Use the platform_settings singleton lock; never remove/deactivate the last active platform administrator.",
+    "last_org_admin": "Every active organization needs an accepted active org_admin whose global user is active.",
+    "global_deactivation": "Replace affected last organization administrators or suspend their organizations in the same transaction.",
+    "inactive_device": "Allow restricted configuration/status, health, and status/error events only; no capture, processing submission, result download, or playback.",
+    "maintenance": "Pause new enrollment/processing; preserve authorized reads, admin recovery, device health/status, and cleanup.",
+    "onboarding": "A verified active user may create an organization only in self_service mode and receives org_admin there, never platform_admin.",
+    "bootstrap": "Grant the first platform_admin via a trusted deployment operation against a verified identity; never via public signup."
+  },
+  "roles": [
+    {
+      "code": "platform_admin",
+      "name": "Platform Admin",
+      "principal_type": "user",
+      "scope": "platform",
+      "assignment_field": "users.platform_role",
+      "department_scope_allowed": false,
+      "description": "Manage organizations, global identities/administrators, platform configuration, administrative audit, and aggregate health.",
+      "permissions": [
+        "platform.settings.read",
+        "platform.settings.manage",
+        "platform.organizations.read",
+        "platform.organizations.manage",
+        "platform.organization_admins.manage",
+        "platform.users.read",
+        "platform.users.manage",
+        "platform.administrators.manage",
+        "platform.audit.read",
+        "platform.health.read"
+      ]
+    },
+    {
+      "code": "org_admin",
+      "name": "Org Admin",
+      "principal_type": "user",
+      "scope": "organization",
+      "assignment_field": "organization_memberships.role",
+      "department_scope_allowed": false,
+      "description": "Manage members and resources throughout the assigned organization, including processing and audit.",
+      "permissions": [
+        "org.devices.summary.read",
+        "org.devices.read",
+        "org.status.read",
+        "org.configuration.read",
+        "org.results.read",
+        "org.media.read",
+        "org.telemetry.read",
+        "org.activity.read",
+        "org.settings.read",
+        "org.settings.manage",
+        "org.members.manage",
+        "org.departments.manage",
+        "org.devices.manage",
+        "org.processing.execute",
+        "org.playback.execute",
+        "org.audit.read"
+      ]
+    },
+    {
+      "code": "org_user",
+      "name": "Org User",
+      "principal_type": "user",
+      "scope": "organization",
+      "assignment_field": "organization_memberships.role",
+      "department_scope_allowed": true,
+      "description": "Read permitted operational data and run approved processing/playback in assigned scope.",
+      "permissions": [
+        "org.devices.summary.read",
+        "org.devices.read",
+        "org.status.read",
+        "org.configuration.read",
+        "org.results.read",
+        "org.media.read",
+        "org.telemetry.read",
+        "org.activity.read",
+        "org.processing.execute",
+        "org.playback.execute"
+      ]
+    },
+    {
+      "code": "org_read_only",
+      "name": "Org Read Only",
+      "principal_type": "user",
+      "scope": "organization",
+      "assignment_field": "organization_memberships.role",
+      "department_scope_allowed": true,
+      "description": "Read operational data and configuration summaries in assigned scope without starting work or changing records.",
+      "permissions": [
+        "org.devices.summary.read",
+        "org.devices.read",
+        "org.status.read",
+        "org.configuration.read",
+        "org.results.read",
+        "org.media.read",
+        "org.telemetry.read",
+        "org.activity.read"
+      ]
+    },
+    {
+      "code": "org_trainee",
+      "name": "Trainee",
+      "principal_type": "user",
+      "scope": "organization",
+      "assignment_field": "organization_memberships.role",
+      "department_scope_allowed": true,
+      "description": "Read device summaries, basic status, processing results, and media in assigned scope; no execution, detailed telemetry, configuration, or administrative access.",
+      "permissions": [
+        "org.devices.summary.read",
+        "org.status.read",
+        "org.results.read",
+        "org.media.read"
+      ]
+    },
+    {
+      "code": "org_device",
+      "name": "Org Device",
+      "principal_type": "device",
+      "scope": "device",
+      "assignment_field": "devices.role",
+      "department_scope_allowed": false,
+      "description": "Access only this authenticated device's configuration, work, results, telemetry, and playback acknowledgments.",
+      "permissions": [
+        "device.configuration.read",
+        "device.status.read",
+        "device.health.write",
+        "device.events.write",
+        "device.work.fetch",
+        "device.processing.submit",
+        "device.results.read",
+        "device.results.write",
+        "device.playback.acknowledge"
+      ]
+    }
+  ]
+}

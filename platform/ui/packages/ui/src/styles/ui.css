@@ -1,0 +1,552 @@
+/* Shared controls, typography, and feedback styles. */
+
+/* ---------- base ---------- */
+
+.pms-root,
+.pms-root *,
+.pms-root *::before,
+.pms-root *::after {
+  box-sizing: border-box;
+}
+
+.pms-root {
+  margin: 0;
+  color: var(--pms-ink);
+  font-family: var(--pms-font-body);
+  font-size: var(--pms-text-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Tabular figures keep numeric columns aligned. */
+.pms-figure {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- headings / text ---------- */
+.pms-h1 {
+  font-family: var(--pms-font-display);
+  font-weight: 600;
+  font-size: var(--pms-text-xl);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--pms-ink);
+}
+/*
+ * 80ch, the readability ceiling — not a narrower "nice measure". A lede is one sentence, so a
+ * tighter cap wrapped it into two lines with most of the page still empty to its right, which
+ * reads as a broken layout rather than a considered one. Where the container is genuinely
+ * narrow (the auth form column) it constrains the line before this does.
+ */
+.pms-lede {
+  margin: var(--pms-space-2) 0 0;
+  color: var(--pms-ink-soft);
+  font-size: var(--pms-text-md);
+  max-width: 80ch;
+}
+.pms-fine {
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+}
+
+/* ---------- links ---------- */
+.pms-link {
+  color: var(--pms-brand);
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 3px;
+  text-underline-offset: 3px;
+}
+.pms-link:hover { text-decoration: underline; }
+.pms-link:focus-visible {
+  outline: none;
+  box-shadow: var(--pms-focus-ring);
+}
+
+/* ---------- fields ---------- */
+.pms-field {
+  display: block;
+}
+.pms-field + .pms-field {
+  margin-top: var(--pms-space-4);
+}
+.pms-field__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pms-space-3);
+  margin-bottom: var(--pms-space-2);
+}
+.pms-label {
+  font-size: var(--pms-text-sm);
+  font-weight: 500;
+  color: var(--pms-ink);
+}
+.pms-optional {
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-faint);
+  font-weight: 400;
+}
+
+.pms-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.pms-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: var(--pms-text-base);
+  color: var(--pms-ink);
+  background: var(--pms-surface);
+  /* `--pms-control-line`, not the decorative `--pms-line`: an empty field is defined
+   * entirely by this hairline, so it is a UI boundary and owes 3:1 (WCAG 1.4.11). The
+   * ledger rules on cards and lists stay on `--pms-line` — they are decoration. */
+  border: 1px solid var(--pms-control-line);
+  border-radius: var(--pms-radius-sm);
+  padding: 0.68rem 0.85rem;
+  line-height: 1.3;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+  appearance: none;
+}
+.pms-input::placeholder { color: var(--pms-ink-faint); }
+/* Hover deepens the edge; it must never fall *below* the resting 3:1 one, which is what
+ * pointing at `--pms-line-strong` used to do. */
+.pms-input:hover { border-color: var(--pms-ink-faint); }
+.pms-input:focus {
+  outline: none;
+  border-color: var(--pms-focus);
+  box-shadow: var(--pms-focus-ring);
+}
+.pms-input[aria-invalid='true'] {
+  border-color: var(--pms-danger-ink);
+}
+.pms-input[aria-invalid='true']:focus {
+  box-shadow: var(--pms-focus-ring-danger);
+}
+.pms-input:disabled {
+  background: var(--pms-disabled-surface);
+  color: var(--pms-disabled-ink);
+  cursor: not-allowed;
+}
+/* room for the trailing toggle on password fields */
+.pms-input--trailing { padding-right: 3.6rem; }
+/* room for a leading icon */
+.pms-input--leading { padding-left: 2.6rem; }
+.pms-input__lead {
+  position: absolute;
+  left: 0.8rem;
+  display: flex;
+  color: var(--pms-ink-faint);
+  pointer-events: none;
+}
+/* the leading icon warms to the brand when the field is focused */
+.pms-input-wrap:focus-within .pms-input__lead { color: var(--pms-brand); }
+
+.pms-input__toggle {
+  position: absolute;
+  right: 0.4rem;
+  border: none;
+  background: transparent;
+  color: var(--pms-ink-soft);
+  font: inherit;
+  font-size: var(--pms-text-sm);
+  font-weight: 500;
+  padding: 0.35rem 0.5rem;
+  border-radius: var(--pms-radius-sm);
+  cursor: pointer;
+}
+.pms-input__toggle:hover { color: var(--pms-brand); background: var(--pms-hover); }
+.pms-input__toggle:focus-visible { outline: none; box-shadow: var(--pms-focus-ring); }
+
+.pms-hint {
+  margin-top: var(--pms-space-2);
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+}
+.pms-error {
+  margin-top: var(--pms-space-2);
+  font-size: var(--pms-text-xs);
+  color: var(--pms-danger-ink);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.pms-error svg { flex: none; }
+
+/* ---------- select ---------- */
+/*
+ * A native `<select>` wearing `.pms-input`, so it lines up with a text field in the same
+ * form without a second box model to keep in step. `appearance: none` on `.pms-input` is
+ * what removes the platform arrow; the caret below replaces it.
+ */
+.pms-select__wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.pms-select__control {
+  /* Inherits `.pms-input`'s padding, plus room for the caret. Overriding only the one side
+   * keeps the two controls' text on the same baseline. */
+  padding-right: 2.2rem;
+  cursor: pointer;
+}
+.pms-select__caret {
+  position: absolute;
+  right: 0.6rem;
+  display: grid;
+  place-items: center;
+  color: var(--pms-ink-faint);
+  /* The caret sits over the control, so it must not swallow the click that opens the list. */
+  pointer-events: none;
+}
+.pms-select[data-disabled='true'] .pms-select__caret {
+  color: var(--pms-disabled-ink);
+}
+.pms-select[data-invalid='true'] .pms-select__caret {
+  color: var(--pms-danger-ink);
+}
+/* Inline form: the label sits beside the control, for a toolbar's range picker. */
+.pms-select--inline {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+}
+/* The stacked field's label row owns the gap below it; inline, the row is a flex item and the
+   gap above belongs to the container. */
+.pms-select--inline .pms-field__row {
+  margin-bottom: 0;
+}
+.pms-select--inline .pms-label {
+  color: var(--pms-ink-soft);
+  font-size: var(--pms-text-xs);
+  white-space: nowrap;
+}
+.pms-select--inline .pms-select__control {
+  padding: 0.45rem 2rem 0.45rem 0.6rem;
+  font-size: var(--pms-text-sm);
+}
+/*
+ * A spinner for a plain surface. `--pms-spinner-*` is deliberately white — it is drawn on a
+ * brand-filled button — so it vanishes on a panel; this one keys off the ink scale instead.
+ * The reduced-motion rule at the foot of this file stops both from spinning.
+ */
+.pms-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--pms-line-strong);
+  border-top-color: var(--pms-brand);
+  border-radius: 50%;
+  animation: pms-spin 0.6s linear infinite;
+}
+
+/* ---------- phone ---------- */
+/*
+ * Two controls, one field: the dial code (a `.pms-select__control`, so it shares the text
+ * field's box model exactly) and the national number. They are separate boxes with a gap rather
+ * than one fused pill — fusing them means one focus ring has to span two elements, and the seam
+ * always shows on the theme the seam wasn't designed against.
+ */
+.pms-phone__wrap {
+  gap: var(--pms-space-2);
+  align-items: stretch;
+}
+.pms-phone__code-wrap {
+  flex: none;
+}
+.pms-phone__code {
+  /* `.pms-input` is `width: 100%`; here the code is as wide as it needs to be and no wider,
+   * with a ceiling so a full country name cannot push the number field off the row. */
+  width: auto;
+  max-width: 11rem;
+  font-variant-numeric: tabular-nums;
+}
+.pms-phone__code:disabled + .pms-select__caret {
+  color: var(--pms-disabled-ink);
+}
+.pms-phone__number {
+  flex: 1;
+  /* Without this a long number sets the flex base size and overflows the row. */
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- caps-lock notice ---------- */
+/*
+ * A warning, not an error: the password may be perfectly correct. It reads as a hint with the
+ * warning ink, and it sits where the hint would, so nothing jumps when it appears.
+ */
+.pms-caps {
+  margin-top: var(--pms-space-2);
+  font-size: var(--pms-text-xs);
+  color: var(--pms-warn-ink);
+}
+
+/* ---------- inline notice ---------- */
+/*
+ * A banner in the page's own flow — a form-level error, a qualified result, a live constraint.
+ * Toned by `data-tone` rather than by four near-identical rules, because a notice differs between
+ * tones only in which token triple it reads. The leading edge is what makes it scannable in a
+ * column of content, and the icon is what keeps the tone from being colour alone (§2.4).
+ */
+.pms-notice {
+  display: flex;
+  gap: var(--pms-space-3);
+  align-items: flex-start;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--pms-info-line);
+  border-inline-start: 3px solid var(--pms-info-ink);
+  border-radius: var(--pms-radius-sm);
+  background: var(--pms-info-tint);
+  font-size: var(--pms-text-sm);
+  color: var(--pms-info-ink);
+}
+.pms-notice[data-tone='success'] {
+  border-color: var(--pms-success-line);
+  border-inline-start-color: var(--pms-success-ink);
+  background: var(--pms-success-tint);
+  color: var(--pms-success-ink);
+}
+.pms-notice[data-tone='warning'] {
+  border-color: var(--pms-warn-line);
+  border-inline-start-color: var(--pms-warn-ink);
+  background: var(--pms-warn-tint);
+  color: var(--pms-warn-ink);
+}
+.pms-notice[data-tone='danger'] {
+  border-color: var(--pms-danger-line);
+  border-inline-start-color: var(--pms-danger-ink);
+  background: var(--pms-danger-tint);
+  color: var(--pms-danger-ink);
+}
+
+.pms-notice__icon { display: flex; flex: none; margin-top: 1px; }
+.pms-notice__body { flex: 1 1 auto; min-width: 0; }
+.pms-notice__title { margin: 0; font-weight: 600; }
+/* The body inherits the tone's ink: this text is the tone's own message, and greying it would
+ * leave the colour saying "warning" while the words looked like a caption. */
+.pms-notice__text { margin: 0; }
+.pms-notice__title + .pms-notice__text { margin-top: 0.15rem; }
+.pms-notice__action { margin-top: var(--pms-space-2); }
+/* The dismiss control is the one part that is furniture rather than message. */
+.pms-notice .pms-btn--icon { flex: none; color: inherit; }
+
+/* ---------- checkbox ---------- */
+.pms-check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+  cursor: pointer;
+  font-size: var(--pms-text-sm);
+  color: var(--pms-ink);
+  user-select: none;
+}
+.pms-check input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.pms-check__box {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  /* An unchecked box is nothing but this hairline — the control's whole boundary, so 3:1. */
+  border: 1px solid var(--pms-control-line);
+  border-radius: var(--pms-radius-sm);
+  background: var(--pms-surface);
+  display: grid;
+  place-items: center;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+/* Both marks share the one grid cell: the tick is always in the DOM and faded, so a check does not
+ * reflow the box, and the indeterminate bar has to sit on top of it rather than beside it. */
+.pms-check__box > svg,
+.pms-check__box::after { grid-area: 1 / 1; }
+.pms-check__box svg { width: 12px; height: 12px; opacity: 0; transform: scale(0.6); transition: opacity 120ms ease, transform 120ms ease; }
+.pms-check input:checked + .pms-check__box,
+.pms-check input:indeterminate + .pms-check__box {
+  background: var(--pms-grad-action);
+  border-color: var(--pms-brand-strong);
+}
+.pms-check input:checked + .pms-check__box svg { opacity: 1; transform: scale(1); color: var(--pms-ink-invert); }
+/*
+ * A dash, not a tick. "Some of this page is selected" and "all of it is" are different facts, and a
+ * tick for the first would have the reader run a bulk verb over rows they did not choose.
+ */
+.pms-check input:indeterminate + .pms-check__box::after {
+  content: '';
+  width: 9px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--pms-ink-invert);
+}
+.pms-check input:indeterminate + .pms-check__box svg { opacity: 0; }
+.pms-check input:focus-visible + .pms-check__box { box-shadow: var(--pms-focus-ring); }
+/* A box that cannot be ticked says so: a row already posted, a column that is always shown. */
+.pms-check input:disabled + .pms-check__box {
+  background: var(--pms-surface-2);
+  border-color: var(--pms-line-strong);
+}
+
+/* ---------- buttons ---------- */
+.pms-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pms-space-2);
+  font-family: inherit;
+  font-size: var(--pms-text-base);
+  font-weight: 600;
+  line-height: 1;
+  border-radius: var(--pms-radius-sm);
+  border: 1px solid transparent;
+  padding: 0.8rem 1.1rem;
+  cursor: pointer;
+  transition: filter 120ms ease, box-shadow 120ms ease, background 120ms ease, transform 60ms ease;
+  text-decoration: none;
+}
+.pms-btn:focus-visible { outline: none; box-shadow: var(--pms-focus-ring); }
+.pms-btn--block { width: 100%; }
+
+.pms-btn--primary {
+  background: var(--pms-grad-action);
+  color: var(--pms-ink-invert);
+  box-shadow: var(--pms-shadow-action);
+}
+.pms-btn--primary:hover { filter: brightness(1.05); }
+.pms-btn--primary:active { background: var(--pms-grad-action-press); transform: translateY(1px); box-shadow: var(--pms-shadow-card); }
+.pms-btn--primary:disabled {
+  background: var(--pms-disabled-surface);
+  color: var(--pms-disabled-ink);
+  box-shadow: none;
+  cursor: not-allowed;
+  filter: none;
+}
+
+/* The confirming button of a destructive dialog. A flat danger fill rather than a gradient: the
+ * gradient is the *primary* action's signature, and this is deliberately not that — it is the
+ * action the user is being asked to reconsider. */
+.pms-btn--danger {
+  background: var(--pms-danger-ink);
+  color: var(--pms-ink-invert);
+  box-shadow: none;
+}
+.pms-btn--danger:hover { filter: brightness(1.06); }
+.pms-btn--danger:active { filter: brightness(0.9); transform: translateY(1px); }
+.pms-btn--danger:disabled {
+  background: var(--pms-disabled-surface);
+  color: var(--pms-disabled-ink);
+  cursor: not-allowed;
+  filter: none;
+}
+
+.pms-btn--ghost {
+  background: transparent;
+  color: var(--pms-ink);
+  /* The outline *is* the button — no fill behind it — so it is a boundary at 3:1. */
+  border-color: var(--pms-control-line);
+}
+.pms-btn--ghost:hover { background: var(--pms-hover); border-color: var(--pms-ink-faint); }
+
+/* icon-only button: square, quiet, the label lives in aria-label + title */
+.pms-btn--icon {
+  padding: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--pms-radius-sm);
+  position: relative;
+  color: var(--pms-ink-soft);
+  background: transparent;
+}
+.pms-btn--icon:hover { background: var(--pms-hover); color: var(--pms-ink); }
+.pms-btn--icon:active { background: var(--pms-active); }
+/* An icon-only outline button carries no text, so the hairline is the only thing saying
+ * "this is a control" — `--pms-control-line` at 3:1, and firmer still on hover. */
+.pms-btn--icon-outline { border-color: var(--pms-control-line); background: var(--pms-surface); }
+.pms-btn--icon-outline:hover { border-color: var(--pms-ink-faint); }
+.pms-btn__icon { display: grid; place-items: center; }
+/* the unread marker — an accompaniment to the label, never the only signal */
+.pms-btn__dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--pms-radius-pill);
+  background: var(--pms-danger-ink);
+  border: 1.5px solid var(--pms-surface);
+}
+
+/* social sign-in: neutral surface, brand mark carries the colour */
+.pms-btn--social {
+  background: var(--pms-surface);
+  color: var(--pms-ink);
+  border-color: var(--pms-line-strong);
+  font-weight: 500;
+  gap: var(--pms-space-3);
+}
+.pms-btn--social:hover { background: var(--pms-paper); border-color: var(--pms-ink-faint); }
+.pms-btn--social svg { flex: none; }
+
+/* loading spinner inside a button */
+.pms-btn__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--pms-spinner-track);
+  border-top-color: var(--pms-spinner-head);
+  border-radius: 50%;
+  animation: pms-spin 0.6s linear infinite;
+}
+@keyframes pms-spin { to { transform: rotate(360deg); } }
+
+/* ---------- password strength meter ---------- */
+.pms-strength {
+  margin-top: var(--pms-space-3);
+}
+.pms-strength__track {
+  display: flex;
+  gap: 4px;
+}
+.pms-strength__seg {
+  height: 4px;
+  flex: 1;
+  border-radius: var(--pms-radius-pill);
+  background: var(--pms-line);
+  transition: background 160ms ease;
+}
+.pms-strength__label {
+  margin-top: var(--pms-space-2);
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+  display: flex;
+  justify-content: space-between;
+}
+.pms-strength[data-score='1'] .pms-strength__seg:nth-child(-n + 1) { background: var(--pms-danger-ink); }
+.pms-strength[data-score='2'] .pms-strength__seg:nth-child(-n + 2) { background: var(--pms-warn-ink); }
+.pms-strength[data-score='3'] .pms-strength__seg:nth-child(-n + 3) { background: var(--pms-brand-bright); }
+.pms-strength[data-score='4'] .pms-strength__seg { background: var(--pms-brand); }
+
+/* ---------- utilities ---------- */
+.pms-visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pms-root *,
+  .pms-root *::before,
+  .pms-root *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

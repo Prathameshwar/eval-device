@@ -1,0 +1,13 @@
+import type { Device } from './device-directory';
+export type ModelKind = 'llm' | 'asr' | 'tts' | 'video';
+export type ModelMode = 'local' | 'cloud';
+export const MODEL_LABELS: Record<ModelKind, string> = { llm: 'Conversation', asr: 'Speech recognition', tts: 'Speech output', video: 'Video' };
+export type RuntimeModel = { id: string; name: string; organization_id: string | null; kind: ModelKind; location: ModelMode;
+  provider: string; engine: string; model_key: string; settings: Record<string, unknown>; defaults: Record<string, string>;
+  revision: number; is_active: boolean; has_credentials: boolean };
+export type ModelDraft = Omit<RuntimeModel, 'id' | 'organization_id' | 'revision' | 'has_credentials'> & { expected_revision?: number; credentials?: Record<string, string> };
+export type ModelTestResult = { status: 'passed' | 'failed'; revision: number; check: string; inference_verified: false; error_code: string | null; checked_at: string };
+export type Selection = { mode: ModelMode | 'mixed'; version: number; llm_model_id: string | null; asr_model_id: string | null; tts_model_id: string | null; video_model_id: string | null };
+export type ModelChoice = Pick<RuntimeModel, 'id' | 'name' | 'kind' | 'location' | 'revision'> & { available: boolean };
+export type DeviceChoices = { device: Device; selection: Selection; models: ModelChoice[]; configuration_allowed?: boolean; configuration_blocked_reason?: string | null };
+export type SelectionDraft = Omit<Selection, 'version' | 'mode'> & { mode: ModelMode; expected_version: number; model_revisions: Record<string, number> };

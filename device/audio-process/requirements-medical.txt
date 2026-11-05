@@ -1,0 +1,8 @@
+# Optional one-time conversion environment. The audio runtime does not require these.
+ctranslate2==4.8.2
+transformers==4.57.6
+torch==2.10.0
+safetensors==0.7.0
+huggingface-hub==0.36.2
+filelock==3.20.3
+truststore==0.10.4

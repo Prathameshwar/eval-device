@@ -1,0 +1,107 @@
+/*
+ * PMS — LIGHT palette. The default, and the canonical key set: every other theme
+ * file defines exactly these keys, no more and no fewer (a test enforces it).
+ *
+ * Identity: the calm, ordered front-desk of a well-run business. Refined indigo on
+ * clean paper — trust without cliché. Names are hue-neutral (`--pms-brand`,
+ * `--pms-panel`, …) so a re-colour is a one-file change.
+ *
+ * Signals are always triplets — `-ink` on `-tint` bounded by `-line`. Coloured text
+ * on a plain surface is not a status.
+ */
+
+/* `:root:not([data-theme])` is the safety net: if a document ever renders before the
+ * pre-paint script runs, or an app forgets it, the page is light rather than unstyled.
+ * It cannot fight the other themes — it only matches when the attribute is absent. */
+[data-theme='light'],
+:root:not([data-theme]) {
+  /* — Surfaces — */
+  --pms-paper: #f7f8fb; /* the page */
+  --pms-surface: #ffffff; /* a card, an input */
+  --pms-surface-2: #f9fafc; /* a tile nested inside a card */
+  --pms-overlay: #ffffff; /* menu, popover, drawer */
+  --pms-panel: #edf0f8; /* the brand panel — light and calm, not a dark side */
+  --pms-panel-2: #e6eaf6; /* subtle foot of the panel gradient */
+  --pms-hover: #eef1fb;
+  --pms-active: #e4e9f8;
+  --pms-selected: #eef1fb;
+  --pms-disabled-surface: #f1f3f7;
+  --pms-disabled-ink: #606d86;
+  --pms-scrim: rgba(27, 35, 51, 0.42);
+
+  /* — Ink — */
+  --pms-ink: #1b2333; /* primary text: a deep indigo-ink */
+  --pms-ink-soft: #5b657c; /* secondary text, muted slate */
+  --pms-ink-faint: #656f88; /* hints, rank numbers, overlines — 4.7:1 on every surface it sits on */
+  --pms-ink-invert: #ffffff; /* on a brand fill */
+
+  /* — Brand — */
+  --pms-brand: #34478f; /* the mark, links, primary identity */
+  --pms-brand-strong: #2c3c8c; /* pressed / firmer */
+  --pms-brand-bright: #5b72d6; /* the settled tick and highlights */
+  --pms-brand-ink: #263056; /* ink on a brand tint */
+  --pms-brand-tint: #eef1fb;
+  --pms-brand-line: #d3daf1;
+  --pms-brand-glow: rgba(58, 79, 176, 0.1); /* radial depth wash */
+
+  /* — Lines & structure: the account book's real columns — */
+  --pms-line: #dde2ef; /* ledger rules and input borders */
+  --pms-line-strong: #c5cce0; /* a firmer rule (totals) */
+  --pms-control-line: #7686b4; /* the edge of an input, checkbox or outline button — 3:1 */
+
+  /* — Signals — */
+  --pms-success-ink: #1f7a52;
+  --pms-success-tint: #e8f5ee;
+  --pms-success-line: #bfe0cd;
+  --pms-warn-ink: #8a5a12;
+  --pms-warn-tint: #fdf3e2;
+  --pms-warn-line: #ecd6a8;
+  --pms-danger-ink: #b23a2e; /* the debit red of a ledger */
+  --pms-danger-tint: #fbeeec;
+  --pms-danger-line: #eecac4;
+  --pms-info-ink: #2a5680;
+  --pms-info-tint: #e9f1f8;
+  --pms-info-line: #c6d8e8;
+  --pms-neutral-ink: #5b657c;
+  --pms-neutral-tint: #f1f3f7;
+  --pms-neutral-line: #dde2ef;
+
+  /* — Gradients: slight, single-hue. Only brand surfaces and the primary action. — */
+  --pms-grad-action: linear-gradient(180deg, #3a4fb0 0%, #2c3c8c 100%);
+  --pms-grad-action-press: linear-gradient(180deg, #2c3c8c 0%, #24316f 100%);
+  --pms-grad-panel: linear-gradient(168deg, #f1f3fb 0%, #e6eaf6 100%);
+
+  /* — Focus — */
+  --pms-focus: #3a4fb0;
+  --pms-focus-ring: 0 0 0 2px var(--pms-focus), 0 0 0 5px rgba(58, 79, 176, 0.28);
+  --pms-focus-ring-danger: 0 0 0 2px var(--pms-danger-ink), 0 0 0 5px rgba(178, 58, 46, 0.22);
+
+  /* — Elevation: spent on the primary action and, barely, on cards — */
+  --pms-shadow-action: 0 1px 1px rgba(30, 35, 60, 0.14), 0 6px 16px rgba(44, 60, 140, 0.22);
+  --pms-shadow-card: 0 1px 2px rgba(27, 35, 51, 0.05);
+  --pms-shadow-popover: 0 8px 24px rgba(27, 35, 51, 0.14);
+
+  /* — Components with no other home — */
+  --pms-meter-track: #e4e8f2;
+  --pms-meter-fill: #34478f;
+  --pms-spinner-track: rgba(255, 255, 255, 0.45);
+  --pms-spinner-head: #ffffff;
+
+  /* — Charts: ordered categorical, validated not merely chosen. Series 1 is the
+   *   primary and reads as the brand; assignment is by index, never hue-picked at the
+   *   call site. Adjacent slots clear the colour-blind separation gate — worst adjacent
+   *   pair ΔE 10.7 under deuteranopia (gate 8.0), 18.9 under normal vision (gate 15),
+   *   every slot ≥ 3:1 against the surface. Re-run before changing any of these:
+   *   node scripts/validate_palette.js "<the eight below>" --mode light --surface "#ffffff"
+   *   Muted on purpose: a palette that passes by being neon is the wrong trade here. — */
+  --pms-chart-1: #3353a0; /* indigo */
+  --pms-chart-2: #c28412; /* amber */
+  --pms-chart-3: #009394; /* teal */
+  --pms-chart-4: #aa3f4e; /* rose */
+  --pms-chart-5: #419bd4; /* sky */
+  --pms-chart-6: #5b6c00; /* olive */
+  --pms-chart-7: #97549b; /* plum */
+  --pms-chart-8: #88470d; /* bronze */
+  --pms-chart-grid: #e8ebf3;
+  --pms-chart-axis: #6f7891; /* the zero line is a graphic: 3:1 */
+}

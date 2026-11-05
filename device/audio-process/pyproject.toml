@@ -1,0 +1,63 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "device-audio-api"
+version = "0.1.0"
+description = "Standalone local streaming speech transcription and text delivery"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "pydantic-settings>=2.8,<3",
+  "httpx>=0.28,<1",
+  "faster-whisper>=1.2,<2",
+  "numpy>=2,<3",
+  "webrtcvad-wheels>=2.0.14,<3",
+  "websockets>=15,<18",
+  "sherpa-onnx>=1.13.8,<2",
+  "onnxruntime>=1.28,<2",
+]
+
+[project.optional-dependencies]
+# Optional NVIDIA runtime wheels; CPU-only installations keep their existing footprint.
+cuda = [
+  "nvidia-cublas-cu12==12.8.4.1; sys_platform == 'win32' and platform_machine == 'AMD64'",
+  "nvidia-cudnn-cu12==9.7.1.26; sys_platform == 'win32' and platform_machine == 'AMD64'",
+  "nvidia-cuda-runtime-cu12==12.8.90; sys_platform == 'win32' and platform_machine == 'AMD64'",
+]
+vosk = [
+    "vosk==0.3.45",
+]
+
+[project.scripts]
+audio-api = "device_audio.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8.3,<10", "pytest-asyncio>=0.26,<2", "ruff>=0.11,<1", "mypy>=1.15,<2"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/device_audio"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/scripts", "/tests", "/README.md", "/pyproject.toml", "/uv.lock", "/requirements-medical.txt", "/setup-medical.bat", "/.env.example", "/.gitignore"]
+exclude = ["**/__pycache__", "**/*.pyc"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+extend-exclude = [".recordings", ".models", ".venv-medical"]
+line-length = 110
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+check_untyped_defs = true
+

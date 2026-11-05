@@ -1,0 +1,14 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+[project]
+name = "local-model-client"
+version = "0.1.0"
+requires-python = ">=3.12,<3.14"
+dependencies = ["httpx>=0.28,<1", "training-contracts>=0.1.0"]
+[project.optional-dependencies]
+streaming = ["websockets>=15,<16"]
+[tool.uv.sources]
+training-contracts = {path = "../../shared/training-contracts", editable = true}
+[tool.hatch.build.targets.wheel]
+packages = ["src/local_model_client"]

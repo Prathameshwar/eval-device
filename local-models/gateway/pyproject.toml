@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+[project]
+name = "local-model-gateway"
+version = "0.2.0"
+requires-python = ">=3.12,<3.14"
+dependencies = ["local-model-client>=0.1.0", "fastapi>=0.115,<1", "uvicorn[standard]>=0.34,<1", "PyJWT[crypto]>=2.10,<3", "opencv-python-headless>=4.12,<5"]
+[project.scripts]
+local-model-gateway = "local_model_gateway.__main__:main"
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=0.26,<2", "ruff>=0.11,<1", "mypy>=1.15,<2"]
+[tool.uv.sources]
+local-model-client = {path = "../client", editable = true}
+training-contracts = {path = "../../shared/training-contracts", editable = true}
+[tool.hatch.build.targets.wheel]
+packages = ["src/local_model_gateway"]
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B"]
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true

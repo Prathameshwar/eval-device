@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "code": "cough_interview_dev",
+  "title": "Fictional cough history - educator review required",
+  "persona": {
+    "en": "Arun, a reserved but cooperative fictional adult. Development fixture; not clinically approved.",
+    "hi": "अरुण एक काल्पनिक वयस्क है। वह शांत और सहयोगी है। यह विकास हेतु उदाहरण है, चिकित्सकीय रूप से स्वीकृत नहीं।"
+  },
+  "greeting": {
+    "en": "Hello. I am Arun.",
+    "hi": "नमस्ते। मेरा नाम अरुण है।"
+  },
+  "clarification": {
+    "en": "Could you please ask that another way?",
+    "hi": "क्या आप कृपया यह सवाल दूसरे तरीके से पूछ सकते हैं?"
+  },
+  "topics": [
+    {
+      "id": "identity",
+      "intent": "Patient name and age",
+      "examples": [
+        "What is your name?",
+        "How old are you?",
+        "आपका नाम और उम्र क्या है?"
+      ],
+      "answer": {
+        "en": "My name is Arun. I am forty-five years old.",
+        "hi": "मेरा नाम अरुण है। मेरी उम्र पैंतालीस साल है।"
+      }
+    },
+    {
+      "id": "consent",
+      "intent": "Permission to ask questions",
+      "examples": [
+        "May I ask some questions?",
+        "क्या मैं कुछ सवाल पूछ सकता हूँ?"
+      ],
+      "answer": {
+        "en": "Yes, you can ask me questions.",
+        "hi": "हाँ, आप मुझसे सवाल पूछ सकते हैं।"
+      }
+    },
+    {
+      "id": "complaint",
+      "intent": "Reason for visit and main symptom",
+      "examples": [
+        "What brings you here?",
+        "What is the problem?",
+        "आपको क्या तकलीफ है?"
+      ],
+      "answer": {
+        "en": "I have had a cough and a sore throat.",
+        "hi": "मुझे खाँसी है और गले में दर्द है।"
+      }
+    },
+    {
+      "id": "onset",
+      "intent": "When symptoms started and how long",
+      "examples": [
+        "When did it start?",
+        "How long have you had it?",
+        "यह कब शुरू हुआ?"
+      ],
+      "answer": {
+        "en": "It started three days ago.",
+        "hi": "यह तीन दिन पहले शुरू हुआ था।"
+      }
+    },
+    {
+      "id": "course",
+      "intent": "Change since symptoms started",
+      "examples": [
+        "Is it getting worse?",
+        "Has it changed?",
+        "क्या यह बढ़ रहा है?"
+      ],
+      "answer": {
+        "en": "It has stayed about the same.",
+        "hi": "यह लगभग वैसा ही है।"
+      }
+    },
+    {
+      "id": "fever",
+      "intent": "Fever or temperature symptoms",
+      "examples": [
+        "Do you have a fever?",
+        "बुखार है?"
+      ],
+      "answer": {
+        "en": "I have not noticed a fever.",
+        "hi": "मुझे बुखार महसूस नहीं हुआ है।"
+      }
+    },
+    {
+      "id": "breathing",
+      "intent": "Breathlessness",
+      "examples": [
+        "Any difficulty breathing?",
+        "साँस लेने में तकलीफ है?"
+      ],
+      "answer": {
+        "en": "I have not had difficulty breathing.",
+        "hi": "मुझे साँस लेने में तकलीफ नहीं हुई है।"
+      }
+    },
+    {
+      "id": "medications",
+      "intent": "Medicines currently taken",
+      "examples": [
+        "Do you take medicines?",
+        "कौन सी दवाइयाँ लेते हैं?"
+      ],
+      "answer": {
+        "en": "I do not take any regular medicines.",
+        "hi": "मैं नियमित रूप से कोई दवा नहीं लेता हूँ।"
+      }
+    },
+    {
+      "id": "allergies",
+      "intent": "Known allergies",
+      "examples": [
+        "Are you allergic to anything?",
+        "क्या आपको कोई एलर्जी है?"
+      ],
+      "answer": {
+        "en": "I do not know of any allergies.",
+        "hi": "मुझे किसी एलर्जी के बारे में जानकारी नहीं है।"
+      }
+    },
+    {
+      "id": "history",
+      "intent": "Past illnesses or operations",
+      "examples": [
+        "Have you had any illnesses or operations?",
+        "पहले कोई बीमारी या ऑपरेशन हुआ है?"
+      ],
+      "answer": {
+        "en": "I have not had a major illness or operation.",
+        "hi": "मुझे पहले कोई बड़ी बीमारी नहीं हुई है और कोई ऑपरेशन नहीं हुआ है।"
+      }
+    },
+    {
+      "id": "family",
+      "intent": "Relevant family history",
+      "examples": [
+        "Any illnesses in your family?",
+        "परिवार में कोई बीमारी है?"
+      ],
+      "answer": {
+        "en": "My father has high blood pressure.",
+        "hi": "मेरे पिता को उच्च रक्तचाप है।"
+      }
+    },
+    {
+      "id": "social",
+      "intent": "Smoking alcohol and occupation",
+      "examples": [
+        "Do you smoke or drink?",
+        "What is your job?",
+        "क्या आप धूम्रपान करते हैं?"
+      ],
+      "answer": {
+        "en": "I work in an office. I do not smoke or drink alcohol.",
+        "hi": "मैं कार्यालय में काम करता हूँ। मैं धूम्रपान नहीं करता और शराब नहीं पीता।"
+      }
+    },
+    {
+      "id": "concern",
+      "intent": "Patient worries and expectations",
+      "examples": [
+        "What worries you?",
+        "आपको किस बात की चिंता है?"
+      ],
+      "answer": {
+        "en": "I am worried that the cough will affect my work.",
+        "hi": "मुझे चिंता है कि खाँसी से मेरे काम पर असर पड़ेगा।"
+      }
+    },
+    {
+      "id": "closing",
+      "intent": "Thanks and ending the interview",
+      "examples": [
+        "Thank you for answering",
+        "धन्यवाद"
+      ],
+      "answer": {
+        "en": "Thank you for listening to me.",
+        "hi": "मेरी बात सुनने के लिए धन्यवाद।"
+      }
+    }
+  ],
+  "rubric": [
+    {
+      "id": "introduction",
+      "description": "Introduces self and confirms patient identity"
+    },
+    {
+      "id": "consent",
+      "description": "Obtains consent for interview"
+    },
+    {
+      "id": "complaint",
+      "description": "Explores presenting complaint and time course"
+    },
+    {
+      "id": "history",
+      "description": "Asks about relevant past and family history"
+    },
+    {
+      "id": "medications",
+      "description": "Asks about medicines and allergies"
+    },
+    {
+      "id": "concern",
+      "description": "Explores patient concerns"
+    },
+    {
+      "id": "summary",
+      "description": "Summarizes and checks understanding"
+    }
+  ]
+}

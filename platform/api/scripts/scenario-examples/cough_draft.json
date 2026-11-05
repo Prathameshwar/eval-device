@@ -1,0 +1,74 @@
+{
+  "version": 2,
+  "code": "sample_cough",
+  "title": "Private cough teaching case",
+  "learner_label": "Patient interview A",
+  "specialty": "Internal teaching category",
+  "patient": {
+    "name": "Fictional Patient A",
+    "age_years": 35,
+    "height_cm": 170,
+    "weight_kg": 68
+  },
+  "presentation": {
+    "chief_complaint": {
+      "en": "I have a cough.",
+      "hi": "मुझे खांसी है।"
+    }
+  },
+  "history": {
+    "medications": {
+      "knowledge": "unknown"
+    },
+    "allergies": {
+      "knowledge": "none"
+    }
+  },
+  "vitals": {
+    "temperature_c": 37.5,
+    "heart_rate_bpm": 85,
+    "systolic_mmhg": 120,
+    "diastolic_mmhg": 80
+  },
+  "fact_disclosure": {
+    "patient.name": "volunteered",
+    "patient.age_years": "on_question"
+  },
+  "dialogue": {
+    "greeting": {
+      "en": "Hello, I am {patient.name}.",
+      "hi": "नमस्ते, मेरा नाम {patient.name} है।"
+    },
+    "clarification": {
+      "en": "Please ask that again.",
+      "hi": "कृपया फिर से पूछें।"
+    },
+    "topics": [
+      {
+        "id": "age",
+        "intent": "Ask the patient's age",
+        "examples": [
+          "How old are you?"
+        ],
+        "answer": {
+          "en": "I am {patient.age_years} years old.",
+          "hi": "मेरी उम्र {patient.age_years} साल है।"
+        },
+        "disclosure": "on_question"
+      }
+    ]
+  },
+  "instructor": {
+    "diagnosis": "Hidden teaching diagnosis",
+    "notes": "Private assessment notes",
+    "objectives": [
+      "Practise asking a patient's age and complaint"
+    ],
+    "rubric": [
+      {
+        "id": "asks_age",
+        "description": "Asks age respectfully"
+      }
+    ]
+  }
+}

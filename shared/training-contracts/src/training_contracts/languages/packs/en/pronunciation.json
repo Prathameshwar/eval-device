@@ -1,0 +1,8 @@
+[
+  ["bpm", "beats per minute"],
+  ["mmHg", "millimeters of mercury"],
+  ["SpO2", "oxygen saturation"],
+  ["mg", "milligrams"],
+  ["kg", "kilograms"],
+  ["cm", "centimeters"]
+]

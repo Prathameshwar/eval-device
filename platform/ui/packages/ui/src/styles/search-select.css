@@ -1,0 +1,305 @@
+/*
+ * @pms/ui — `SearchSelect`: entity lookup.
+ *
+ * The list is portalled to the body and positioned in the viewport, so nothing here may assume
+ * it is a descendant of the field. That is deliberate: an absolutely positioned popover is
+ * clipped by any ancestor with `overflow`, which is exactly how the top bar clipped `UserMenu`.
+ *
+ * Contains no colour values — every colour reads a --pms-* token.
+ */
+
+/* ---------- the field ---------- */
+
+.pms-search-select {
+  position: relative;
+  min-width: 0;
+}
+
+/*
+ * The control mirrors `.pms-input` rather than reusing it: it is a box containing an input,
+ * chips and two buttons, so it owns the border and the focus ring, and the inner input is
+ * chromeless. `--pms-control-line` because an empty field is defined entirely by its edge.
+ */
+.pms-search-select__control {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--pms-space-2);
+  min-height: 2.5rem;
+  padding: 0.3rem 0.4rem 0.3rem 0.7rem;
+  background: var(--pms-surface);
+  border: 1px solid var(--pms-control-line);
+  border-radius: var(--pms-radius-sm);
+  transition: border-color var(--pms-dur-fast) ease, box-shadow var(--pms-dur-fast) ease;
+}
+.pms-search-select__control:hover {
+  border-color: var(--pms-ink-faint);
+}
+/* The ring lives on the box, because the box is what reads as the control. */
+.pms-search-select__control:focus-within {
+  border-color: var(--pms-focus);
+  box-shadow: var(--pms-focus-ring);
+}
+.pms-search-select__control[data-invalid='true'] {
+  border-color: var(--pms-danger-ink);
+}
+.pms-search-select__control[data-invalid='true']:focus-within {
+  box-shadow: var(--pms-focus-ring-danger);
+}
+.pms-search-select__control[data-disabled='true'] {
+  background: var(--pms-disabled-surface);
+  border-color: var(--pms-line-strong);
+}
+
+.pms-search-select__input {
+  flex: 1 1 6rem;
+  min-width: 0;
+  border: 0;
+  padding: 0.3rem 0;
+  background: transparent;
+  font: inherit;
+  font-size: var(--pms-text-base);
+  color: var(--pms-ink);
+}
+.pms-search-select__input::placeholder {
+  color: var(--pms-ink-faint);
+}
+/* The box carries the ring; a second one on the input inside it would read as two controls. */
+.pms-search-select__input:focus {
+  outline: none;
+}
+.pms-search-select__input:disabled {
+  color: var(--pms-disabled-ink);
+  cursor: not-allowed;
+}
+
+.pms-search-select__clear,
+.pms-search-select__chip-remove,
+.pms-search-select__retry,
+.pms-search-select__more {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: var(--pms-ink-soft);
+  cursor: pointer;
+  border-radius: var(--pms-radius-sm);
+}
+.pms-search-select__clear {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.pms-search-select__clear:hover,
+.pms-search-select__chip-remove:hover {
+  background: var(--pms-hover);
+  color: var(--pms-ink);
+}
+.pms-search-select__clear:focus-visible,
+.pms-search-select__chip-remove:focus-visible,
+.pms-search-select__retry:focus-visible {
+  outline: none;
+  box-shadow: var(--pms-focus-ring);
+}
+
+.pms-search-select__chevron {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.5rem;
+  color: var(--pms-ink-soft);
+  transition: transform var(--pms-dur-fast) var(--pms-ease);
+}
+.pms-search-select[data-open='true'] .pms-search-select__chevron {
+  transform: rotate(180deg);
+}
+
+/* ---------- chips (multiple) ---------- */
+
+.pms-search-select__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pms-space-1);
+  max-width: 14rem;
+  padding: 0.1rem 0.15rem 0.1rem 0.5rem;
+  background: var(--pms-brand-tint);
+  border: 1px solid var(--pms-brand-line);
+  color: var(--pms-brand-ink);
+  border-radius: var(--pms-radius-sm);
+  font-size: var(--pms-text-sm);
+}
+.pms-search-select__chip-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pms-search-select__chip-remove {
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--pms-brand-ink);
+}
+/* What `maxChips` collapses into: a count, not another removable chip, so a filter with
+   fifteen selections cannot push the input out of the control. */
+.pms-search-select__chip-count {
+  flex: none;
+  padding: 0.1rem var(--pms-space-2);
+  font-size: var(--pms-text-xs);
+  font-weight: 600;
+  color: var(--pms-ink-soft);
+}
+
+/* ---------- the list ---------- */
+
+/*
+ * `--pms-overlay` and a `--pms-line-strong` edge, like every other popover: in dark the
+ * shadow is black on near-black, so the border is what separates the list from the page.
+ */
+.pms-search-select__panel {
+  z-index: var(--pms-z-popover);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--pms-overlay);
+  border: 1px solid var(--pms-line-strong);
+  border-radius: var(--pms-radius-md);
+  box-shadow: var(--pms-shadow-popover);
+}
+
+.pms-search-select__options {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  min-height: 0;
+}
+
+.pms-search-select__option,
+.pms-search-select__create {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+  padding: var(--pms-space-2) var(--pms-space-3);
+  cursor: pointer;
+  color: var(--pms-ink);
+}
+.pms-search-select__option + .pms-search-select__option,
+.pms-search-select__create {
+  border-top: 1px solid var(--pms-line);
+}
+/*
+ * The highlight is `--pms-selected` plus a leading brand marker, not colour alone: the active
+ * row has to be findable in greyscale and at low contrast settings too.
+ */
+.pms-search-select__option[data-active='true'],
+.pms-search-select__create[data-active='true'] {
+  background: var(--pms-selected);
+  box-shadow: inset 2px 0 0 var(--pms-brand);
+}
+.pms-search-select__option[aria-selected='true'] {
+  color: var(--pms-brand-ink);
+}
+.pms-search-select__option[aria-disabled='true'] {
+  color: var(--pms-disabled-ink);
+  cursor: not-allowed;
+}
+
+.pms-search-select__mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.1rem;
+  color: var(--pms-brand);
+}
+.pms-search-select__option[aria-disabled='true'] .pms-search-select__mark {
+  color: var(--pms-disabled-ink);
+}
+
+.pms-search-select__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.pms-search-select__label {
+  font-size: var(--pms-text-sm);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pms-search-select__meta {
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pms-search-select__figure {
+  flex: none;
+  font-size: var(--pms-text-sm);
+  color: var(--pms-ink);
+}
+
+.pms-search-select__create {
+  color: var(--pms-brand);
+  font-size: var(--pms-text-sm);
+  font-weight: 500;
+}
+
+/* ---------- status lines ---------- */
+
+/*
+ * Outside the listbox on purpose: a `role="listbox"` whose children are not options is invalid,
+ * and these lines are announced through the field's live region rather than being navigable.
+ */
+.pms-search-select__status {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  margin: 0;
+  padding: var(--pms-space-3);
+  border-top: 1px solid var(--pms-line);
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+}
+.pms-search-select__status:first-child {
+  border-top: 0;
+}
+.pms-search-select__status[data-tone='danger'] {
+  background: var(--pms-danger-tint);
+  color: var(--pms-danger-ink);
+}
+.pms-search-select__status svg {
+  flex: none;
+}
+.pms-search-select__retry {
+  margin-inline-start: auto;
+  padding: 0.1rem var(--pms-space-2);
+  color: var(--pms-danger-ink);
+  font-size: var(--pms-text-xs);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.pms-search-select__sentinel {
+  display: flex;
+  justify-content: center;
+  padding: var(--pms-space-2);
+  border-top: 1px solid var(--pms-line);
+}
+.pms-search-select__more {
+  padding: var(--pms-space-1) var(--pms-space-3);
+  font-size: var(--pms-text-xs);
+  font-weight: 600;
+  color: var(--pms-brand);
+}
+.pms-search-select__more:hover {
+  background: var(--pms-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pms-search-select__control,
+  .pms-search-select__chevron {
+    transition: none;
+  }
+}

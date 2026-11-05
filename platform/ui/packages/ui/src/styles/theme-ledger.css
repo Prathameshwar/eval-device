@@ -1,0 +1,98 @@
+/*
+ * PMS — LEDGER palette. Warm paper, warm near-black ink, the same indigo brand.
+ * Same key set as theme-light.css.
+ *
+ * This is the account-book vernacular taken literally: the colour of a ruled paper
+ * ledger. It exists because people who read figures all day often prefer warm paper
+ * to white, and it is a genuinely distinct palette — not a tinted `light`.
+ */
+
+[data-theme='ledger'] {
+  /* — Surfaces — */
+  --pms-paper: #faf6ee;
+  --pms-surface: #fffdf8;
+  --pms-surface-2: #f5f0e5;
+  --pms-overlay: #fffdf8;
+  --pms-panel: #f3eee2;
+  --pms-panel-2: #ebe4d5;
+  --pms-hover: #f1ebdd;
+  --pms-active: #e8e0cf;
+  --pms-selected: #edeef8;
+  --pms-disabled-surface: #f2ede2;
+  --pms-disabled-ink: #726859;
+  --pms-scrim: rgba(38, 34, 28, 0.5);
+
+  /* — Ink: warm, so it sits on paper rather than on top of it — */
+  --pms-ink: #26221c;
+  --pms-ink-soft: #5d564a;
+  --pms-ink-faint: #736b5d; /* 4.6:1 on warm paper and on the nested tile */
+  --pms-ink-invert: #fffdf8;
+
+  /* — Brand: the same indigo; it reads well against warm paper — */
+  --pms-brand: #34478f;
+  --pms-brand-strong: #2c3c8c;
+  --pms-brand-bright: #5b72d6;
+  --pms-brand-ink: #2a3260;
+  --pms-brand-tint: #edeef8;
+  --pms-brand-line: #d2d5ec;
+  --pms-brand-glow: rgba(58, 79, 176, 0.09);
+
+  /* — Lines & structure: the ruled lines of the book — */
+  --pms-line: #e2dac9;
+  --pms-line-strong: #cabfa8;
+  --pms-control-line: #96845c; /* the edge of an input, checkbox or outline button — 3:1 */
+
+  /* — Signals — */
+  --pms-success-ink: #2f6b45;
+  --pms-success-tint: #eaf1e6;
+  --pms-success-line: #cbdcc2;
+  --pms-warn-ink: #8a5a12;
+  --pms-warn-tint: #f8eeda;
+  --pms-warn-line: #e6d3ac;
+  --pms-danger-ink: #a33528;
+  --pms-danger-tint: #f8e8e3;
+  --pms-danger-line: #ebcdc3;
+  --pms-info-ink: #2a5680;
+  --pms-info-tint: #e8eff6;
+  --pms-info-line: #c9d9e7;
+  --pms-neutral-ink: #5d564a;
+  --pms-neutral-tint: #f2ede2;
+  --pms-neutral-line: #e2dac9;
+
+  /* — Gradients — */
+  --pms-grad-action: linear-gradient(180deg, #3a4fb0 0%, #2c3c8c 100%);
+  --pms-grad-action-press: linear-gradient(180deg, #2c3c8c 0%, #24316f 100%);
+  --pms-grad-panel: linear-gradient(168deg, #f7f2e7 0%, #ebe4d5 100%);
+
+  /* — Focus — */
+  --pms-focus: #3a4fb0;
+  --pms-focus-ring: 0 0 0 2px var(--pms-focus), 0 0 0 5px rgba(58, 79, 176, 0.26);
+  --pms-focus-ring-danger: 0 0 0 2px var(--pms-danger-ink), 0 0 0 5px rgba(163, 53, 40, 0.22);
+
+  /* — Elevation: warm shadows, or they read as grey smudges on cream — */
+  --pms-shadow-action: 0 1px 1px rgba(60, 48, 30, 0.14), 0 6px 16px rgba(44, 60, 140, 0.2);
+  --pms-shadow-card: 0 1px 2px rgba(60, 48, 30, 0.06);
+  --pms-shadow-popover: 0 8px 24px rgba(60, 48, 30, 0.16);
+
+  /* — Components with no other home — */
+  --pms-meter-track: #e7dfcd;
+  --pms-meter-fill: #34478f;
+  --pms-spinner-track: rgba(255, 253, 248, 0.45);
+  --pms-spinner-head: #fffdf8;
+
+  /* — Charts: the light series, re-validated against warm paper — it passes unchanged
+   *   (ΔE 10.7 deuteranopia, 18.9 normal, all ≥ 3:1 vs #fffdf8). Deliberately NOT warmed
+   *   per palette: the series exist to stay distinguishable, and re-tinting them to match
+   *   the paper would trade a measured property for a cosmetic one. The grid and axis are
+   *   what carry the warmth. Verify with --mode light --surface "#fffdf8". — */
+  --pms-chart-1: #3353a0; /* indigo */
+  --pms-chart-2: #c28412; /* amber */
+  --pms-chart-3: #009394; /* teal */
+  --pms-chart-4: #aa3f4e; /* rose */
+  --pms-chart-5: #419bd4; /* sky */
+  --pms-chart-6: #5b6c00; /* olive */
+  --pms-chart-7: #97549b; /* plum */
+  --pms-chart-8: #88470d; /* bronze */
+  --pms-chart-grid: #ebe3d2;
+  --pms-chart-axis: #857c6c;
+}

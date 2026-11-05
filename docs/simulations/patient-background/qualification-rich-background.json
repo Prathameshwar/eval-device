@@ -1,0 +1,7 @@
+[
+  {"id":"food_drink","text":{"en":"I cook our meals at home. Yesterday I ate rice, dal and vegetables. I usually have oats for breakfast. I prefer tea and drink about two litres of water daily."},"allow_variation":false,"choices":[]},
+  {"id":"sleep_activity","text":{"en":"I usually sleep about seven hours. Last night I slept seven hours and woke feeling rested."},"allow_variation":false,"choices":[]},
+  {"id":"work_home","text":{"en":"I live with my family and take the bus to work. I leave at eight, start teaching at nine and finish at four."},"allow_variation":false,"choices":[]},
+  {"id":"personality","text":{"en":"I feel a little worried about this problem. I enjoy reading novels and gardening to relax."},"allow_variation":false,"choices":[]},
+  {"id":"additional","text":{"en":"I walk to the market most days and do no other regular exercise. I have a dog named Milo. Last weekend I visited my parents. I have not travelled recently. Before coming here I was reading a book."},"allow_variation":false,"choices":[]}
+]

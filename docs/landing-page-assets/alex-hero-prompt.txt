@@ -1,0 +1,8 @@
+Use case: photorealistic-natural
+Asset type: AI Evaluator public landing page patient portrait, subsequently composed with a real application screenshot.
+Primary request: Create a premium editorial photograph of Alex, a fictional 35-year-old male schoolteacher, for a professional healthcare simulation product. Alex has a warm medium complexion, short neatly groomed dark brown hair, brown eyes, a subtly oval face, and a light natural beard. He wears a simple light blue button-down shirt with no logos. His expression is calm, approachable, and attentive. He is a simulated patient, not a clinician.
+Scene/backdrop: A softly lit, clean clinical simulation room with warm white and very pale lavender surfaces. Blur background details. No other people.
+Composition/framing: Waist-up portrait, seated upright, subject centered with generous breathing room above and beside his head. Face and shirt must remain clear for a narrower mobile crop. Natural proportions and posture. Hands rest naturally out of prominence. Portrait orientation.
+Lighting/mood: Soft daylight, natural skin texture, restrained premium healthcare editorial photography, professional and welcoming.
+Color palette: Warm white, pale lavender, deep navy accents, light blue shirt; avoid saturated hospital colors.
+Constraints: Fictional character, no real person's likeness. No written text, labels, logos, watermarks, UI panels, screens, medical diagnoses, exposed anatomy, tubing, dramatic distress, or exaggerated smile. This portrait must serve as the identity reference for the second Alex image.

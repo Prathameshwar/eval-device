@@ -1,0 +1,37 @@
+-- Case-insensitive administrative names include inactive rows.
+CREATE UNIQUE INDEX departments_name_uq ON departments (organization_id, lower(btrim(name)));
+CREATE UNIQUE INDEX connections_name_uq ON provider_connections (organization_id, lower(btrim(name)));
+CREATE UNIQUE INDEX profiles_name_uq ON processing_profiles (organization_id, lower(btrim(name)));
+CREATE UNIQUE INDEX memberships_user_uq ON organization_memberships (organization_id, user_id) WHERE user_id IS NOT NULL;
+CREATE UNIQUE INDEX memberships_pending_email_uq ON organization_memberships (organization_id, lower(btrim(invited_email))) WHERE invitation_status = 'pending';
+CREATE UNIQUE INDEX events_source_uq ON activity_events (organization_id, device_id, source_event_id) WHERE source_event_id IS NOT NULL;
+
+CREATE INDEX organizations_active_name_idx ON organizations (is_active, name);
+CREATE INDEX departments_active_idx ON departments (organization_id, is_active);
+CREATE INDEX users_email_idx ON users (lower(btrim(email)));
+CREATE INDEX users_platform_admin_idx ON users (platform_role, is_active) WHERE platform_role IS NOT NULL;
+CREATE INDEX memberships_user_idx ON organization_memberships (user_id) WHERE user_id IS NOT NULL;
+CREATE INDEX memberships_admin_idx ON organization_memberships (organization_id, role, is_active, invitation_status);
+CREATE INDEX memberships_department_idx ON organization_memberships (organization_id, department_id) WHERE department_id IS NOT NULL;
+CREATE INDEX memberships_invitation_expiry_idx ON organization_memberships (invitation_expires_at) WHERE invitation_status = 'pending';
+CREATE INDEX devices_scope_idx ON devices (organization_id, department_id, is_active);
+CREATE INDEX devices_seen_idx ON devices (organization_id, last_seen_at DESC);
+CREATE INDEX devices_profile_idx ON devices (organization_id, profile_id) WHERE profile_id IS NOT NULL;
+CREATE INDEX connections_active_idx ON provider_connections (organization_id, provider, is_active);
+CREATE INDEX profiles_active_idx ON processing_profiles (organization_id, is_active);
+CREATE INDEX runs_device_history_idx ON processing_runs (organization_id, device_id, created_at DESC);
+CREATE INDEX runs_scope_history_idx ON processing_runs (organization_id, department_id, created_at DESC);
+CREATE INDEX runs_capture_idx ON processing_runs (organization_id, capture_id) WHERE capture_id IS NOT NULL;
+CREATE INDEX runs_due_idx ON processing_runs (status, next_attempt_at, created_at) WHERE status IN ('queued','running');
+CREATE INDEX runs_deadline_idx ON processing_runs (deadline_at) WHERE status IN ('awaiting_device','awaiting_upload','queued','running');
+CREATE INDEX runs_lease_idx ON processing_runs (lease_expires_at) WHERE lease_token IS NOT NULL;
+CREATE INDEX runs_cleanup_idx ON processing_runs (cleanup_status, cleanup_next_attempt_at) WHERE cleanup_status IN ('pending','running','failed');
+CREATE INDEX runs_playback_idx ON processing_runs (organization_id, device_id, playback_status, playback_expires_at) WHERE playback_status IN ('pending','playing','unknown');
+CREATE INDEX runs_expiry_idx ON processing_runs (expires_at);
+CREATE INDEX telemetry_device_history_idx ON device_telemetry_samples (organization_id, device_id, received_at DESC);
+CREATE INDEX telemetry_scope_idx ON device_telemetry_samples (organization_id, department_id, received_at DESC);
+CREATE INDEX telemetry_expiry_idx ON device_telemetry_samples (expires_at);
+CREATE INDEX events_device_history_idx ON activity_events (organization_id, device_id, received_at DESC);
+CREATE INDEX events_category_history_idx ON activity_events (organization_id, category, received_at DESC);
+CREATE INDEX events_scope_idx ON activity_events (organization_id, department_id, received_at DESC);
+CREATE INDEX events_expiry_idx ON activity_events (expires_at);

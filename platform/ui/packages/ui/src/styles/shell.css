@@ -1,0 +1,786 @@
+/*
+ * @pms/ui — the application shell: rail, top bar, footer, chips, avatars, menus.
+ * Shared from day one because every authenticated MFE needs it; the auth split-screen
+ * stays in its own app because nothing else will ever want it.
+ *
+ * Contains no colour values — every colour reads a --pms-* token.
+ */
+
+/* ---------- skip link ---------- */
+/*
+ * The bypass mechanism (WCAG 2.4.1). It must be invisible until focused and clearly visible
+ * once it is (2.4.7), which is why it cannot just wear `.pms-visually-hidden`: that only
+ * does the first half. Clipped rather than `display:none`, so it stays focusable.
+ */
+.pms-skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+.pms-skip-link:focus-visible,
+.pms-skip-link:focus {
+  position: fixed;
+  top: var(--pms-space-3);
+  left: var(--pms-space-3);
+  z-index: var(--pms-z-tooltip);
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: var(--pms-space-2) var(--pms-space-4);
+  overflow: visible;
+  clip: auto;
+  border-radius: var(--pms-radius-sm);
+  background: var(--pms-surface);
+  color: var(--pms-brand);
+  font-size: var(--pms-text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--pms-shadow-popover), var(--pms-focus-ring);
+}
+
+/* ---------- the shell grid ---------- */
+/*
+ * One grid, one scroll container. The rail spans both rows so the
+ * brand lockup sits in the top bar's band; `.pms-main` is the only scroller, which is
+ * what keeps the rail and top bar still while a long ledger scrolls.
+ */
+.pms-shell {
+  display: grid;
+  height: 100dvh;
+  grid-template-columns: var(--pms-rail-w) 1fr;
+  grid-template-rows: var(--pms-topbar-h) minmax(0, 1fr);
+  background: var(--pms-paper);
+  color: var(--pms-ink);
+  transition: grid-template-columns var(--pms-dur) var(--pms-ease);
+}
+.pms-shell[data-collapsed='true'] {
+  grid-template-columns: var(--pms-rail-w-collapsed) 1fr;
+}
+
+.pms-shell__rail {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  min-width: 0;
+  z-index: var(--pms-z-rail);
+  background: var(--pms-surface);
+  border-right: 1px solid var(--pms-line);
+  display: flex;
+  overflow: hidden;
+}
+
+.pms-shell__topbar {
+  grid-column: 2;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  z-index: var(--pms-z-topbar);
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  background: var(--pms-surface);
+  border-bottom: 1px solid var(--pms-line);
+}
+/* The drawer control only exists below the breakpoint; above it the caller's
+ * CollapseToggle is the one control. */
+.pms-shell__menu {
+  display: none;
+  margin-inline-start: var(--pms-space-3);
+}
+
+.pms-main {
+  /* Contain absolutely positioned accessibility text within this scrollport. */
+  position: relative;
+  grid-column: 2;
+  grid-row: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
+  min-height: 0;
+  background: var(--pms-paper);
+}
+
+.pms-shell__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--pms-z-scrim);
+  background: var(--pms-scrim);
+}
+
+/* ---------- rail ---------- */
+/*
+ * Four bands, each placed explicitly: an absent switcher must not promote the nav into
+ * its row and hand the footer the flexible one.
+ */
+.pms-rail {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+.pms-rail__brand {
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  min-height: var(--pms-topbar-h);
+  padding: 0 var(--pms-space-4);
+  border-bottom: 1px solid var(--pms-line);
+  overflow: hidden;
+}
+.pms-rail__switcher {
+  grid-row: 2;
+  padding: var(--pms-space-4) var(--pms-space-3) var(--pms-space-2);
+  min-width: 0;
+}
+/* The rail's own scroll region — the nav grows, the lockup and user card do not move. */
+.pms-rail__nav {
+  grid-row: 3;
+  overflow-y: auto;
+  padding: var(--pms-space-2) var(--pms-space-3) var(--pms-space-4);
+  min-width: 0;
+}
+.pms-rail__foot {
+  grid-row: 4;
+  min-width: 0;
+}
+
+.pms-rail-section + .pms-rail-section {
+  margin-top: var(--pms-space-5);
+}
+.pms-rail-section__label {
+  margin: 0 0 var(--pms-space-2);
+  padding: 0 var(--pms-space-2);
+  font-size: var(--pms-text-overline);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pms-ink-faint);
+}
+.pms-rail-section__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pms-rail-item {
+  position: relative; /* the marker bar below hangs off this, on hover and when active */
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+  padding: 0.55rem var(--pms-space-2);
+  border-radius: var(--pms-radius-sm);
+  color: var(--pms-ink-soft);
+  text-decoration: none;
+  font-size: var(--pms-text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background var(--pms-dur-fast) var(--pms-ease),
+    color var(--pms-dur-fast) var(--pms-ease);
+}
+.pms-rail-item__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: var(--pms-ink-faint);
+}
+.pms-rail-item__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pms-rail-item:hover {
+  background: var(--pms-hover);
+  color: var(--pms-ink);
+}
+.pms-rail-item:hover .pms-rail-item__icon {
+  color: var(--pms-ink-soft);
+}
+/*
+ * `--pms-hover` is 1.13:1 against the rail — a tint that a good few people will never
+ * see, and it was the only feedback this item gave. So the same marker bar that says
+ * "current page" also appears, at half strength, to say "the pointer is here": a shape
+ * change, not a colour change. It is instant, so there is no motion for
+ * `prefers-reduced-motion` to suppress.
+ */
+.pms-rail-item:hover::before,
+.pms-rail-item[data-active='true']::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 2px;
+  border-radius: var(--pms-radius-pill);
+  background: var(--pms-brand);
+}
+.pms-rail-item:hover::before {
+  opacity: 0.5;
+}
+.pms-rail-item:focus-visible {
+  outline: none;
+  box-shadow: var(--pms-focus-ring);
+}
+/* The selected pill: a brand tint with brand ink, plus a leading marker so selection
+ * survives greyscale — status is never colour alone. */
+.pms-rail-item[data-active='true'] {
+  background: var(--pms-brand-tint);
+  color: var(--pms-brand-ink);
+  font-weight: 600;
+}
+.pms-rail-item[data-active='true'] .pms-rail-item__icon {
+  color: var(--pms-brand);
+}
+/* Full strength for the current page — and declared last, so hovering the active item
+ * does not demote its own marker to the hover half-strength. */
+.pms-rail-item[data-active='true']::before {
+  opacity: 1;
+}
+
+.pms-rail-footer {
+  border-top: 1px solid var(--pms-line);
+  padding: var(--pms-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-2);
+}
+
+/* ---------- collapsed rail ---------- */
+/*
+ * Labels go, icons stay. The accessible name does not: `RailItem` carries the label in
+ * `aria-label` and `title`, so hiding the text costs nothing but pixels.
+ *
+ * Scoped above the drawer breakpoint on purpose. Below it the rail is a full-width
+ * drawer, where an icon-only treatment would be a bug — so the collapsed rules simply
+ * never apply there, rather than being fought off by later overrides.
+ */
+@media (min-width: 960.02px) {
+  .pms-shell[data-collapsed='true'] .pms-rail-item {
+    justify-content: center;
+    padding-inline: 0;
+  }
+  .pms-shell[data-collapsed='true'] .pms-rail-item__label,
+  .pms-shell[data-collapsed='true'] .pms-rail-section__label,
+  .pms-shell[data-collapsed='true'] .pms-org__text,
+  .pms-shell[data-collapsed='true'] .pms-org__chevron,
+  .pms-shell[data-collapsed='true'] .pms-usermenu__text,
+  .pms-shell[data-collapsed='true'] .pms-usermenu__chevron {
+    display: none;
+  }
+  /* Without its overline a group needs a rule to still read as a group. */
+  .pms-shell[data-collapsed='true'] .pms-rail-section + .pms-rail-section {
+    margin-top: var(--pms-space-3);
+    padding-top: var(--pms-space-3);
+    border-top: 1px solid var(--pms-line);
+  }
+  .pms-shell[data-collapsed='true'] .pms-rail__brand,
+  .pms-shell[data-collapsed='true'] .pms-rail__switcher,
+  .pms-shell[data-collapsed='true'] .pms-rail__nav {
+    padding-inline: var(--pms-space-2);
+  }
+  .pms-shell[data-collapsed='true'] .pms-org,
+  .pms-shell[data-collapsed='true'] .pms-usermenu__trigger {
+    justify-content: center;
+    padding: var(--pms-space-2);
+  }
+  /*
+   * Every remaining row centres on the icon, including the two that are not rail items: the
+   * caller-supplied brand slot and the pinned footer. Without this the mark and the
+   * footer sat flush-left against a 72px rail with a hole to their right, which is what made
+   * the collapsed state look broken rather than compact.
+   */
+  .pms-shell[data-collapsed='true'] .pms-rail__brand {
+    justify-content: center;
+    padding-inline: 0;
+  }
+  /* A column, so centring the icons is `align-items`, not `justify-content`. */
+  .pms-shell[data-collapsed='true'] .pms-rail-footer {
+    align-items: center;
+    padding-inline: var(--pms-space-2);
+  }
+  /*
+   * Square-ish targets once the label is gone: a 36px-tall row that is 56px wide reads as a
+   * misaligned list item, whereas a square reads as an icon button.
+   */
+  .pms-shell[data-collapsed='true'] .pms-rail-item {
+    min-height: 2.25rem;
+  }
+  /* The active marker hangs off the item's inline start, which is now the rail's own edge. */
+  .pms-shell[data-collapsed='true'] .pms-rail-item::before {
+    inset-inline-start: calc(var(--pms-space-2) * -1);
+  }
+}
+
+/* ---------- top bar ---------- */
+/*
+ * The bar has to survive 320px and 200% zoom (WCAG 1.4.10, 1.4.4). It used to do neither:
+ * a nowrap flex row with no overflow, inside a fixed grid band, under `body{overflow:hidden}`
+ * — so the theme switcher and the user menu simply left the page.
+ *
+ * It also cannot scroll, and it cannot wrap. `overflow-x: auto` was the first fix and it broke
+ * the user menu: a scroll container clips its descendants, and the menu is absolutely
+ * positioned *below* the 60px band, so opening it produced a sliver and a scrollbar instead of
+ * a popover. Wrapping is out too — the band is one grid row (`--pms-topbar-h`) that this file
+ * cannot grow, so a second line would paint over `.pms-main`.
+ *
+ * So the bar sheds content as it narrows instead: the collapse control goes at 960px, the
+ * context and role chips at 720px, and the user's name and chevron at 640px, leaving the
+ * avatar. What remains — menu, switcher, bell, avatar — fits inside 320px with room to spare,
+ * which is what makes reflow work without a scrollbar (WCAG 1.4.10). The band is in `rem`, so
+ * it grows with the user's font size rather than clipping it, and nothing here assumes 60px.
+ */
+.pms-topbar {
+  flex: 1;
+  min-width: 0;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+  padding: 0 var(--pms-space-4);
+}
+.pms-topbar__left {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+}
+.pms-topbar__mid {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+}
+.pms-topbar__right {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+}
+
+/* ---------- chips ---------- */
+/*
+ * A chip states context; it is not an alert. So the pill stays a quiet surface and the
+ * tone rides on the border and the accent glyph — two fully tinted pills sitting together
+ * in the top bar read as two warnings, which is the opposite of "here is where you are".
+ * The tone is still never colour alone: `ContextChip` renders a text descriptor beside it.
+ */
+.pms-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  padding: 0.28rem 0.6rem;
+  border-radius: var(--pms-radius-pill);
+  border: 1px solid var(--pms-line);
+  background: var(--pms-surface);
+  color: var(--pms-ink);
+  font-size: var(--pms-text-xs);
+  font-weight: 500;
+  white-space: nowrap;
+  max-width: 22ch;
+  /* The accent the dot and the icon inherit; each tone below re-points it. */
+  --pms-chip-accent: var(--pms-neutral-ink);
+}
+.pms-chip__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pms-chip__dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--pms-radius-pill);
+  background: var(--pms-chip-accent);
+}
+.pms-chip__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: var(--pms-chip-accent);
+}
+/* Tones are data attributes, and each one is the full {ink,tint,line} triplet. */
+.pms-chip[data-tone='brand'] {
+  border-color: var(--pms-brand-line);
+  --pms-chip-accent: var(--pms-brand-ink);
+}
+.pms-chip[data-tone='success'] {
+  border-color: var(--pms-success-line);
+  --pms-chip-accent: var(--pms-success-ink);
+}
+.pms-chip[data-tone='warn'] {
+  border-color: var(--pms-warn-line);
+  --pms-chip-accent: var(--pms-warn-ink);
+}
+.pms-chip[data-tone='danger'] {
+  border-color: var(--pms-danger-line);
+  --pms-chip-accent: var(--pms-danger-ink);
+}
+.pms-chip[data-tone='info'] {
+  border-color: var(--pms-info-line);
+  --pms-chip-accent: var(--pms-info-ink);
+}
+/* A role is an authority claim, so the shield carries the brand and the label stays quiet —
+   the emphasis belongs on the glyph, not on a pill competing with the context beside it. */
+.pms-chip--role {
+  color: var(--pms-ink-soft);
+  --pms-chip-accent: var(--pms-brand);
+}
+
+/* ---------- avatar ---------- */
+.pms-avatar {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  background: var(--pms-brand-tint);
+  border: 1px solid var(--pms-brand-line);
+  color: var(--pms-brand-ink);
+  font-family: var(--pms-font-display);
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.pms-avatar--square { border-radius: var(--pms-radius-sm); }
+.pms-avatar--round { border-radius: var(--pms-radius-pill); }
+/* The box is `rem` because its content is: the initials are sized from the `rem` type
+ * scale, so a px box clips them the moment the user raises their default font size
+ * (WCAG 1.4.4). Same 26 / 34 / 44 at the default 16px root. */
+.pms-avatar--sm { width: 1.625rem; height: 1.625rem; font-size: var(--pms-text-overline); }
+.pms-avatar--md { width: 2.125rem; height: 2.125rem; font-size: var(--pms-text-xs); }
+.pms-avatar--lg { width: 2.75rem; height: 2.75rem; font-size: var(--pms-text-sm); }
+
+/* ---------- organisation switcher ---------- */
+.pms-org {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+  padding: var(--pms-space-2);
+  font: inherit;
+  text-align: start;
+  background: var(--pms-surface-2);
+  border: 1px solid var(--pms-line);
+  border-radius: var(--pms-radius-md);
+  color: var(--pms-ink);
+  cursor: pointer;
+  transition: background var(--pms-dur-fast) var(--pms-ease),
+    border-color var(--pms-dur-fast) var(--pms-ease);
+}
+.pms-org:hover {
+  background: var(--pms-hover);
+  border-color: var(--pms-line-strong);
+}
+.pms-org:focus-visible {
+  outline: none;
+  box-shadow: var(--pms-focus-ring);
+}
+.pms-org__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+/* `--pms-ink-soft`, not `--pms-ink-faint`: this sits on `--pms-surface-2` (the
+ * switcher's own fill), where `ink-faint` measures 4.25:1 in ledger — under the 4.5 an
+ * 11px label owes. `ink-faint` stays for glyphs on this surface, which owe 3:1. */
+.pms-org__code {
+  font-size: var(--pms-text-overline);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--pms-ink-soft);
+}
+/* A long trading name truncates; it never widens the rail. */
+.pms-org__name {
+  font-size: var(--pms-text-sm);
+  font-weight: 600;
+  color: var(--pms-ink);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pms-org__chevron {
+  flex: none;
+  margin-inline-start: auto;
+  color: var(--pms-ink-faint);
+}
+
+/* ---------- user menu ---------- */
+.pms-usermenu {
+  position: relative;
+}
+.pms-usermenu__trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  width: 100%;
+  padding: var(--pms-space-2);
+  font: inherit;
+  text-align: start;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--pms-radius-sm);
+  color: var(--pms-ink);
+  cursor: pointer;
+}
+.pms-usermenu__trigger:hover {
+  background: var(--pms-hover);
+}
+.pms-usermenu__trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--pms-focus-ring);
+}
+.pms-usermenu__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.pms-usermenu__name {
+  font-size: var(--pms-text-sm);
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pms-usermenu__secondary {
+  font-size: var(--pms-text-overline);
+  color: var(--pms-ink-soft);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pms-usermenu__chevron {
+  flex: none;
+  margin-inline-start: auto;
+  color: var(--pms-ink-faint);
+}
+.pms-usermenu__menu {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + var(--pms-space-2));
+  z-index: var(--pms-z-popover);
+  min-width: 208px;
+  padding: var(--pms-space-1);
+  background: var(--pms-overlay);
+  /* A popover needs a real edge in all three themes. In dark, `--pms-shadow-popover` is
+   * black on near-black — invisible by the theme's own argument (§2.4) — so the border is
+   * doing the separating, and `--pms-line-strong` is the one that measures 3:1 there.
+   * The shadow stays; in light and ledger it is still what lifts the menu off the page. */
+  border: 1px solid var(--pms-line-strong);
+  border-radius: var(--pms-radius-md);
+  box-shadow: var(--pms-shadow-popover);
+  display: flex;
+  flex-direction: column;
+}
+/*
+ * The identity block at the head of the menu. Its own hairline, and the panel's padding cancelled
+ * on three sides so the rule reaches the panel's edges — a rule that stops short of them reads as
+ * an underline on the address rather than as a division between identity and actions.
+ */
+.pms-usermenu__header {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: calc(var(--pms-space-1) * -1) calc(var(--pms-space-1) * -1) var(--pms-space-1);
+  padding: var(--pms-space-3);
+  border-bottom: 1px solid var(--pms-line);
+  min-width: 0;
+}
+.pms-usermenu__header-name {
+  font-size: var(--pms-text-sm);
+  font-weight: 600;
+  color: var(--pms-ink);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/* An address is long and a role is short; both truncate rather than widening the panel, which
+   would otherwise size itself to the longest address any user happens to have. */
+.pms-usermenu__header-meta {
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* In the rail footer the menu has nothing below it, so it opens upward. */
+.pms-rail-footer .pms-usermenu__menu {
+  top: auto;
+  bottom: calc(100% + var(--pms-space-2));
+  inset-inline: 0;
+}
+.pms-usermenu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+  padding: 0.5rem var(--pms-space-3);
+  font: inherit;
+  font-size: var(--pms-text-sm);
+  text-align: start;
+  background: transparent;
+  border: none;
+  border-radius: var(--pms-radius-sm);
+  color: var(--pms-ink);
+  cursor: pointer;
+}
+/* Same reason as the rail item: a 1.13:1 tint is not feedback on its own, so the label
+ * underlines as well. A text decoration costs no layout and no motion, so it is also
+ * nothing for `prefers-reduced-motion` to undo. */
+.pms-usermenu__item:hover {
+  background: var(--pms-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pms-usermenu__item:focus-visible {
+  outline: none;
+  box-shadow: var(--pms-focus-ring);
+}
+.pms-usermenu__item-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: var(--pms-ink-faint);
+}
+.pms-usermenu__separator {
+  border-top: 1px solid var(--pms-line);
+  margin: var(--pms-space-2) 0;
+}
+.pms-usermenu__item {
+  text-decoration: none;
+}
+
+/* ---------- page footer ---------- */
+.pms-app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pms-space-4);
+  flex-wrap: wrap;
+  margin-top: var(--pms-space-6);
+  padding: var(--pms-space-4) var(--pms-page-gutter);
+  border-top: 1px solid var(--pms-line);
+  color: var(--pms-ink-soft);
+  font-size: var(--pms-text-xs);
+}
+.pms-app-footer__links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pms-space-4);
+  margin: 0;
+  padding: 0;
+}
+.pms-app-footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  color: var(--pms-ink-soft);
+  text-decoration: none;
+  border-radius: var(--pms-radius-sm);
+}
+.pms-app-footer__link:hover {
+  color: var(--pms-brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pms-app-footer__link:focus-visible {
+  outline: none;
+  box-shadow: var(--pms-focus-ring);
+}
+.pms-app-footer__icon {
+  display: grid;
+  place-items: center;
+  color: var(--pms-ink-faint);
+}
+.pms-app-footer__copy {
+  margin: 0;
+  color: var(--pms-ink-faint);
+}
+
+/* ---------- below the drawer breakpoint ---------- */
+@media (max-width: 960px) {
+  .pms-shell,
+  .pms-shell[data-collapsed='true'] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pms-shell__topbar,
+  .pms-main {
+    grid-column: 1;
+  }
+  .pms-shell__topbar { grid-row: 1; }
+  .pms-main { grid-row: 2; }
+
+  /* Off the grid and over the content, hidden until asked for. */
+  .pms-shell__rail {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: var(--pms-rail-w);
+    max-width: 86vw;
+    z-index: var(--pms-z-drawer);
+    box-shadow: var(--pms-shadow-popover);
+    transform: translateX(-100%);
+    /* Off-canvas means out of the tab order too — a translated rail is still focusable,
+     * and tabbing into invisible navigation is worse than not having it. */
+    visibility: hidden;
+    /* Only `transform` is transitioned. `visibility` is animatable as a step that flips at
+     * 50% of the duration, so including it would leave the closing rail focusable for ~90ms
+     * after it starts moving away — the exact tab trap the line above exists to prevent.
+     * Hiding instantly and sliding out visually is the right way round. */
+    transition: transform var(--pms-dur) var(--pms-ease);
+  }
+  .pms-shell[data-drawer='open'] .pms-shell__rail {
+    transform: translateX(0);
+    visibility: visible;
+  }
+  .pms-shell__menu {
+    display: inline-flex;
+  }
+  /* …and the other one goes, which is the half the CSS was missing. The collapsed-rail
+   * rules are scoped `min-width: 960.02px`, so below here the caller's `CollapseToggle`
+   * changes no rendered state while still announcing `aria-expanded` — two navigation
+   * controls, one of them a lie. The comment above `.pms-shell__menu` says they are
+   * mutually exclusive; this is what makes that true. */
+  .pms-topbar__left {
+    display: none;
+  }
+}
+
+/* The context and role chips fold into the user menu on narrow widths — the caller
+ * renders them in both places and the shell decides which one is showing. */
+@media (max-width: 720px) {
+  .pms-topbar__mid {
+    display: none;
+  }
+}
+
+/*
+ * Last thing to go before the bar would overflow: the name and the chevron, leaving the
+ * avatar. The trigger keeps its accessible name from `aria-label`, so this costs pixels only.
+ */
+@media (max-width: 640px) {
+  .pms-topbar .pms-usermenu__text,
+  .pms-topbar .pms-usermenu__chevron {
+    display: none;
+  }
+  .pms-topbar .pms-usermenu__trigger {
+    padding: var(--pms-space-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pms-shell,
+  .pms-shell__rail,
+  .pms-rail-item,
+  .pms-org {
+    transition-duration: 0.001ms;
+  }
+}

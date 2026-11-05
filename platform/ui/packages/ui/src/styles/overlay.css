@@ -1,0 +1,536 @@
+/*
+ * @pms/ui — overlay primitives: `Menu` and `ConfirmDialog`.
+ *
+ * Both are portalled to the body, so nothing here may assume a position in the component tree.
+ * That is the whole reason they are portalled: an absolutely positioned popover is clipped by any
+ * ancestor with `overflow`, and a row kebab lives inside the table's horizontal scroller.
+ *
+ * Contains no colour values — every colour reads a --pms-* token.
+ */
+
+/* ---------- menu ---------- */
+
+/*
+ * An inline wrapper around the trigger only. The panel is not inside it, so this element sets no
+ * `position` — there is nothing left to position against.
+ */
+.pms-menu {
+  display: inline-flex;
+}
+
+/* A labelled trigger sits in a toolbar row beside 34px icon buttons, so it takes the same height
+   rather than the full button padding, which would make the row taller than the icons. */
+.pms-menu__trigger {
+  padding: 0.45rem 0.7rem;
+  font-size: var(--pms-text-sm);
+  color: var(--pms-ink);
+}
+.pms-menu__trigger-icon {
+  display: grid;
+  place-items: center;
+  color: var(--pms-ink-soft);
+}
+
+/*
+ * `--pms-overlay` on a `--pms-line-strong` edge, like every other popover: in dark the shadow
+ * is black on near-black, so the border is what separates the panel from the page.
+ * `min-width` rather than a fixed one — "Duplicate" and "Reverse this entry" are the same menu.
+ */
+.pms-menu__panel {
+  z-index: var(--pms-z-popover);
+  display: flex;
+  flex-direction: column;
+  min-width: 11rem;
+  max-width: 20rem;
+  padding: var(--pms-space-1) 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--pms-overlay);
+  border: 1px solid var(--pms-line-strong);
+  border-radius: var(--pms-radius-md);
+  box-shadow: var(--pms-shadow-popover);
+}
+
+.pms-menu__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pms-space-3);
+  width: 100%;
+  padding: var(--pms-space-2) var(--pms-space-3);
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: var(--pms-text-sm);
+  color: var(--pms-ink);
+  text-align: start;
+  cursor: pointer;
+}
+.pms-menu__item:hover {
+  background: var(--pms-hover);
+}
+/* Inset ring, not the standard outer one: the item spans the panel's full width, so an outer ring
+   would be clipped by the panel's own `overflow`. */
+.pms-menu__item:focus-visible {
+  outline: none;
+  background: var(--pms-selected);
+  box-shadow: inset 0 0 0 2px var(--pms-focus);
+}
+.pms-menu__item[data-tone='danger'] {
+  color: var(--pms-danger-ink);
+}
+.pms-menu__item[data-tone='danger']:hover {
+  background: var(--pms-danger-tint);
+}
+/*
+ * `aria-disabled`, so the item keeps its tab stop and its reason stays readable. The cursor and
+ * the muted ink say "not now"; the note below the label says why.
+ */
+.pms-menu__item[aria-disabled='true'] {
+  color: var(--pms-disabled-ink);
+  cursor: not-allowed;
+}
+.pms-menu__item[aria-disabled='true']:hover {
+  background: transparent;
+}
+.pms-menu__item[aria-disabled='true'][data-tone='danger'] {
+  color: var(--pms-disabled-ink);
+}
+
+.pms-menu__item-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  /* Aligned to the label's first line, not centred on a two-line item. */
+  height: 1.15rem;
+  color: var(--pms-ink-soft);
+}
+.pms-menu__item[data-tone='danger'] .pms-menu__item-icon,
+.pms-menu__item[aria-disabled='true'] .pms-menu__item-icon {
+  color: currentColor;
+}
+
+/*
+ * A checkbox item's tick. The slot keeps its width when unchecked — same box as the icon slot —
+ * because a list of toggles whose labels shift left when one is turned off is unreadable while it is
+ * being read down.
+ */
+.pms-menu__item-check {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--pms-brand-strong);
+}
+
+.pms-menu__item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+.pms-menu__item-note {
+  font-size: var(--pms-text-xs);
+  font-weight: 400;
+  color: var(--pms-ink-soft);
+  /* Wraps on purpose: "the period is closed" truncated to "the period is…" is not a reason. */
+  white-space: normal;
+}
+
+.pms-menu__sep {
+  height: 1px;
+  margin: var(--pms-space-1) 0;
+  background: var(--pms-line);
+}
+
+/* ---------- confirm dialog ---------- */
+
+/*
+ * Fixed and centred, above the drawer but below a popover — a `Select` opened inside the dialog
+ * must render over it.
+ */
+.pms-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: var(--pms-z-drawer);
+  display: grid;
+  place-items: center;
+  padding: var(--pms-space-4);
+}
+
+.pms-dialog__scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--pms-scrim);
+}
+
+.pms-dialog__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-4);
+  width: min(30rem, 100%);
+  max-height: calc(100vh - var(--pms-space-8));
+  overflow-y: auto;
+  padding: var(--pms-space-5);
+  background: var(--pms-overlay);
+  border: 1px solid var(--pms-line-strong);
+  border-radius: var(--pms-radius-md);
+  box-shadow: var(--pms-shadow-popover);
+}
+
+/* Title and its optional badge on one baseline row. The badge is `flex: none`; the title takes the
+   rest and wraps under itself rather than under the icon. */
+.pms-dialog__header {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+}
+
+.pms-dialog__title {
+  margin: 0;
+  font-family: var(--pms-font-display);
+  font-size: var(--pms-text-md);
+  font-weight: 600;
+  color: var(--pms-ink);
+}
+
+/*
+ * The destructive tone, made visible. `data-tone='danger'` used to set only the confirm button's
+ * variant and the initial focus; the dialog itself looked identical to an ordinary confirmation.
+ * A tinted alert badge and a top accent strip say "this one is different" before the copy is read.
+ * The strip is an inset shadow, not a border, so it follows the panel's rounded corners and adds
+ * no height that would shift the layout between tones.
+ */
+.pms-dialog__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--pms-radius-sm);
+  background: var(--pms-danger-tint);
+  border: 1px solid var(--pms-danger-line);
+  color: var(--pms-danger-ink);
+}
+.pms-dialog[data-tone='danger'] .pms-dialog__panel {
+  box-shadow: var(--pms-shadow-popover), inset 0 3px 0 0 var(--pms-danger-ink);
+}
+
+.pms-dialog__body {
+  font-size: var(--pms-text-sm);
+  line-height: 1.55;
+  color: var(--pms-ink-soft);
+}
+.pms-dialog__body p {
+  margin: 0 0 var(--pms-space-2);
+}
+.pms-dialog__body p:last-child {
+  margin-bottom: 0;
+}
+
+.pms-dialog__phrase {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-2);
+}
+/* The phrase has to be copyable by eye, so it is mono and unambiguous — `1` against `l`. */
+.pms-dialog__phrase-code {
+  font-family: var(--pms-font-mono);
+  font-size: var(--pms-text-sm);
+  font-weight: 600;
+  padding: 0.05rem var(--pms-space-1);
+  background: var(--pms-surface-2);
+  border: 1px solid var(--pms-line);
+  border-radius: var(--pms-radius-sm);
+  color: var(--pms-ink);
+}
+
+.pms-dialog__error {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  margin: 0;
+  padding: var(--pms-space-2) var(--pms-space-3);
+  background: var(--pms-danger-tint);
+  border: 1px solid var(--pms-danger-line);
+  border-radius: var(--pms-radius-sm);
+  font-size: var(--pms-text-xs);
+  color: var(--pms-danger-ink);
+}
+.pms-dialog__error svg {
+  flex: none;
+}
+
+/* Confirm last, in reading order: the affirmative action is the one the eye lands on last before
+   the pointer moves, and Tab reaches Cancel first. */
+.pms-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--pms-space-3);
+}
+
+@media (max-width: 30rem) {
+  /* Stacked and full-width on a phone; a 50/50 split puts two same-size buttons under a thumb. */
+  .pms-dialog__actions {
+    flex-direction: column-reverse;
+  }
+  .pms-dialog__actions .pms-btn {
+    width: 100%;
+  }
+}
+
+/* ---------- toasts ---------- */
+
+/*
+ * The floated stack of transient status messages. Portalled to the body and fixed to a corner, so
+ * like the dialog it assumes no place in the tree. The container is click-through — only the toasts
+ * themselves take the pointer — so the gaps between them never swallow a click on the page beneath.
+ */
+.pms-toasts {
+  position: fixed;
+  z-index: var(--pms-z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-3);
+  width: min(24rem, calc(100vw - 2 * var(--pms-space-4)));
+  pointer-events: none;
+}
+.pms-toasts[data-placement='bottom-end'] {
+  inset-inline-end: var(--pms-space-4);
+  inset-block-end: var(--pms-space-4);
+}
+/* Top placement grows downward, so the newest — appended last — must render first to sit nearest
+   the corner the eye is drawn to. */
+.pms-toasts[data-placement='top-end'] {
+  inset-inline-end: var(--pms-space-4);
+  inset-block-start: var(--pms-space-4);
+  flex-direction: column-reverse;
+}
+
+/*
+ * One toast. The tone language is `Notice`'s — border, leading edge, tint and ink from the same
+ * token triple — plus the elevation a floating surface needs to read against arbitrary content.
+ * Info is the base; the three other tones swap only the triple.
+ */
+.pms-toast {
+  pointer-events: auto;
+  display: flex;
+  gap: var(--pms-space-3);
+  align-items: flex-start;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--pms-info-line);
+  border-inline-start: 3px solid var(--pms-info-ink);
+  border-radius: var(--pms-radius-sm);
+  background: var(--pms-info-tint);
+  box-shadow: var(--pms-shadow-popover);
+  font-size: var(--pms-text-sm);
+  color: var(--pms-info-ink);
+  animation: pms-toast-in var(--pms-dur) var(--pms-ease);
+}
+.pms-toast[data-tone='success'] {
+  border-color: var(--pms-success-line);
+  border-inline-start-color: var(--pms-success-ink);
+  background: var(--pms-success-tint);
+  color: var(--pms-success-ink);
+}
+.pms-toast[data-tone='warning'] {
+  border-color: var(--pms-warn-line);
+  border-inline-start-color: var(--pms-warn-ink);
+  background: var(--pms-warn-tint);
+  color: var(--pms-warn-ink);
+}
+.pms-toast[data-tone='danger'] {
+  border-color: var(--pms-danger-line);
+  border-inline-start-color: var(--pms-danger-ink);
+  background: var(--pms-danger-tint);
+  color: var(--pms-danger-ink);
+}
+
+.pms-toast__icon {
+  display: flex;
+  flex: none;
+  margin-top: 1px;
+}
+.pms-toast__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.pms-toast__title {
+  margin: 0;
+  font-weight: 600;
+}
+/* The text inherits the tone's ink: this is the tone's own message, so greying it would leave the
+   colour saying "error" while the words read like a caption. Same call as the notice's body. */
+.pms-toast__text {
+  margin: 0;
+}
+.pms-toast__title + .pms-toast__text {
+  margin-top: 0.15rem;
+}
+.pms-toast .pms-btn--icon {
+  flex: none;
+  color: inherit;
+}
+
+@keyframes pms-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* The entrance is decorative; a reader who asked for less motion gets the toast without the slide. */
+@media (prefers-reduced-motion: reduce) {
+  .pms-toast {
+    animation: none;
+  }
+}
+
+/* ---------- modal and drawer ---------- */
+
+/*
+ * `Modal` (centred) and `Drawer` (inline-end sheet) are the same overlay with different placement,
+ * so they share the `pms-overlay-*` chrome and differ only in the frame and the entrance. Both
+ * sit on `--pms-z-drawer`, below a popover, so a `Select` opened inside either renders over it.
+ */
+.pms-modal,
+.pms-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--pms-z-drawer);
+}
+.pms-modal {
+  display: grid;
+  place-items: center;
+  padding: var(--pms-space-4);
+}
+.pms-drawer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pms-modal__scrim,
+.pms-drawer__scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--pms-scrim);
+}
+
+.pms-modal__panel,
+.pms-drawer__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--pms-overlay);
+  box-shadow: var(--pms-shadow-popover);
+}
+
+.pms-modal__panel {
+  width: min(32rem, 100%);
+  max-height: calc(100vh - var(--pms-space-8));
+  border: 1px solid var(--pms-line-strong);
+  border-radius: var(--pms-radius-md);
+  animation: pms-modal-in var(--pms-dur) var(--pms-ease);
+}
+.pms-modal__panel[data-size='sm'] {
+  width: min(24rem, 100%);
+}
+.pms-modal__panel[data-size='lg'] {
+  width: min(48rem, 100%);
+}
+
+/* The sheet spans the full height and hangs off the inline-end edge, so only its leading edge needs
+   a border — the other three sit against the viewport. */
+.pms-drawer__panel {
+  width: min(28rem, 100%);
+  height: 100%;
+  border-inline-start: 1px solid var(--pms-line-strong);
+  animation: pms-drawer-in var(--pms-dur) var(--pms-ease);
+}
+.pms-drawer__panel[data-size='sm'] {
+  width: min(22rem, 100%);
+}
+.pms-drawer__panel[data-size='lg'] {
+  width: min(40rem, 100%);
+}
+
+/* Shared chrome: header row, scrolling body, action footer — one set of rules for both frames. */
+.pms-overlay-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--pms-space-3);
+  padding: var(--pms-space-5) var(--pms-space-5) var(--pms-space-3);
+}
+.pms-overlay-title {
+  margin: 0;
+  font-family: var(--pms-font-display);
+  font-size: var(--pms-text-md);
+  font-weight: 600;
+  color: var(--pms-ink);
+}
+/* The body is the one part that scrolls, so the header and footer stay pinned; its own padding keeps
+   content off the edges, and `:last-child` restores the bottom padding a footer would otherwise own. */
+.pms-overlay-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 var(--pms-space-5);
+  font-size: var(--pms-text-sm);
+  line-height: 1.55;
+  color: var(--pms-ink-soft);
+}
+.pms-overlay-body:last-child {
+  padding-bottom: var(--pms-space-5);
+}
+.pms-overlay-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--pms-space-3);
+  padding: var(--pms-space-4) var(--pms-space-5) var(--pms-space-5);
+}
+.pms-overlay-head .pms-btn--icon {
+  flex: none;
+}
+
+@keyframes pms-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pms-drawer-in {
+  from {
+    transform: translateX(1rem);
+    opacity: 0.5;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+/* The entrance is decorative; a reader who asked for less motion gets the surface without the slide. */
+@media (prefers-reduced-motion: reduce) {
+  .pms-modal__panel,
+  .pms-drawer__panel {
+    animation: none;
+  }
+}
+
+@media (max-width: 30rem) {
+  /* Stacked and full-width on a phone; the footer's buttons take the width rather than crowd. */
+  .pms-overlay-foot {
+    flex-direction: column-reverse;
+  }
+  .pms-overlay-foot .pms-btn {
+    width: 100%;
+  }
+}

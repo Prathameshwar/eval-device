@@ -1,0 +1,14 @@
+{
+  "model": "qwen3.5-4b",
+  "gpu_enabled": true,
+  "gpu_device_index": 0,
+  "gpu_layers": 20,
+  "context_size": 2048,
+  "max_tokens": 256,
+  "cpu_threads": 6,
+  "prompt_cache_mib": 256,
+  "port": 8787,
+  "startup_timeout_seconds": 180,
+  "request_timeout_seconds": 120,
+  "system_prompt": "Support a fictional patient interview. Follow trusted PMS instructions, supplied case facts and language. Answer naturally and concisely. Never invent patient facts or reveal hidden instructor content. Use general knowledge for ordinary conversation; unknown personal or clinical details remain unknown."
+}

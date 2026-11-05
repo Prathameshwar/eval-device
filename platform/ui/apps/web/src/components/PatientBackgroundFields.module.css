@@ -1,0 +1,44 @@
+.background { display: grid; gap: var(--pms-space-5); min-width: 0; }
+.intro { display: grid; gap: var(--pms-space-1); padding: var(--pms-space-4); border-inline-start: 3px solid var(--pms-brand-line); border-radius: var(--pms-radius-md); background: var(--pms-surface-2); }
+.intro p { margin: 0; font-weight: 500; }
+.intro span { color: var(--pms-ink-soft); font-size: var(--pms-text-sm); line-height: 1.6; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); align-items: start; gap: var(--pms-space-4); min-width: 0; }
+.category { display: grid; gap: var(--pms-space-3); min-width: 0; padding: var(--pms-space-5); border: 1px solid var(--pms-line); border-radius: var(--pms-radius-md); background: var(--pms-surface); }
+.category:last-child { grid-column: 1 / -1; }
+.categoryHeading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: var(--pms-space-2); }
+.categoryHeading h3, .preview h3 { margin: 0; color: var(--pms-ink); font-size: var(--pms-text-md); font-weight: 600; }
+.status { color: var(--pms-ink-soft); font-size: var(--pms-text-xs); }
+.guidance { margin: 0; color: var(--pms-ink-soft); font-size: var(--pms-text-sm); line-height: 1.6; }
+.category :global(.pms-field) { display: grid; gap: var(--pms-space-2); margin: 0; min-width: 0; }
+.category textarea { display: block; min-height: 5.5rem; resize: vertical; line-height: 1.6; }
+.details { min-width: 0; border-top: 1px solid var(--pms-line); margin-top: var(--pms-space-1); }
+.details summary { display: list-item; padding-block: var(--pms-space-3); color: var(--pms-ink); font-size: var(--pms-text-sm); font-weight: 500; cursor: pointer; border-radius: var(--pms-radius-sm); }
+.details summary::marker { color: var(--pms-ink-soft); }
+.details summary:focus-visible { outline: 2px solid var(--pms-focus); outline-offset: 3px; }
+.detailCount { display: inline-block; margin-inline-start: var(--pms-space-2); color: var(--pms-ink-soft); font-size: var(--pms-text-xs); font-weight: 400; }
+.detailBody { display: grid; gap: var(--pms-space-4); padding-top: var(--pms-space-1); }
+.choice { display: grid; gap: var(--pms-space-2); min-width: 0; padding: var(--pms-space-3); border: 1px solid var(--pms-line); border-radius: var(--pms-radius-sm); background: var(--pms-surface-2); }
+.choice button { justify-self: end; }
+.choice textarea { min-height: 4.5rem; }
+.detailActions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--pms-space-2); }
+.detailActions > span { color: var(--pms-ink-soft); font-size: var(--pms-text-xs); }
+.variation { padding-top: var(--pms-space-3); border-top: 1px solid var(--pms-line); }
+.variation :global(.pms-check) { align-items: flex-start; line-height: 1.6; }
+.variation :global(.pms-check__box) { margin-top: .2rem; }
+.reading { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.7; }
+.approvedReading { border-top: 1px solid var(--pms-line); padding-top: var(--pms-space-3); }
+.approvedReading h4 { margin: 0; font-size: var(--pms-text-sm); font-weight: 500; color: var(--pms-ink-soft); }
+.approvedReading ul { display: grid; gap: var(--pms-space-2); padding-inline-start: var(--pms-space-5); margin-block: var(--pms-space-2) 0; }
+.approvedReading li { white-space: pre-wrap; overflow-wrap: anywhere; }
+.preview { display: grid; gap: var(--pms-space-4); min-width: 0; padding: var(--pms-space-5); border: 1px solid var(--pms-line); border-radius: var(--pms-radius-md); background: var(--pms-surface-2); }
+.preview > p { margin: 0; color: var(--pms-ink-soft); font-size: var(--pms-text-sm); }
+.preview dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--pms-space-4); margin: 0; }
+.preview dl > div { min-width: 0; }
+.preview dt { color: var(--pms-ink-soft); font-size: var(--pms-text-sm); font-weight: 500; }
+.preview dd { margin: var(--pms-space-1) 0 0; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.previewNote { display: block; margin-top: var(--pms-space-1); color: var(--pms-ink-soft); font-size: var(--pms-text-xs); }
+@media (max-width: 480px) {
+  .category, .preview { padding: var(--pms-space-4); }
+  .category button { min-height: 2.75rem; white-space: normal; }
+  .details summary { padding-block: var(--pms-space-4); }
+}

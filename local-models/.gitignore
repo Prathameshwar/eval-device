@@ -1,0 +1,10 @@
+.downloads/
+.models/
+.runtime/
+.state/
+__pycache__/
+config.local.json
+.install.lock
+.manager/
+.library/
+.voices/

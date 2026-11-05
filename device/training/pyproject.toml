@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "device-training"
+version = "0.1.0"
+description = "Local patient-interview coordinator, instructor UI and Raspberry Pi agent"
+requires-python = ">=3.12,<3.14"
+dependencies = ["training-contracts>=0.1.0", "fastapi>=0.115,<1", "uvicorn[standard]>=0.34,<1", "pydantic-settings>=2.8,<3", "httpx>=0.28,<1", "websockets>=15,<18", "PyJWT[crypto]>=2.10,<3"]
+
+[project.optional-dependencies]
+hardware = ["sounddevice>=0.5,<1", "numpy>=2,<3"]
+
+replay = ["av>=14,<17"]
+
+[project.scripts]
+training-api = "device_training.cli:main"
+training-agent = "device_training.agent:main"
+
+[dependency-groups]
+dev = ["av>=14,<17", "pytest>=8.3,<10", "pytest-asyncio>=0.26,<2", "ruff>=0.11,<1", "mypy>=1.15,<2"]
+
+[tool.uv.sources]
+training-contracts = { path = "../../shared/training-contracts", editable = true }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/device_training"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/scripts", "/README.md", "/pyproject.toml", "/uv.lock", "/.env.example", "/.env.agent.example", "/.gitignore"]
+exclude = ["**/__pycache__", "**/*.pyc"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+check_untyped_defs = true

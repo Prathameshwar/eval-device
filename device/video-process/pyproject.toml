@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "device-video-api"
+version = "0.1.0"
+description = "Standalone bounded video reception, video recording and offline frame extraction"
+requires-python = ">=3.12,<3.14"
+dependencies = ["fastapi>=0.115,<1", "uvicorn[standard]>=0.34,<1", "pydantic-settings>=2.8,<3", "av>=16,<18", "websockets>=15,<18"]
+
+[project.scripts]
+video-api = "device_video.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8.3,<10", "pytest-asyncio>=0.26,<2", "httpx>=0.28,<1", "ruff>=0.11,<1", "mypy>=1.15,<2"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/device_video"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/scripts", "/tests", "/README.md", "/pyproject.toml", "/uv.lock", "/.env.example", "/.gitignore"]
+exclude = ["**/__pycache__", "**/*.pyc"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+extend-exclude = [".recordings"]
+line-length = 110
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+check_untyped_defs = true

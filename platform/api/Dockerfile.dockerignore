@@ -1,0 +1,17 @@
+**
+!platform/
+!platform/api/
+!platform/api/pyproject.toml
+!platform/api/uv.lock
+!platform/api/alembic.ini
+!platform/api/src/
+!platform/api/src/**
+!platform/api/migrations/
+!platform/api/migrations/**
+!shared/
+!shared/training-contracts/
+!shared/training-contracts/pyproject.toml
+!shared/training-contracts/src/
+!shared/training-contracts/src/**
+**/__pycache__
+**/*.pyc

@@ -1,0 +1,9 @@
+{
+  "language": "en",
+  "version": "1.1.0",
+  "contract_version": 1,
+  "name": "English",
+  "native_name": "English",
+  "direction": "ltr",
+  "speech_locales": ["en-IN", "en-US", "en-GB"]
+}

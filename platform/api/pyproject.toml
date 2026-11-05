@@ -1,0 +1,65 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pms-api"
+version = "0.1.0"
+description = "Device Platform Management Service"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "training-contracts>=0.1.0",
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "pydantic-settings>=2.8,<3",
+  "sqlalchemy[asyncio]>=2.0.40,<2.1",
+  "psycopg[binary]>=3.2,<4",
+  "alembic>=1.16,<2",
+  "httpx>=0.28,<1",
+  "httpcore>=1.0.9,<2",
+  "anyio>=4.8,<5",
+  "PyJWT[crypto]>=2.10,<3",
+  "boto3>=1.38,<2",
+  "azure-identity>=1.23,<2",
+  "azure-storage-blob>=12.25,<13",
+  "websockets>=15,<18",
+  "cryptography>=45,<51",
+  "email-validator>=2.2,<3",
+  "python-multipart>=0.0.20,<1",
+  "prometheus-client>=0.22,<1",
+  "argon2-cffi>=23,<26",
+  "openpyxl>=3.1.5,<4",
+  "defusedxml>=0.7.1,<1",
+]
+[project.scripts]
+pms-api = "pms_api.cli:serve"
+pms-worker = "pms_api.worker.main:main"
+pms-admin = "pms_api.cli:admin"
+[dependency-groups]
+dev = ["pytest>=8.3,<10", "pytest-asyncio>=0.26,<2", "ruff>=0.11,<1", "mypy>=1.15,<2", "types-PyYAML>=6", "respx>=0.22,<1"]
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/migrations", "/tests", "/alembic.ini", "/pyproject.toml", "/uv.lock", "/README.md", "/deploy", "/scripts", "/Dockerfile", "/Dockerfile.dockerignore", "/compose.yaml", "/.env.example"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pms_api"]
+[tool.hatch.build.targets.wheel.force-include]
+"migrations" = "pms_api/migrations"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = ["integration: requires isolated PostgreSQL", "live: requires explicitly configured cloud resources"]
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B"]
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+python_version = "3.12"
+ignore_missing_imports = true
+check_untyped_defs = true
+exclude = ["migrations", "tests"]
+
+[tool.uv.sources]
+training-contracts = { path = "../../shared/training-contracts", editable = true }

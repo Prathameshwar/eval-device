@@ -1,0 +1,15 @@
+{
+  "name": "pms-ui-workspace",
+  "private": true,
+  "workspaces": [
+    "packages/ui",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=@pms/web",
+    "build": "npm run build --workspace=@pms/web",
+    "start": "npm run start --workspace=@pms/web",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  }
+}

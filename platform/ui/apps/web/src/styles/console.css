@@ -1,0 +1,652 @@
+/* Desktop release directory */
+.desktop-downloads { max-width: 1080px; margin: 0 auto; padding: var(--pms-space-6); }
+.desktop-downloads__hero { padding: var(--pms-space-6) 0; }
+.desktop-downloads h1 { font-size: var(--pms-text-2xl); margin: var(--pms-space-3) 0; }
+.desktop-downloads h2 { font-size: var(--pms-text-xl); margin: var(--pms-space-2) 0; }
+.desktop-downloads h3 { margin: 0 0 var(--pms-space-3); }
+.desktop-downloads p { color: var(--pms-ink-soft); line-height: 1.65; }
+.desktop-downloads__eyebrow { color: var(--pms-brand); font-size: var(--pms-text-overline); font-weight: 700; letter-spacing: 0.12em; }
+.desktop-downloads__intro { display: flex; gap: var(--pms-space-5); align-items: center; }
+.desktop-downloads__icon { flex: none; padding: var(--pms-space-5); border-radius: var(--pms-radius-md); color: var(--pms-brand); background: var(--pms-grad-panel); }
+.desktop-downloads__features { display: flex; flex-wrap: wrap; gap: var(--pms-space-3); margin: var(--pms-space-5) 0; }
+.desktop-downloads__features span { border-radius: var(--pms-radius-pill); background: var(--pms-brand-tint); color: var(--pms-brand-ink); padding: var(--pms-space-2) var(--pms-space-3); font-size: var(--pms-text-sm); }
+.desktop-downloads__options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--pms-space-4); }
+.desktop-downloads__option { padding: var(--pms-space-5); border: 1px solid var(--pms-line); border-radius: var(--pms-radius-md); background: var(--pms-surface-2); }
+.desktop-downloads__button { display: inline-flex; align-items: center; gap: var(--pms-space-2); background: var(--pms-grad-action); color: var(--pms-ink-invert); padding: var(--pms-space-3) var(--pms-space-4); border-radius: var(--pms-radius-sm); text-decoration: none; font-weight: 600; }
+.desktop-downloads__button:hover { background: var(--pms-grad-action-press); text-decoration: underline; }
+.desktop-downloads__button:focus-visible, .desktop-downloads summary:focus-visible { outline: none; box-shadow: var(--pms-focus-ring); }
+.desktop-downloads small { display: block; color: var(--pms-ink-faint); margin: var(--pms-space-3) 0; }
+.desktop-downloads details { font-size: var(--pms-text-sm); color: var(--pms-ink-soft); }
+.desktop-downloads summary { cursor: pointer; }
+.desktop-downloads details p, .desktop-downloads code { overflow-wrap: anywhere; }
+.desktop-downloads__setup { border-top: 1px solid var(--pms-line); padding-top: var(--pms-space-5); margin-top: var(--pms-space-6); }
+.desktop-downloads li { padding: var(--pms-space-2) 0; line-height: 1.6; }
+@media (max-width: 720px) {
+  .desktop-downloads { padding: var(--pms-space-4); }
+  .desktop-downloads__options { grid-template-columns: 1fr; }
+  .desktop-downloads__intro { align-items: flex-start; gap: var(--pms-space-3); }
+  .desktop-downloads__icon { padding: var(--pms-space-3); }
+}
+
+/*
+ * What the console adds to the design system: a sign-out row, and the dashboard's one layout
+ * exception. Everything else on these screens — the shell grid, the rail, the top bar, the stat
+ * tiles, the cards, the lists — is `@pms/ui`'s own CSS, unchanged.
+ *
+ * Same two rules as `auth.css`, enforced by `tests/app-css.test.ts`: no colour literal, and no
+ * `z-index` (the package declares the whole stacking order in `tokens.css`).
+ */
+
+/*
+ * At 72px the wordmark cannot fit, and an overflowing one spills across the content beside it.
+ * The mark stays — `display: none` rather than the visually-hidden pattern, matching what the
+ * package does to `.pms-usermenu__text` in the same state: a logo is not a control, and the
+ * product name is still in the document title.
+ */
+.pms-shell[data-collapsed='true'] .pms-brand__wordmark {
+  display: none;
+}
+
+/*
+ * Sign-out. It sits *beside* `RailFooter` rather than inside it, because that component's
+ * children are `RailItem`s and this is a button — so it repeats the footer's padding to read as
+ * one band with it, and deliberately carries no second border.
+ */
+.pms-console__signout {
+  padding: 0 var(--pms-space-3) var(--pms-space-3);
+}
+
+/* Collapsed, the rail is 72px: the label goes the same way the rail items' labels do, and the
+   button's own `aria-label`-free text is replaced by the icon's title through `Button`. */
+.pms-shell[data-collapsed='true'] .pms-console__signout {
+  padding-inline: var(--pms-space-2);
+}
+
+.pms-shell[data-collapsed='true'] .pms-console__signout-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/*
+ * The dashboard's lead band: a wide block beside a narrow one. `.pms-grid--split` is the
+ * package's 2fr/1fr pair and is used as-is; this only states the one thing the package cannot
+ * know — that on this page the narrow column's cards should fill the height of the wide one, so
+ * two stacked cards align with the chart beside them.
+ */
+.pms-console__aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-4);
+}
+
+.pms-console__aside > * {
+  flex: 1;
+}
+
+/* A card whose body is a list of rows: the rows bring their own separators, so the body's
+   padding would double the inset on every one of them. */
+.pms-console__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Console pages end with a compact gutter inside their existing scrollport. */
+.pms-main .pms-page {
+  padding-bottom: var(--pms-space-4);
+}
+
+/* Tenant directory composes shared table/filter/pager styles.
+   Colours and controls remain theme-owned. */
+.pms-console__tenant-directory {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-4);
+  min-width: 0;
+}
+
+/* Outrank the shared sticky-table height cap regardless of stylesheet chunk order. */
+.pms-console__tenant-page .pms-console__tenant-directory > .pms-table-shell {
+  max-height: none;
+}
+
+/* On desktop the table owns scrolling, leaving the filters and pager visible.
+   Small or short viewports use the main page scrollport for natural reflow. */
+@media (min-width: 960.02px) and (min-height: 600px) {
+  .pms-console__tenant-page {
+    height: calc(100dvh - var(--pms-topbar-h));
+  }
+
+  .pms-console__tenant-page > .pms-page-header {
+    flex: none;
+  }
+
+  .pms-console__tenant-directory {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .pms-console__tenant-page > .pms-table-shell,
+  .pms-console__tenant-directory > .pms-table-shell {
+    flex: 0 1 auto;
+    /* Wrapped filters must not consume the table's entire scrollport. The main
+       page scrolls when the filters, readable table and pager exceed the window. */
+    min-height: 10rem;
+  }
+
+  .pms-console__tenant-directory > .pms-filter-bar,
+  .pms-console__tenant-directory > .pms-console__tenant-footer {
+    flex: none;
+  }
+}
+
+.pms-console__tenant-cell {
+  display: flex;
+  flex-direction: column;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.pms-console__tenant-directory > .pms-filter-bar {
+  margin-bottom: 0;
+}
+
+.pms-console__tenant-line {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 52rem) {
+  .pms-console__tenant-directory .pms-table td[data-label='Actions'] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pms-console__tenant-directory .pms-console__tenant-actions {
+    justify-content: flex-start;
+  }
+}
+
+/* Keep desktop rows compact; the shared table still stacks on small screens. */
+@media (min-width: 52.01rem) {
+  .pms-console__tenant-directory > .pms-table-shell > .pms-table {
+    table-layout: fixed;
+    min-width: 64rem;
+  }
+
+  .pms-console__tenant-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .pms-console__tenant-directory .pms-table td {
+    white-space: nowrap;
+  }
+
+  .pms-console__tenant-directory .pms-console__tenant-actions {
+    flex-wrap: nowrap;
+  }
+}
+
+/* The advanced log filters belong to the primary filters and their table. */
+.pms-page > .pms-console__list-filter-form,
+.pms-page > .pms-console__list-filter-form + .pms-table-shell {
+  margin-top: 0;
+}
+
+.pms-console__tenant-footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--pms-space-4);
+}
+
+.pms-console__tenant-footer > .pms-meta {
+  margin: 0;
+}
+
+.pms-console__tenant-footer > .pms-pager {
+  flex: 1 1 22rem;
+  margin: 0;
+}
+
+.pms-console__tenant-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--pms-space-1);
+  white-space: nowrap;
+}
+
+.pms-console__tenant-directory .pms-table tbody tr:has([data-model-required='true']) > td {
+  background: var(--pms-surface-2);
+}
+
+.pms-console__tenant-directory .pms-table tbody tr:has([data-model-required='true']):hover > td {
+  background: var(--pms-hover);
+}
+
+.pms-console__association-toolbar,
+.pms-console__association-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pms-space-2);
+}
+
+.pms-console__association-toolbar {
+  justify-content: space-between;
+}
+
+.pms-console__association-toolbar > .pms-hint {
+  flex: 1 1 16rem;
+  margin: 0;
+}
+
+/* Settings destinations borrow the shared card surface; each card has one link. */
+.pms-console__settings-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pms-console__settings-secondary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--pms-space-3);
+  margin-top: var(--pms-space-5);
+}
+
+.pms-console__settings-card {
+  transition: border-color var(--pms-dur-fast) var(--pms-ease),
+    transform var(--pms-dur-fast) var(--pms-ease);
+}
+
+.pms-console__settings-card:hover {
+  border-color: var(--pms-control-line);
+  transform: translateY(-2px);
+}
+
+.pms-console__settings-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--pms-space-4);
+  height: 100%;
+  min-height: 17rem;
+  padding: var(--pms-space-5);
+  border-radius: inherit;
+  color: var(--pms-ink);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.pms-console__settings-link:focus-visible,
+.pms-console__breadcrumbs a:focus-visible {
+  outline: 2px solid var(--pms-focus);
+  outline-offset: 3px;
+}
+
+.pms-console__settings-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  flex: none;
+  border-radius: var(--pms-radius-md);
+  border: 1px solid var(--pms-brand-line);
+  background: var(--pms-brand-tint);
+  color: var(--pms-brand-ink);
+}
+
+.pms-console__settings-title {
+  margin: 0;
+  font-size: var(--pms-text-lg);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.pms-console__settings-description {
+  margin: 0;
+  color: var(--pms-ink-soft);
+  font-size: var(--pms-text-base);
+  line-height: 1.6;
+}
+
+.pms-console__settings-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pms-space-3);
+  width: 100%;
+  margin-top: auto;
+  padding-top: var(--pms-space-4);
+  color: var(--pms-brand-ink);
+  font-size: var(--pms-text-sm);
+  font-weight: 600;
+}
+
+.pms-console__settings-action svg {
+  flex: none;
+}
+
+.pms-console__breadcrumbs ol,
+.pms-console__breadcrumbs li {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--pms-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--pms-ink-soft);
+  font-size: var(--pms-text-sm);
+}
+
+.pms-console__breadcrumbs a {
+  color: var(--pms-brand-ink);
+  text-decoration: none;
+  border-radius: var(--pms-radius-sm);
+}
+
+.pms-console__breadcrumbs a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pms-console__breadcrumbs .pms-console__back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pms-space-1);
+  min-height: 32px;
+}
+
+.pms-page > .pms-console__breadcrumbs + .pms-page-header {
+  margin-top: var(--pms-space-4);
+}
+
+.pms-console__back-navigation {
+  align-self: flex-start;
+  max-width: 100%;
+  flex: none;
+}
+.pms-console__back-control {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  min-height: 2.75rem;
+  max-width: 100%;
+  padding: var(--pms-space-2);
+  border: 1px solid transparent;
+  border-radius: var(--pms-radius-sm);
+  background: transparent;
+  color: var(--pms-brand-ink);
+  font: inherit;
+  font-size: var(--pms-text-sm);
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+.pms-console__back-control svg { flex: none; }
+.pms-console__back-control span { overflow-wrap: anywhere; min-width: 0; }
+.pms-console__back-control:hover:not(:disabled) { background: var(--pms-hover); }
+.pms-console__back-control:focus-visible {
+  outline: 2px solid var(--pms-focus);
+  outline-offset: 2px;
+}
+.pms-console__back-control:disabled { color: var(--pms-disabled-ink); cursor: not-allowed; }
+.pms-page > .pms-console__back-navigation + :is(.pms-page-header, header) {
+  margin-top: var(--pms-space-3);
+}
+
+@media (max-width: 1199.98px) {
+  .pms-console__settings-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .pms-console__settings-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pms-console__settings-card {
+    transition: none;
+  }
+
+  .pms-console__settings-card:hover {
+    transform: none;
+  }
+}
+
+/* Tenant forms keep the shared drawer chrome and field styles, with grouped content. */
+.pms-console__tenant-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-5);
+  padding-bottom: var(--pms-space-4);
+}
+
+.pms-console__tenant-fieldset {
+  border: 0;
+  border-top: 1px solid var(--pms-line);
+  padding: var(--pms-space-4) 0 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.pms-console__tenant-fieldset legend {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  padding: 0 var(--pms-space-3) 0 0;
+  color: var(--pms-ink);
+  font-weight: 600;
+}
+
+.pms-console__tenant-fieldset legend svg {
+  color: var(--pms-brand-ink);
+  flex: none;
+}
+
+.pms-console__tenant-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--pms-space-4);
+  margin-top: var(--pms-space-4);
+}
+
+.pms-console__tenant-form .pms-console__tenant-form-grid > .pms-field {
+  margin-top: 0;
+}
+
+.pms-console__tenant-textarea {
+  display: block;
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.pms-console__tenant-status-note {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--pms-space-2);
+  margin: var(--pms-space-4) 0 0;
+}
+
+.pms-console__tenant-fieldset > .pms-notice {
+  margin-top: var(--pms-space-4);
+}
+
+.pms-console__tenant-directory > .pms-notice {
+  flex: none;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .pms-console__tenant-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Tenant detail pages use the existing page, card, badge and button surfaces. */
+.pms-console__tenant-view .pms-page-header__text {
+  min-width: 0;
+}
+
+.pms-console__tenant-view .pms-page-header__actions {
+  margin-inline-start: auto;
+}
+
+.pms-console__tenant-view .pms-h1 {
+  overflow-wrap: anywhere;
+}
+
+/* The heading receives route focus for announcement; it is not an input or action. */
+.pms-console__tenant-view .pms-h1[tabindex='-1']:focus {
+  outline: none;
+}
+
+.pms-console__tenant-overview,
+.pms-console__tenant-view-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-5);
+  min-width: 0;
+}
+
+.pms-console__tenant-summary dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+}
+
+.pms-console__tenant-summary dl > div {
+  padding: var(--pms-space-5);
+  min-width: 0;
+}
+
+.pms-console__tenant-summary dl > div + div {
+  border-inline-start: 1px solid var(--pms-line);
+}
+
+.pms-console__tenant-summary dt,
+.pms-console__tenant-contact dt {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  font-size: var(--pms-text-sm);
+  color: var(--pms-ink-soft);
+}
+
+.pms-console__tenant-summary dt svg,
+.pms-console__tenant-contact dt svg {
+  color: var(--pms-brand-ink);
+  flex: none;
+}
+
+.pms-console__tenant-summary dd {
+  margin: var(--pms-space-3) 0 0;
+  font-size: var(--pms-text-md);
+  font-weight: 600;
+  color: var(--pms-ink);
+  overflow-wrap: anywhere;
+}
+
+.pms-console__tenant-view-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: var(--pms-space-5);
+  align-items: start;
+}
+
+.pms-console__tenant-description {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+  color: var(--pms-ink-soft);
+}
+
+.pms-console__tenant-contact,
+.pms-console__tenant-record {
+  margin: 0;
+  display: grid;
+  gap: var(--pms-space-5);
+  overflow-wrap: anywhere;
+}
+
+.pms-console__tenant-contact dd,
+.pms-console__tenant-record dd {
+  margin: var(--pms-space-2) 0 0;
+  color: var(--pms-ink);
+  line-height: 1.5;
+}
+
+.pms-console__tenant-contact a {
+  color: var(--pms-brand-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pms-console__tenant-contact a:focus-visible {
+  outline: 2px solid var(--pms-focus);
+  outline-offset: 3px;
+}
+
+.pms-console__tenant-record dt {
+  color: var(--pms-ink-soft);
+  font-size: var(--pms-text-sm);
+}
+
+.pms-console__tenant-record > div + div {
+  border-top: 1px solid var(--pms-line);
+  padding-top: var(--pms-space-4);
+}
+
+.pms-console__tenant-record code {
+  display: block;
+  font-family: var(--pms-font-mono);
+  font-size: var(--pms-text-xs);
+  user-select: all;
+  margin-bottom: var(--pms-space-2);
+}
+
+.pms-console__tenant-view-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--pms-space-3);
+}
+
+.pms-console__tenant-view a.pms-btn,
+.pms-console__tenant-page a.pms-btn {
+  text-decoration: none;
+}
+
+@media (max-width: 1199.98px) {
+  .pms-console__tenant-view-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .pms-console__tenant-summary dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pms-console__tenant-summary dl > div + div {
+    border-inline-start: 0;
+    border-top: 1px solid var(--pms-line);
+  }
+}

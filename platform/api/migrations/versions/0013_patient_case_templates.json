@@ -1,0 +1,3840 @@
+[
+  {
+    "id": "00000000-0000-4000-8000-000000000501",
+    "code": "alex_chest_discomfort",
+    "category_id": "00000000-0000-4000-8000-000000000301",
+    "patient_identity_id": "00000000-0000-4000-8000-000000000401",
+    "title_hi": "सीने में तकलीफ़",
+    "document": {
+      "version": 2,
+      "code": "alex_chest_discomfort",
+      "title": "Chest discomfort interview",
+      "learner_label": "Interview Alex",
+      "specialty": "Cardiology",
+      "patient": {
+        "name": "Alex",
+        "age_years": 35,
+        "sex": "male",
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        },
+        "height_cm": 175.0,
+        "weight_kg": 75.0
+      },
+      "presentation": {
+        "chief_complaint": {
+          "en": "I get tightness in my chest when I walk uphill.",
+          "hi": "चढ़ाई पर चलते समय मेरे सीने में कसाव होता है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "The tightness is in the centre of my chest. Rest usually helps.",
+              "hi": "कसाव सीने के बीच में होता है। आम तौर पर आराम करने से कम होता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I get a little breathless during an episode. I have not fainted or had a fever.",
+              "hi": "उस समय थोड़ी साँस फूलती है। मैं बेहोश नहीं हुआ हूँ और बुखार नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          }
+        ],
+        "onset": {
+          "en": "It began two days ago. Each episode lasts about five minutes.",
+          "hi": "यह दो दिन पहले शुरू हुआ। हर बार लगभग पाँच मिनट रहता है।"
+        },
+        "duration": {
+          "en": "It began two days ago. Each episode lasts about five minutes.",
+          "hi": "यह दो दिन पहले शुरू हुआ। हर बार लगभग पाँच मिनट रहता है।"
+        }
+      },
+      "history": {
+        "past_conditions": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "surgeries": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "medications": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "allergies": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "family": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "social": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            }
+          ],
+          "disclosure": "on_question"
+        }
+      },
+      "vitals": {
+        "temperature_c": 36.8,
+        "heart_rate_bpm": 84.0,
+        "pulse_bpm": 84.0,
+        "systolic_mmhg": 128.0,
+        "diastolic_mmhg": 82.0,
+        "respirations_per_minute": 18.0,
+        "spo2_percent": 98.0,
+        "pain_0_10": 0.0
+      },
+      "dialogue": {
+        "greeting": {
+          "en": "Hello, my name is {patient.name}.",
+          "hi": "नमस्ते, मेरा नाम {patient.name} है।"
+        },
+        "clarification": {
+          "en": "I am not sure about that. Could you ask me about my symptoms or history?",
+          "hi": "मुझे इस बारे में पता नहीं है। क्या आप मेरी तकलीफ़ या पिछली जानकारी के बारे में पूछ सकते हैं?"
+        },
+        "topics": [
+          {
+            "id": "name",
+            "intent": "Patient name or introduction",
+            "examples": [
+              "What is your name?",
+              "आपका नाम क्या है?"
+            ],
+            "answer": {
+              "en": "My name is {patient.name}.",
+              "hi": "मेरा नाम {patient.name} है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "age",
+            "intent": "Patient age",
+            "examples": [
+              "Patient age"
+            ],
+            "answer": {
+              "en": "I am {patient.age_years} years old.",
+              "hi": "मेरी उम्र {patient.age_years} साल है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "occupation",
+            "intent": "Work and occupation",
+            "examples": [
+              "Work and occupation"
+            ],
+            "answer": {
+              "en": "I work as a schoolteacher.",
+              "hi": "मैं स्कूल शिक्षक हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "sex",
+            "intent": "Sex recorded for the patient",
+            "examples": [
+              "Sex recorded for the patient"
+            ],
+            "answer": {
+              "en": "I am male.",
+              "hi": "मैं पुरुष हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "body_size",
+            "intent": "Height and weight",
+            "examples": [
+              "Height and weight"
+            ],
+            "answer": {
+              "en": "I am {patient.height_cm} cm tall and weigh {patient.weight_kg} kg.",
+              "hi": "मेरी लंबाई {patient.height_cm} सेंटीमीटर और वज़न {patient.weight_kg} किलो है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "complaint",
+            "intent": "Main complaint; why the patient came today",
+            "examples": [
+              "What brings you here?",
+              "क्या तकलीफ़ है?"
+            ],
+            "answer": {
+              "en": "I get tightness in my chest when I walk uphill.",
+              "hi": "चढ़ाई पर चलते समय मेरे सीने में कसाव होता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "duration",
+            "intent": "When symptoms began; duration and frequency",
+            "examples": [
+              "When symptoms began; duration and frequency"
+            ],
+            "answer": {
+              "en": "It began two days ago. Each episode lasts about five minutes.",
+              "hi": "यह दो दिन पहले शुरू हुआ। हर बार लगभग पाँच मिनट रहता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "symptom_details",
+            "intent": "Symptom location, character, triggers and relief",
+            "examples": [
+              "Symptom location, character, triggers and relief"
+            ],
+            "answer": {
+              "en": "The tightness is in the centre of my chest. Rest usually helps.",
+              "hi": "कसाव सीने के बीच में होता है। आम तौर पर आराम करने से कम होता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated",
+            "intent": "Other associated symptoms and relevant negative symptoms",
+            "examples": [
+              "Other associated symptoms and relevant negative symptoms"
+            ],
+            "answer": {
+              "en": "I get a little breathless during an episode. I have not fainted or had a fever.",
+              "hi": "उस समय थोड़ी साँस फूलती है। मैं बेहोश नहीं हुआ हूँ और बुखार नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "past_history",
+            "intent": "Previous illnesses and diagnoses",
+            "examples": [
+              "Previous illnesses and diagnoses"
+            ],
+            "answer": {
+              "en": "I have no known previous medical conditions.",
+              "hi": "पहले से कोई ज्ञात बीमारी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "surgeries",
+            "intent": "Previous operations or surgery",
+            "examples": [
+              "Previous operations or surgery"
+            ],
+            "answer": {
+              "en": "I have not had any operations.",
+              "hi": "मेरा कोई ऑपरेशन नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "medications",
+            "intent": "Current medicines, inhalers, tablets and doses",
+            "examples": [
+              "Current medicines, inhalers, tablets and doses"
+            ],
+            "answer": {
+              "en": "I am not taking any medicines.",
+              "hi": "मैं कोई दवा नहीं ले रहा हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "allergies",
+            "intent": "Allergies or previous allergic reactions",
+            "examples": [
+              "Allergies or previous allergic reactions"
+            ],
+            "answer": {
+              "en": "I have no known allergies.",
+              "hi": "मुझे कोई ज्ञात एलर्जी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "family_history",
+            "intent": "Illnesses in close relatives",
+            "examples": [
+              "Illnesses in close relatives"
+            ],
+            "answer": {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "social_history",
+            "intent": "Smoking, alcohol or home background",
+            "examples": [
+              "Smoking, alcohol or home background"
+            ],
+            "answer": {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "temperature",
+            "intent": "Measured temperature or fever reading",
+            "examples": [
+              "Measured temperature or fever reading"
+            ],
+            "answer": {
+              "en": "I was told my temperature is {vitals.temperature_c} degrees Celsius.",
+              "hi": "मुझे बताया गया कि मेरा तापमान {vitals.temperature_c} डिग्री सेल्सियस है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "heart_rate",
+            "intent": "Measured heart rate or heartbeat",
+            "examples": [
+              "Measured heart rate or heartbeat"
+            ],
+            "answer": {
+              "en": "I was told my heart rate is {vitals.heart_rate_bpm} beats per minute.",
+              "hi": "मुझे बताया गया कि मेरी हृदय गति {vitals.heart_rate_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pulse",
+            "intent": "Measured peripheral pulse rate",
+            "examples": [
+              "Measured peripheral pulse rate"
+            ],
+            "answer": {
+              "en": "I was told my pulse is {vitals.pulse_bpm} per minute.",
+              "hi": "मुझे बताया गया कि मेरी नाड़ी {vitals.pulse_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "blood_pressure",
+            "intent": "Measured systolic and diastolic blood pressure",
+            "examples": [
+              "Measured systolic and diastolic blood pressure"
+            ],
+            "answer": {
+              "en": "I was told my blood pressure is {vitals.systolic_mmhg} over {vitals.diastolic_mmhg} mmHg.",
+              "hi": "मुझे बताया गया कि मेरा रक्तचाप {vitals.systolic_mmhg} पर {vitals.diastolic_mmhg} मिलीमीटर पारा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "breathing_rate",
+            "intent": "Measured respiratory or breathing rate",
+            "examples": [
+              "Measured respiratory or breathing rate"
+            ],
+            "answer": {
+              "en": "I was told I am breathing {vitals.respirations_per_minute} times per minute.",
+              "hi": "मुझे बताया गया कि मेरी साँसों की दर {vitals.respirations_per_minute} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "oxygen",
+            "intent": "Measured oxygen saturation or SpO2",
+            "examples": [
+              "Measured oxygen saturation or SpO2"
+            ],
+            "answer": {
+              "en": "I was told my oxygen saturation is {vitals.spo2_percent} percent.",
+              "hi": "मुझे बताया गया कि मेरा ऑक्सीजन स्तर {vitals.spo2_percent} प्रतिशत है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pain_score",
+            "intent": "Current pain severity on a zero-to-ten scale",
+            "examples": [
+              "Current pain severity on a zero-to-ten scale"
+            ],
+            "answer": {
+              "en": "My pain right now is {vitals.pain_0_10} out of ten.",
+              "hi": "अभी मेरा दर्द दस में से {vitals.pain_0_10} है।"
+            },
+            "disclosure": "on_question"
+          }
+        ]
+      },
+      "instructor": {
+        "objectives": [
+          "Practise a structured, respectful patient interview.",
+          "Ask about onset, associated symptoms, history, medicines and allergies."
+        ],
+        "notes": "Synthetic development practice template. Not clinically approved. No treatment recommendation or diagnostic confirmation is supplied.",
+        "rubric": [
+          {
+            "id": "introduction",
+            "description": "Introduce self and confirm patient identity."
+          },
+          {
+            "id": "history",
+            "description": "Explore the presenting complaint and relevant history."
+          },
+          {
+            "id": "medicines",
+            "description": "Check medicines and allergies without inventing unknown details."
+          }
+        ]
+      },
+      "fact_disclosure": {
+        "patient.age_years": "on_question",
+        "patient.height_cm": "on_question",
+        "patient.weight_kg": "on_question",
+        "patient.name": "volunteered",
+        "vitals.temperature_c": "on_question",
+        "vitals.heart_rate_bpm": "on_question",
+        "vitals.pulse_bpm": "on_question",
+        "vitals.systolic_mmhg": "on_question",
+        "vitals.diastolic_mmhg": "on_question",
+        "vitals.respirations_per_minute": "on_question",
+        "vitals.spo2_percent": "on_question",
+        "vitals.pain_0_10": "on_question"
+      }
+    }
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000502",
+    "code": "alex_palpitations",
+    "category_id": "00000000-0000-4000-8000-000000000301",
+    "patient_identity_id": "00000000-0000-4000-8000-000000000401",
+    "title_hi": "दिल तेज़ धड़कना",
+    "document": {
+      "version": 2,
+      "code": "alex_palpitations",
+      "title": "Palpitations interview",
+      "learner_label": "Interview Alex",
+      "specialty": "Cardiology",
+      "patient": {
+        "name": "Alex",
+        "age_years": 35,
+        "sex": "male",
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        },
+        "height_cm": 175.0,
+        "weight_kg": 75.0
+      },
+      "presentation": {
+        "chief_complaint": {
+          "en": "My heart sometimes feels as if it is racing.",
+          "hi": "कभी-कभी ऐसा लगता है कि मेरा दिल बहुत तेज़ धड़क रहा है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "It comes and goes, often after coffee. Recently I have been drinking four cups a day.",
+              "hi": "यह आता-जाता रहता है, अक्सर कॉफ़ी के बाद। हाल में मैं रोज़ चार कप कॉफ़ी पी रहा हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I feel a little light-headed during an episode. I have not fainted and do not have chest pain.",
+              "hi": "उस समय थोड़ा चक्कर जैसा लगता है। मैं बेहोश नहीं हुआ हूँ और सीने में दर्द नहीं है।"
+            },
+            "disclosure": "on_question"
+          }
+        ],
+        "onset": {
+          "en": "This started three days ago. The episodes last roughly ten minutes.",
+          "hi": "यह तीन दिन पहले शुरू हुआ। हर बार लगभग दस मिनट रहता है।"
+        },
+        "duration": {
+          "en": "This started three days ago. The episodes last roughly ten minutes.",
+          "hi": "यह तीन दिन पहले शुरू हुआ। हर बार लगभग दस मिनट रहता है।"
+        }
+      },
+      "history": {
+        "past_conditions": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "surgeries": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "medications": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "allergies": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "family": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "social": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            }
+          ],
+          "disclosure": "on_question"
+        }
+      },
+      "vitals": {
+        "temperature_c": 36.7,
+        "heart_rate_bpm": 96.0,
+        "pulse_bpm": 96.0,
+        "systolic_mmhg": 124.0,
+        "diastolic_mmhg": 78.0,
+        "respirations_per_minute": 18.0,
+        "spo2_percent": 98.0,
+        "pain_0_10": 0.0
+      },
+      "dialogue": {
+        "greeting": {
+          "en": "Hello, my name is {patient.name}.",
+          "hi": "नमस्ते, मेरा नाम {patient.name} है।"
+        },
+        "clarification": {
+          "en": "I am not sure about that. Could you ask me about my symptoms or history?",
+          "hi": "मुझे इस बारे में पता नहीं है। क्या आप मेरी तकलीफ़ या पिछली जानकारी के बारे में पूछ सकते हैं?"
+        },
+        "topics": [
+          {
+            "id": "name",
+            "intent": "Patient name or introduction",
+            "examples": [
+              "What is your name?",
+              "आपका नाम क्या है?"
+            ],
+            "answer": {
+              "en": "My name is {patient.name}.",
+              "hi": "मेरा नाम {patient.name} है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "age",
+            "intent": "Patient age",
+            "examples": [
+              "Patient age"
+            ],
+            "answer": {
+              "en": "I am {patient.age_years} years old.",
+              "hi": "मेरी उम्र {patient.age_years} साल है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "occupation",
+            "intent": "Work and occupation",
+            "examples": [
+              "Work and occupation"
+            ],
+            "answer": {
+              "en": "I work as a schoolteacher.",
+              "hi": "मैं स्कूल शिक्षक हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "sex",
+            "intent": "Sex recorded for the patient",
+            "examples": [
+              "Sex recorded for the patient"
+            ],
+            "answer": {
+              "en": "I am male.",
+              "hi": "मैं पुरुष हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "body_size",
+            "intent": "Height and weight",
+            "examples": [
+              "Height and weight"
+            ],
+            "answer": {
+              "en": "I am {patient.height_cm} cm tall and weigh {patient.weight_kg} kg.",
+              "hi": "मेरी लंबाई {patient.height_cm} सेंटीमीटर और वज़न {patient.weight_kg} किलो है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "complaint",
+            "intent": "Main complaint; why the patient came today",
+            "examples": [
+              "What brings you here?",
+              "क्या तकलीफ़ है?"
+            ],
+            "answer": {
+              "en": "My heart sometimes feels as if it is racing.",
+              "hi": "कभी-कभी ऐसा लगता है कि मेरा दिल बहुत तेज़ धड़क रहा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "duration",
+            "intent": "When symptoms began; duration and frequency",
+            "examples": [
+              "When symptoms began; duration and frequency"
+            ],
+            "answer": {
+              "en": "This started three days ago. The episodes last roughly ten minutes.",
+              "hi": "यह तीन दिन पहले शुरू हुआ। हर बार लगभग दस मिनट रहता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "symptom_details",
+            "intent": "Symptom location, character, triggers and relief",
+            "examples": [
+              "Symptom location, character, triggers and relief"
+            ],
+            "answer": {
+              "en": "It comes and goes, often after coffee. Recently I have been drinking four cups a day.",
+              "hi": "यह आता-जाता रहता है, अक्सर कॉफ़ी के बाद। हाल में मैं रोज़ चार कप कॉफ़ी पी रहा हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated",
+            "intent": "Other associated symptoms and relevant negative symptoms",
+            "examples": [
+              "Other associated symptoms and relevant negative symptoms"
+            ],
+            "answer": {
+              "en": "I feel a little light-headed during an episode. I have not fainted and do not have chest pain.",
+              "hi": "उस समय थोड़ा चक्कर जैसा लगता है। मैं बेहोश नहीं हुआ हूँ और सीने में दर्द नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "past_history",
+            "intent": "Previous illnesses and diagnoses",
+            "examples": [
+              "Previous illnesses and diagnoses"
+            ],
+            "answer": {
+              "en": "I have no known previous medical conditions.",
+              "hi": "पहले से कोई ज्ञात बीमारी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "surgeries",
+            "intent": "Previous operations or surgery",
+            "examples": [
+              "Previous operations or surgery"
+            ],
+            "answer": {
+              "en": "I have not had any operations.",
+              "hi": "मेरा कोई ऑपरेशन नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "medications",
+            "intent": "Current medicines, inhalers, tablets and doses",
+            "examples": [
+              "Current medicines, inhalers, tablets and doses"
+            ],
+            "answer": {
+              "en": "I am not taking any medicines.",
+              "hi": "मैं कोई दवा नहीं ले रहा हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "allergies",
+            "intent": "Allergies or previous allergic reactions",
+            "examples": [
+              "Allergies or previous allergic reactions"
+            ],
+            "answer": {
+              "en": "I have no known allergies.",
+              "hi": "मुझे कोई ज्ञात एलर्जी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "family_history",
+            "intent": "Illnesses in close relatives",
+            "examples": [
+              "Illnesses in close relatives"
+            ],
+            "answer": {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "social_history",
+            "intent": "Smoking, alcohol or home background",
+            "examples": [
+              "Smoking, alcohol or home background"
+            ],
+            "answer": {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "temperature",
+            "intent": "Measured temperature or fever reading",
+            "examples": [
+              "Measured temperature or fever reading"
+            ],
+            "answer": {
+              "en": "I was told my temperature is {vitals.temperature_c} degrees Celsius.",
+              "hi": "मुझे बताया गया कि मेरा तापमान {vitals.temperature_c} डिग्री सेल्सियस है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "heart_rate",
+            "intent": "Measured heart rate or heartbeat",
+            "examples": [
+              "Measured heart rate or heartbeat"
+            ],
+            "answer": {
+              "en": "I was told my heart rate is {vitals.heart_rate_bpm} beats per minute.",
+              "hi": "मुझे बताया गया कि मेरी हृदय गति {vitals.heart_rate_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pulse",
+            "intent": "Measured peripheral pulse rate",
+            "examples": [
+              "Measured peripheral pulse rate"
+            ],
+            "answer": {
+              "en": "I was told my pulse is {vitals.pulse_bpm} per minute.",
+              "hi": "मुझे बताया गया कि मेरी नाड़ी {vitals.pulse_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "blood_pressure",
+            "intent": "Measured systolic and diastolic blood pressure",
+            "examples": [
+              "Measured systolic and diastolic blood pressure"
+            ],
+            "answer": {
+              "en": "I was told my blood pressure is {vitals.systolic_mmhg} over {vitals.diastolic_mmhg} mmHg.",
+              "hi": "मुझे बताया गया कि मेरा रक्तचाप {vitals.systolic_mmhg} पर {vitals.diastolic_mmhg} मिलीमीटर पारा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "breathing_rate",
+            "intent": "Measured respiratory or breathing rate",
+            "examples": [
+              "Measured respiratory or breathing rate"
+            ],
+            "answer": {
+              "en": "I was told I am breathing {vitals.respirations_per_minute} times per minute.",
+              "hi": "मुझे बताया गया कि मेरी साँसों की दर {vitals.respirations_per_minute} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "oxygen",
+            "intent": "Measured oxygen saturation or SpO2",
+            "examples": [
+              "Measured oxygen saturation or SpO2"
+            ],
+            "answer": {
+              "en": "I was told my oxygen saturation is {vitals.spo2_percent} percent.",
+              "hi": "मुझे बताया गया कि मेरा ऑक्सीजन स्तर {vitals.spo2_percent} प्रतिशत है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pain_score",
+            "intent": "Current pain severity on a zero-to-ten scale",
+            "examples": [
+              "Current pain severity on a zero-to-ten scale"
+            ],
+            "answer": {
+              "en": "My pain right now is {vitals.pain_0_10} out of ten.",
+              "hi": "अभी मेरा दर्द दस में से {vitals.pain_0_10} है।"
+            },
+            "disclosure": "on_question"
+          }
+        ]
+      },
+      "instructor": {
+        "objectives": [
+          "Practise a structured, respectful patient interview.",
+          "Ask about onset, associated symptoms, history, medicines and allergies."
+        ],
+        "notes": "Synthetic development practice template. Not clinically approved. No treatment recommendation or diagnostic confirmation is supplied.",
+        "rubric": [
+          {
+            "id": "introduction",
+            "description": "Introduce self and confirm patient identity."
+          },
+          {
+            "id": "history",
+            "description": "Explore the presenting complaint and relevant history."
+          },
+          {
+            "id": "medicines",
+            "description": "Check medicines and allergies without inventing unknown details."
+          }
+        ]
+      },
+      "fact_disclosure": {
+        "patient.age_years": "on_question",
+        "patient.height_cm": "on_question",
+        "patient.weight_kg": "on_question",
+        "patient.name": "volunteered",
+        "vitals.temperature_c": "on_question",
+        "vitals.heart_rate_bpm": "on_question",
+        "vitals.pulse_bpm": "on_question",
+        "vitals.systolic_mmhg": "on_question",
+        "vitals.diastolic_mmhg": "on_question",
+        "vitals.respirations_per_minute": "on_question",
+        "vitals.spo2_percent": "on_question",
+        "vitals.pain_0_10": "on_question"
+      }
+    }
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000503",
+    "code": "alex_blood_pressure",
+    "category_id": "00000000-0000-4000-8000-000000000301",
+    "patient_identity_id": "00000000-0000-4000-8000-000000000401",
+    "title_hi": "बढ़े रक्तचाप की समीक्षा",
+    "document": {
+      "version": 2,
+      "code": "alex_blood_pressure",
+      "title": "Raised blood-pressure follow-up",
+      "learner_label": "Interview Alex",
+      "specialty": "Cardiology",
+      "patient": {
+        "name": "Alex",
+        "age_years": 35,
+        "sex": "male",
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        },
+        "height_cm": 175.0,
+        "weight_kg": 75.0
+      },
+      "presentation": {
+        "chief_complaint": {
+          "en": "I came because my blood pressure was high at a pharmacy check.",
+          "hi": "दवा की दुकान पर जाँच में मेरा रक्तचाप बढ़ा हुआ था, इसलिए आया हूँ।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "I feel well, but I sometimes forget my regular tablet.",
+              "hi": "मैं ठीक महसूस करता हूँ, लेकिन कभी-कभी अपनी नियमित गोली लेना भूल जाता हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I have no chest pain, breathlessness or severe headache today.",
+              "hi": "आज सीने में दर्द, साँस फूलना या तेज़ सिरदर्द नहीं है।"
+            },
+            "disclosure": "on_question"
+          }
+        ],
+        "onset": {
+          "en": "That check was last week. I was first told about high blood pressure a year ago.",
+          "hi": "वह जाँच पिछले हफ़्ते हुई थी। एक साल पहले पहली बार बढ़े रक्तचाप के बारे में बताया गया था।"
+        },
+        "duration": {
+          "en": "That check was last week. I was first told about high blood pressure a year ago.",
+          "hi": "वह जाँच पिछले हफ़्ते हुई थी। एक साल पहले पहली बार बढ़े रक्तचाप के बारे में बताया गया था।"
+        }
+      },
+      "history": {
+        "past_conditions": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I was told I have high blood pressure one year ago.",
+              "hi": "एक साल पहले मुझे बताया गया कि मेरा रक्तचाप बढ़ा हुआ है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "surgeries": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "medications": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I take one prescribed blood-pressure tablet each day. I cannot remember its name or strength.",
+              "hi": "मैं रोज़ रक्तचाप की एक निर्धारित गोली लेता हूँ। उसका नाम या मात्रा याद नहीं है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "allergies": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "family": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "social": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            }
+          ],
+          "disclosure": "on_question"
+        }
+      },
+      "vitals": {
+        "temperature_c": 36.6,
+        "heart_rate_bpm": 78.0,
+        "pulse_bpm": 78.0,
+        "systolic_mmhg": 150.0,
+        "diastolic_mmhg": 94.0,
+        "respirations_per_minute": 16.0,
+        "spo2_percent": 98.0,
+        "pain_0_10": 0.0
+      },
+      "dialogue": {
+        "greeting": {
+          "en": "Hello, my name is {patient.name}.",
+          "hi": "नमस्ते, मेरा नाम {patient.name} है।"
+        },
+        "clarification": {
+          "en": "I am not sure about that. Could you ask me about my symptoms or history?",
+          "hi": "मुझे इस बारे में पता नहीं है। क्या आप मेरी तकलीफ़ या पिछली जानकारी के बारे में पूछ सकते हैं?"
+        },
+        "topics": [
+          {
+            "id": "name",
+            "intent": "Patient name or introduction",
+            "examples": [
+              "What is your name?",
+              "आपका नाम क्या है?"
+            ],
+            "answer": {
+              "en": "My name is {patient.name}.",
+              "hi": "मेरा नाम {patient.name} है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "age",
+            "intent": "Patient age",
+            "examples": [
+              "Patient age"
+            ],
+            "answer": {
+              "en": "I am {patient.age_years} years old.",
+              "hi": "मेरी उम्र {patient.age_years} साल है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "occupation",
+            "intent": "Work and occupation",
+            "examples": [
+              "Work and occupation"
+            ],
+            "answer": {
+              "en": "I work as a schoolteacher.",
+              "hi": "मैं स्कूल शिक्षक हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "sex",
+            "intent": "Sex recorded for the patient",
+            "examples": [
+              "Sex recorded for the patient"
+            ],
+            "answer": {
+              "en": "I am male.",
+              "hi": "मैं पुरुष हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "body_size",
+            "intent": "Height and weight",
+            "examples": [
+              "Height and weight"
+            ],
+            "answer": {
+              "en": "I am {patient.height_cm} cm tall and weigh {patient.weight_kg} kg.",
+              "hi": "मेरी लंबाई {patient.height_cm} सेंटीमीटर और वज़न {patient.weight_kg} किलो है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "complaint",
+            "intent": "Main complaint; why the patient came today",
+            "examples": [
+              "What brings you here?",
+              "क्या तकलीफ़ है?"
+            ],
+            "answer": {
+              "en": "I came because my blood pressure was high at a pharmacy check.",
+              "hi": "दवा की दुकान पर जाँच में मेरा रक्तचाप बढ़ा हुआ था, इसलिए आया हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "duration",
+            "intent": "When symptoms began; duration and frequency",
+            "examples": [
+              "When symptoms began; duration and frequency"
+            ],
+            "answer": {
+              "en": "That check was last week. I was first told about high blood pressure a year ago.",
+              "hi": "वह जाँच पिछले हफ़्ते हुई थी। एक साल पहले पहली बार बढ़े रक्तचाप के बारे में बताया गया था।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "symptom_details",
+            "intent": "Symptom location, character, triggers and relief",
+            "examples": [
+              "Symptom location, character, triggers and relief"
+            ],
+            "answer": {
+              "en": "I feel well, but I sometimes forget my regular tablet.",
+              "hi": "मैं ठीक महसूस करता हूँ, लेकिन कभी-कभी अपनी नियमित गोली लेना भूल जाता हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated",
+            "intent": "Other associated symptoms and relevant negative symptoms",
+            "examples": [
+              "Other associated symptoms and relevant negative symptoms"
+            ],
+            "answer": {
+              "en": "I have no chest pain, breathlessness or severe headache today.",
+              "hi": "आज सीने में दर्द, साँस फूलना या तेज़ सिरदर्द नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "past_history",
+            "intent": "Previous illnesses and diagnoses",
+            "examples": [
+              "Previous illnesses and diagnoses"
+            ],
+            "answer": {
+              "en": "I was told I have high blood pressure one year ago.",
+              "hi": "एक साल पहले मुझे बताया गया कि मेरा रक्तचाप बढ़ा हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "surgeries",
+            "intent": "Previous operations or surgery",
+            "examples": [
+              "Previous operations or surgery"
+            ],
+            "answer": {
+              "en": "I have not had any operations.",
+              "hi": "मेरा कोई ऑपरेशन नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "medications",
+            "intent": "Current medicines, inhalers, tablets and doses",
+            "examples": [
+              "Current medicines, inhalers, tablets and doses"
+            ],
+            "answer": {
+              "en": "I take one prescribed blood-pressure tablet each day. I cannot remember its name or strength.",
+              "hi": "मैं रोज़ रक्तचाप की एक निर्धारित गोली लेता हूँ। उसका नाम या मात्रा याद नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "allergies",
+            "intent": "Allergies or previous allergic reactions",
+            "examples": [
+              "Allergies or previous allergic reactions"
+            ],
+            "answer": {
+              "en": "I have no known allergies.",
+              "hi": "मुझे कोई ज्ञात एलर्जी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "family_history",
+            "intent": "Illnesses in close relatives",
+            "examples": [
+              "Illnesses in close relatives"
+            ],
+            "answer": {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "social_history",
+            "intent": "Smoking, alcohol or home background",
+            "examples": [
+              "Smoking, alcohol or home background"
+            ],
+            "answer": {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "temperature",
+            "intent": "Measured temperature or fever reading",
+            "examples": [
+              "Measured temperature or fever reading"
+            ],
+            "answer": {
+              "en": "I was told my temperature is {vitals.temperature_c} degrees Celsius.",
+              "hi": "मुझे बताया गया कि मेरा तापमान {vitals.temperature_c} डिग्री सेल्सियस है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "heart_rate",
+            "intent": "Measured heart rate or heartbeat",
+            "examples": [
+              "Measured heart rate or heartbeat"
+            ],
+            "answer": {
+              "en": "I was told my heart rate is {vitals.heart_rate_bpm} beats per minute.",
+              "hi": "मुझे बताया गया कि मेरी हृदय गति {vitals.heart_rate_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pulse",
+            "intent": "Measured peripheral pulse rate",
+            "examples": [
+              "Measured peripheral pulse rate"
+            ],
+            "answer": {
+              "en": "I was told my pulse is {vitals.pulse_bpm} per minute.",
+              "hi": "मुझे बताया गया कि मेरी नाड़ी {vitals.pulse_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "blood_pressure",
+            "intent": "Measured systolic and diastolic blood pressure",
+            "examples": [
+              "Measured systolic and diastolic blood pressure"
+            ],
+            "answer": {
+              "en": "I was told my blood pressure is {vitals.systolic_mmhg} over {vitals.diastolic_mmhg} mmHg.",
+              "hi": "मुझे बताया गया कि मेरा रक्तचाप {vitals.systolic_mmhg} पर {vitals.diastolic_mmhg} मिलीमीटर पारा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "breathing_rate",
+            "intent": "Measured respiratory or breathing rate",
+            "examples": [
+              "Measured respiratory or breathing rate"
+            ],
+            "answer": {
+              "en": "I was told I am breathing {vitals.respirations_per_minute} times per minute.",
+              "hi": "मुझे बताया गया कि मेरी साँसों की दर {vitals.respirations_per_minute} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "oxygen",
+            "intent": "Measured oxygen saturation or SpO2",
+            "examples": [
+              "Measured oxygen saturation or SpO2"
+            ],
+            "answer": {
+              "en": "I was told my oxygen saturation is {vitals.spo2_percent} percent.",
+              "hi": "मुझे बताया गया कि मेरा ऑक्सीजन स्तर {vitals.spo2_percent} प्रतिशत है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pain_score",
+            "intent": "Current pain severity on a zero-to-ten scale",
+            "examples": [
+              "Current pain severity on a zero-to-ten scale"
+            ],
+            "answer": {
+              "en": "My pain right now is {vitals.pain_0_10} out of ten.",
+              "hi": "अभी मेरा दर्द दस में से {vitals.pain_0_10} है।"
+            },
+            "disclosure": "on_question"
+          }
+        ]
+      },
+      "instructor": {
+        "objectives": [
+          "Practise a structured, respectful patient interview.",
+          "Ask about onset, associated symptoms, history, medicines and allergies."
+        ],
+        "notes": "Synthetic development practice template. Not clinically approved. No treatment recommendation or diagnostic confirmation is supplied.",
+        "rubric": [
+          {
+            "id": "introduction",
+            "description": "Introduce self and confirm patient identity."
+          },
+          {
+            "id": "history",
+            "description": "Explore the presenting complaint and relevant history."
+          },
+          {
+            "id": "medicines",
+            "description": "Check medicines and allergies without inventing unknown details."
+          }
+        ]
+      },
+      "fact_disclosure": {
+        "patient.age_years": "on_question",
+        "patient.height_cm": "on_question",
+        "patient.weight_kg": "on_question",
+        "patient.name": "volunteered",
+        "vitals.temperature_c": "on_question",
+        "vitals.heart_rate_bpm": "on_question",
+        "vitals.pulse_bpm": "on_question",
+        "vitals.systolic_mmhg": "on_question",
+        "vitals.diastolic_mmhg": "on_question",
+        "vitals.respirations_per_minute": "on_question",
+        "vitals.spo2_percent": "on_question",
+        "vitals.pain_0_10": "on_question"
+      }
+    }
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000504",
+    "code": "alex_flank_pain",
+    "category_id": "00000000-0000-4000-8000-000000000302",
+    "patient_identity_id": "00000000-0000-4000-8000-000000000401",
+    "title_hi": "कमर के एक तरफ़ दर्द",
+    "document": {
+      "version": 2,
+      "code": "alex_flank_pain",
+      "title": "Flank pain interview",
+      "learner_label": "Interview Alex",
+      "specialty": "Nephrology",
+      "patient": {
+        "name": "Alex",
+        "age_years": 35,
+        "sex": "male",
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        },
+        "height_cm": 175.0,
+        "weight_kg": 75.0
+      },
+      "presentation": {
+        "chief_complaint": {
+          "en": "I have pain on the right side of my back.",
+          "hi": "मेरी पीठ के दाहिने हिस्से में दर्द है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "The pain moves towards my groin. I cannot find a comfortable position.",
+              "hi": "दर्द कमर के निचले हिस्से से जाँघ के जोड़ की ओर जाता है। किसी स्थिति में आराम नहीं मिल रहा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I feel nauseated and noticed pink urine once. I have not had a fever or chills.",
+              "hi": "मितली हो रही है और एक बार पेशाब गुलाबी दिखा। बुखार या ठंड लगना नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          }
+        ],
+        "onset": {
+          "en": "It started suddenly about six hours ago and comes in waves.",
+          "hi": "यह लगभग छह घंटे पहले अचानक शुरू हुआ और लहरों की तरह बढ़ता-घटता है।"
+        },
+        "duration": {
+          "en": "It started suddenly about six hours ago and comes in waves.",
+          "hi": "यह लगभग छह घंटे पहले अचानक शुरू हुआ और लहरों की तरह बढ़ता-घटता है।"
+        }
+      },
+      "history": {
+        "past_conditions": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "surgeries": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "medications": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "allergies": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "family": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "social": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            }
+          ],
+          "disclosure": "on_question"
+        }
+      },
+      "vitals": {
+        "temperature_c": 37.0,
+        "heart_rate_bpm": 96.0,
+        "pulse_bpm": 96.0,
+        "systolic_mmhg": 140.0,
+        "diastolic_mmhg": 88.0,
+        "respirations_per_minute": 20.0,
+        "spo2_percent": 98.0,
+        "pain_0_10": 7.0
+      },
+      "dialogue": {
+        "greeting": {
+          "en": "Hello, my name is {patient.name}.",
+          "hi": "नमस्ते, मेरा नाम {patient.name} है।"
+        },
+        "clarification": {
+          "en": "I am not sure about that. Could you ask me about my symptoms or history?",
+          "hi": "मुझे इस बारे में पता नहीं है। क्या आप मेरी तकलीफ़ या पिछली जानकारी के बारे में पूछ सकते हैं?"
+        },
+        "topics": [
+          {
+            "id": "name",
+            "intent": "Patient name or introduction",
+            "examples": [
+              "What is your name?",
+              "आपका नाम क्या है?"
+            ],
+            "answer": {
+              "en": "My name is {patient.name}.",
+              "hi": "मेरा नाम {patient.name} है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "age",
+            "intent": "Patient age",
+            "examples": [
+              "Patient age"
+            ],
+            "answer": {
+              "en": "I am {patient.age_years} years old.",
+              "hi": "मेरी उम्र {patient.age_years} साल है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "occupation",
+            "intent": "Work and occupation",
+            "examples": [
+              "Work and occupation"
+            ],
+            "answer": {
+              "en": "I work as a schoolteacher.",
+              "hi": "मैं स्कूल शिक्षक हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "sex",
+            "intent": "Sex recorded for the patient",
+            "examples": [
+              "Sex recorded for the patient"
+            ],
+            "answer": {
+              "en": "I am male.",
+              "hi": "मैं पुरुष हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "body_size",
+            "intent": "Height and weight",
+            "examples": [
+              "Height and weight"
+            ],
+            "answer": {
+              "en": "I am {patient.height_cm} cm tall and weigh {patient.weight_kg} kg.",
+              "hi": "मेरी लंबाई {patient.height_cm} सेंटीमीटर और वज़न {patient.weight_kg} किलो है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "complaint",
+            "intent": "Main complaint; why the patient came today",
+            "examples": [
+              "What brings you here?",
+              "क्या तकलीफ़ है?"
+            ],
+            "answer": {
+              "en": "I have pain on the right side of my back.",
+              "hi": "मेरी पीठ के दाहिने हिस्से में दर्द है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "duration",
+            "intent": "When symptoms began; duration and frequency",
+            "examples": [
+              "When symptoms began; duration and frequency"
+            ],
+            "answer": {
+              "en": "It started suddenly about six hours ago and comes in waves.",
+              "hi": "यह लगभग छह घंटे पहले अचानक शुरू हुआ और लहरों की तरह बढ़ता-घटता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "symptom_details",
+            "intent": "Symptom location, character, triggers and relief",
+            "examples": [
+              "Symptom location, character, triggers and relief"
+            ],
+            "answer": {
+              "en": "The pain moves towards my groin. I cannot find a comfortable position.",
+              "hi": "दर्द कमर के निचले हिस्से से जाँघ के जोड़ की ओर जाता है। किसी स्थिति में आराम नहीं मिल रहा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated",
+            "intent": "Other associated symptoms and relevant negative symptoms",
+            "examples": [
+              "Other associated symptoms and relevant negative symptoms"
+            ],
+            "answer": {
+              "en": "I feel nauseated and noticed pink urine once. I have not had a fever or chills.",
+              "hi": "मितली हो रही है और एक बार पेशाब गुलाबी दिखा। बुखार या ठंड लगना नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "past_history",
+            "intent": "Previous illnesses and diagnoses",
+            "examples": [
+              "Previous illnesses and diagnoses"
+            ],
+            "answer": {
+              "en": "I have no known previous medical conditions.",
+              "hi": "पहले से कोई ज्ञात बीमारी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "surgeries",
+            "intent": "Previous operations or surgery",
+            "examples": [
+              "Previous operations or surgery"
+            ],
+            "answer": {
+              "en": "I have not had any operations.",
+              "hi": "मेरा कोई ऑपरेशन नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "medications",
+            "intent": "Current medicines, inhalers, tablets and doses",
+            "examples": [
+              "Current medicines, inhalers, tablets and doses"
+            ],
+            "answer": {
+              "en": "I am not taking any medicines.",
+              "hi": "मैं कोई दवा नहीं ले रहा हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "allergies",
+            "intent": "Allergies or previous allergic reactions",
+            "examples": [
+              "Allergies or previous allergic reactions"
+            ],
+            "answer": {
+              "en": "I have no known allergies.",
+              "hi": "मुझे कोई ज्ञात एलर्जी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "family_history",
+            "intent": "Illnesses in close relatives",
+            "examples": [
+              "Illnesses in close relatives"
+            ],
+            "answer": {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "social_history",
+            "intent": "Smoking, alcohol or home background",
+            "examples": [
+              "Smoking, alcohol or home background"
+            ],
+            "answer": {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "temperature",
+            "intent": "Measured temperature or fever reading",
+            "examples": [
+              "Measured temperature or fever reading"
+            ],
+            "answer": {
+              "en": "I was told my temperature is {vitals.temperature_c} degrees Celsius.",
+              "hi": "मुझे बताया गया कि मेरा तापमान {vitals.temperature_c} डिग्री सेल्सियस है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "heart_rate",
+            "intent": "Measured heart rate or heartbeat",
+            "examples": [
+              "Measured heart rate or heartbeat"
+            ],
+            "answer": {
+              "en": "I was told my heart rate is {vitals.heart_rate_bpm} beats per minute.",
+              "hi": "मुझे बताया गया कि मेरी हृदय गति {vitals.heart_rate_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pulse",
+            "intent": "Measured peripheral pulse rate",
+            "examples": [
+              "Measured peripheral pulse rate"
+            ],
+            "answer": {
+              "en": "I was told my pulse is {vitals.pulse_bpm} per minute.",
+              "hi": "मुझे बताया गया कि मेरी नाड़ी {vitals.pulse_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "blood_pressure",
+            "intent": "Measured systolic and diastolic blood pressure",
+            "examples": [
+              "Measured systolic and diastolic blood pressure"
+            ],
+            "answer": {
+              "en": "I was told my blood pressure is {vitals.systolic_mmhg} over {vitals.diastolic_mmhg} mmHg.",
+              "hi": "मुझे बताया गया कि मेरा रक्तचाप {vitals.systolic_mmhg} पर {vitals.diastolic_mmhg} मिलीमीटर पारा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "breathing_rate",
+            "intent": "Measured respiratory or breathing rate",
+            "examples": [
+              "Measured respiratory or breathing rate"
+            ],
+            "answer": {
+              "en": "I was told I am breathing {vitals.respirations_per_minute} times per minute.",
+              "hi": "मुझे बताया गया कि मेरी साँसों की दर {vitals.respirations_per_minute} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "oxygen",
+            "intent": "Measured oxygen saturation or SpO2",
+            "examples": [
+              "Measured oxygen saturation or SpO2"
+            ],
+            "answer": {
+              "en": "I was told my oxygen saturation is {vitals.spo2_percent} percent.",
+              "hi": "मुझे बताया गया कि मेरा ऑक्सीजन स्तर {vitals.spo2_percent} प्रतिशत है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pain_score",
+            "intent": "Current pain severity on a zero-to-ten scale",
+            "examples": [
+              "Current pain severity on a zero-to-ten scale"
+            ],
+            "answer": {
+              "en": "My pain right now is {vitals.pain_0_10} out of ten.",
+              "hi": "अभी मेरा दर्द दस में से {vitals.pain_0_10} है।"
+            },
+            "disclosure": "on_question"
+          }
+        ]
+      },
+      "instructor": {
+        "objectives": [
+          "Practise a structured, respectful patient interview.",
+          "Ask about onset, associated symptoms, history, medicines and allergies."
+        ],
+        "notes": "Synthetic development practice template. Not clinically approved. No treatment recommendation or diagnostic confirmation is supplied.",
+        "rubric": [
+          {
+            "id": "introduction",
+            "description": "Introduce self and confirm patient identity."
+          },
+          {
+            "id": "history",
+            "description": "Explore the presenting complaint and relevant history."
+          },
+          {
+            "id": "medicines",
+            "description": "Check medicines and allergies without inventing unknown details."
+          }
+        ]
+      },
+      "fact_disclosure": {
+        "patient.age_years": "on_question",
+        "patient.height_cm": "on_question",
+        "patient.weight_kg": "on_question",
+        "patient.name": "volunteered",
+        "vitals.temperature_c": "on_question",
+        "vitals.heart_rate_bpm": "on_question",
+        "vitals.pulse_bpm": "on_question",
+        "vitals.systolic_mmhg": "on_question",
+        "vitals.diastolic_mmhg": "on_question",
+        "vitals.respirations_per_minute": "on_question",
+        "vitals.spo2_percent": "on_question",
+        "vitals.pain_0_10": "on_question"
+      }
+    }
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000505",
+    "code": "alex_painful_urination",
+    "category_id": "00000000-0000-4000-8000-000000000302",
+    "patient_identity_id": "00000000-0000-4000-8000-000000000401",
+    "title_hi": "पेशाब में जलन",
+    "document": {
+      "version": 2,
+      "code": "alex_painful_urination",
+      "title": "Painful urination interview",
+      "learner_label": "Interview Alex",
+      "specialty": "Nephrology",
+      "patient": {
+        "name": "Alex",
+        "age_years": 35,
+        "sex": "male",
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        },
+        "height_cm": 175.0,
+        "weight_kg": 75.0
+      },
+      "presentation": {
+        "chief_complaint": {
+          "en": "It burns when I pass urine.",
+          "hi": "पेशाब करते समय जलन होती है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "I need to go more often, but only a small amount comes out each time.",
+              "hi": "बार-बार पेशाब लगता है, लेकिन हर बार थोड़ी मात्रा ही आती है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "There is mild lower abdominal discomfort. I have no fever, back pain or visible blood in the urine.",
+              "hi": "पेट के निचले हिस्से में हल्की तकलीफ़ है। बुखार, पीठ दर्द या पेशाब में दिखने वाला खून नहीं है।"
+            },
+            "disclosure": "on_question"
+          }
+        ],
+        "onset": {
+          "en": "This began two days ago and happens each time I pass urine.",
+          "hi": "यह दो दिन पहले शुरू हुआ और हर बार पेशाब करते समय होता है।"
+        },
+        "duration": {
+          "en": "This began two days ago and happens each time I pass urine.",
+          "hi": "यह दो दिन पहले शुरू हुआ और हर बार पेशाब करते समय होता है।"
+        }
+      },
+      "history": {
+        "past_conditions": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "surgeries": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "medications": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "allergies": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "family": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "social": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            }
+          ],
+          "disclosure": "on_question"
+        }
+      },
+      "vitals": {
+        "temperature_c": 37.0,
+        "heart_rate_bpm": 86.0,
+        "pulse_bpm": 86.0,
+        "systolic_mmhg": 118.0,
+        "diastolic_mmhg": 76.0,
+        "respirations_per_minute": 16.0,
+        "spo2_percent": 98.0,
+        "pain_0_10": 4.0
+      },
+      "dialogue": {
+        "greeting": {
+          "en": "Hello, my name is {patient.name}.",
+          "hi": "नमस्ते, मेरा नाम {patient.name} है।"
+        },
+        "clarification": {
+          "en": "I am not sure about that. Could you ask me about my symptoms or history?",
+          "hi": "मुझे इस बारे में पता नहीं है। क्या आप मेरी तकलीफ़ या पिछली जानकारी के बारे में पूछ सकते हैं?"
+        },
+        "topics": [
+          {
+            "id": "name",
+            "intent": "Patient name or introduction",
+            "examples": [
+              "What is your name?",
+              "आपका नाम क्या है?"
+            ],
+            "answer": {
+              "en": "My name is {patient.name}.",
+              "hi": "मेरा नाम {patient.name} है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "age",
+            "intent": "Patient age",
+            "examples": [
+              "Patient age"
+            ],
+            "answer": {
+              "en": "I am {patient.age_years} years old.",
+              "hi": "मेरी उम्र {patient.age_years} साल है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "occupation",
+            "intent": "Work and occupation",
+            "examples": [
+              "Work and occupation"
+            ],
+            "answer": {
+              "en": "I work as a schoolteacher.",
+              "hi": "मैं स्कूल शिक्षक हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "sex",
+            "intent": "Sex recorded for the patient",
+            "examples": [
+              "Sex recorded for the patient"
+            ],
+            "answer": {
+              "en": "I am male.",
+              "hi": "मैं पुरुष हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "body_size",
+            "intent": "Height and weight",
+            "examples": [
+              "Height and weight"
+            ],
+            "answer": {
+              "en": "I am {patient.height_cm} cm tall and weigh {patient.weight_kg} kg.",
+              "hi": "मेरी लंबाई {patient.height_cm} सेंटीमीटर और वज़न {patient.weight_kg} किलो है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "complaint",
+            "intent": "Main complaint; why the patient came today",
+            "examples": [
+              "What brings you here?",
+              "क्या तकलीफ़ है?"
+            ],
+            "answer": {
+              "en": "It burns when I pass urine.",
+              "hi": "पेशाब करते समय जलन होती है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "duration",
+            "intent": "When symptoms began; duration and frequency",
+            "examples": [
+              "When symptoms began; duration and frequency"
+            ],
+            "answer": {
+              "en": "This began two days ago and happens each time I pass urine.",
+              "hi": "यह दो दिन पहले शुरू हुआ और हर बार पेशाब करते समय होता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "symptom_details",
+            "intent": "Symptom location, character, triggers and relief",
+            "examples": [
+              "Symptom location, character, triggers and relief"
+            ],
+            "answer": {
+              "en": "I need to go more often, but only a small amount comes out each time.",
+              "hi": "बार-बार पेशाब लगता है, लेकिन हर बार थोड़ी मात्रा ही आती है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated",
+            "intent": "Other associated symptoms and relevant negative symptoms",
+            "examples": [
+              "Other associated symptoms and relevant negative symptoms"
+            ],
+            "answer": {
+              "en": "There is mild lower abdominal discomfort. I have no fever, back pain or visible blood in the urine.",
+              "hi": "पेट के निचले हिस्से में हल्की तकलीफ़ है। बुखार, पीठ दर्द या पेशाब में दिखने वाला खून नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "past_history",
+            "intent": "Previous illnesses and diagnoses",
+            "examples": [
+              "Previous illnesses and diagnoses"
+            ],
+            "answer": {
+              "en": "I have no known previous medical conditions.",
+              "hi": "पहले से कोई ज्ञात बीमारी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "surgeries",
+            "intent": "Previous operations or surgery",
+            "examples": [
+              "Previous operations or surgery"
+            ],
+            "answer": {
+              "en": "I have not had any operations.",
+              "hi": "मेरा कोई ऑपरेशन नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "medications",
+            "intent": "Current medicines, inhalers, tablets and doses",
+            "examples": [
+              "Current medicines, inhalers, tablets and doses"
+            ],
+            "answer": {
+              "en": "I am not taking any medicines.",
+              "hi": "मैं कोई दवा नहीं ले रहा हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "allergies",
+            "intent": "Allergies or previous allergic reactions",
+            "examples": [
+              "Allergies or previous allergic reactions"
+            ],
+            "answer": {
+              "en": "I have no known allergies.",
+              "hi": "मुझे कोई ज्ञात एलर्जी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "family_history",
+            "intent": "Illnesses in close relatives",
+            "examples": [
+              "Illnesses in close relatives"
+            ],
+            "answer": {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "social_history",
+            "intent": "Smoking, alcohol or home background",
+            "examples": [
+              "Smoking, alcohol or home background"
+            ],
+            "answer": {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "temperature",
+            "intent": "Measured temperature or fever reading",
+            "examples": [
+              "Measured temperature or fever reading"
+            ],
+            "answer": {
+              "en": "I was told my temperature is {vitals.temperature_c} degrees Celsius.",
+              "hi": "मुझे बताया गया कि मेरा तापमान {vitals.temperature_c} डिग्री सेल्सियस है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "heart_rate",
+            "intent": "Measured heart rate or heartbeat",
+            "examples": [
+              "Measured heart rate or heartbeat"
+            ],
+            "answer": {
+              "en": "I was told my heart rate is {vitals.heart_rate_bpm} beats per minute.",
+              "hi": "मुझे बताया गया कि मेरी हृदय गति {vitals.heart_rate_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pulse",
+            "intent": "Measured peripheral pulse rate",
+            "examples": [
+              "Measured peripheral pulse rate"
+            ],
+            "answer": {
+              "en": "I was told my pulse is {vitals.pulse_bpm} per minute.",
+              "hi": "मुझे बताया गया कि मेरी नाड़ी {vitals.pulse_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "blood_pressure",
+            "intent": "Measured systolic and diastolic blood pressure",
+            "examples": [
+              "Measured systolic and diastolic blood pressure"
+            ],
+            "answer": {
+              "en": "I was told my blood pressure is {vitals.systolic_mmhg} over {vitals.diastolic_mmhg} mmHg.",
+              "hi": "मुझे बताया गया कि मेरा रक्तचाप {vitals.systolic_mmhg} पर {vitals.diastolic_mmhg} मिलीमीटर पारा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "breathing_rate",
+            "intent": "Measured respiratory or breathing rate",
+            "examples": [
+              "Measured respiratory or breathing rate"
+            ],
+            "answer": {
+              "en": "I was told I am breathing {vitals.respirations_per_minute} times per minute.",
+              "hi": "मुझे बताया गया कि मेरी साँसों की दर {vitals.respirations_per_minute} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "oxygen",
+            "intent": "Measured oxygen saturation or SpO2",
+            "examples": [
+              "Measured oxygen saturation or SpO2"
+            ],
+            "answer": {
+              "en": "I was told my oxygen saturation is {vitals.spo2_percent} percent.",
+              "hi": "मुझे बताया गया कि मेरा ऑक्सीजन स्तर {vitals.spo2_percent} प्रतिशत है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pain_score",
+            "intent": "Current pain severity on a zero-to-ten scale",
+            "examples": [
+              "Current pain severity on a zero-to-ten scale"
+            ],
+            "answer": {
+              "en": "My pain right now is {vitals.pain_0_10} out of ten.",
+              "hi": "अभी मेरा दर्द दस में से {vitals.pain_0_10} है।"
+            },
+            "disclosure": "on_question"
+          }
+        ]
+      },
+      "instructor": {
+        "objectives": [
+          "Practise a structured, respectful patient interview.",
+          "Ask about onset, associated symptoms, history, medicines and allergies."
+        ],
+        "notes": "Synthetic development practice template. Not clinically approved. No treatment recommendation or diagnostic confirmation is supplied.",
+        "rubric": [
+          {
+            "id": "introduction",
+            "description": "Introduce self and confirm patient identity."
+          },
+          {
+            "id": "history",
+            "description": "Explore the presenting complaint and relevant history."
+          },
+          {
+            "id": "medicines",
+            "description": "Check medicines and allergies without inventing unknown details."
+          }
+        ]
+      },
+      "fact_disclosure": {
+        "patient.age_years": "on_question",
+        "patient.height_cm": "on_question",
+        "patient.weight_kg": "on_question",
+        "patient.name": "volunteered",
+        "vitals.temperature_c": "on_question",
+        "vitals.heart_rate_bpm": "on_question",
+        "vitals.pulse_bpm": "on_question",
+        "vitals.systolic_mmhg": "on_question",
+        "vitals.diastolic_mmhg": "on_question",
+        "vitals.respirations_per_minute": "on_question",
+        "vitals.spo2_percent": "on_question",
+        "vitals.pain_0_10": "on_question"
+      }
+    }
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000506",
+    "code": "alex_kidney_followup",
+    "category_id": "00000000-0000-4000-8000-000000000302",
+    "patient_identity_id": "00000000-0000-4000-8000-000000000401",
+    "title_hi": "गुर्दे की स्थिति की समीक्षा",
+    "document": {
+      "version": 2,
+      "code": "alex_kidney_followup",
+      "title": "Kidney-condition follow-up",
+      "learner_label": "Interview Alex",
+      "specialty": "Nephrology",
+      "patient": {
+        "name": "Alex",
+        "age_years": 35,
+        "sex": "male",
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        },
+        "height_cm": 175.0,
+        "weight_kg": 75.0
+      },
+      "presentation": {
+        "chief_complaint": {
+          "en": "I feel more tired, and my ankles have been swelling.",
+          "hi": "मैं अधिक थकान महसूस कर रहा हूँ और टखनों में सूजन है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "Both ankles swell towards evening. I was told my kidney function was reduced six months ago.",
+              "hi": "शाम तक दोनों टखने सूज जाते हैं। छह महीने पहले बताया गया था कि गुर्दों का काम कम हो रहा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "My urine sometimes looks foamy. I have no pain when passing urine and no visible blood.",
+              "hi": "कभी-कभी पेशाब में झाग दिखता है। पेशाब करते समय दर्द या दिखने वाला खून नहीं है।"
+            },
+            "disclosure": "on_question"
+          }
+        ],
+        "onset": {
+          "en": "The tiredness and swelling have increased over the past two weeks.",
+          "hi": "पिछले दो हफ़्तों में थकान और सूजन बढ़ी है।"
+        },
+        "duration": {
+          "en": "The tiredness and swelling have increased over the past two weeks.",
+          "hi": "पिछले दो हफ़्तों में थकान और सूजन बढ़ी है।"
+        }
+      },
+      "history": {
+        "past_conditions": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I was told about reduced kidney function six months ago and high blood pressure two years ago. I have not had dialysis.",
+              "hi": "छह महीने पहले गुर्दों का काम कम होने और दो साल पहले बढ़े रक्तचाप के बारे में बताया गया था। डायलिसिस नहीं हुआ है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "surgeries": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "medications": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I take a prescribed blood-pressure tablet daily, but I do not remember the name or strength.",
+              "hi": "मैं रोज़ रक्तचाप की निर्धारित गोली लेता हूँ, लेकिन उसका नाम या मात्रा याद नहीं है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "allergies": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "family": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "social": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            }
+          ],
+          "disclosure": "on_question"
+        }
+      },
+      "vitals": {
+        "temperature_c": 36.8,
+        "heart_rate_bpm": 84.0,
+        "pulse_bpm": 84.0,
+        "systolic_mmhg": 146.0,
+        "diastolic_mmhg": 92.0,
+        "respirations_per_minute": 18.0,
+        "spo2_percent": 98.0,
+        "pain_0_10": 0.0
+      },
+      "dialogue": {
+        "greeting": {
+          "en": "Hello, my name is {patient.name}.",
+          "hi": "नमस्ते, मेरा नाम {patient.name} है।"
+        },
+        "clarification": {
+          "en": "I am not sure about that. Could you ask me about my symptoms or history?",
+          "hi": "मुझे इस बारे में पता नहीं है। क्या आप मेरी तकलीफ़ या पिछली जानकारी के बारे में पूछ सकते हैं?"
+        },
+        "topics": [
+          {
+            "id": "name",
+            "intent": "Patient name or introduction",
+            "examples": [
+              "What is your name?",
+              "आपका नाम क्या है?"
+            ],
+            "answer": {
+              "en": "My name is {patient.name}.",
+              "hi": "मेरा नाम {patient.name} है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "age",
+            "intent": "Patient age",
+            "examples": [
+              "Patient age"
+            ],
+            "answer": {
+              "en": "I am {patient.age_years} years old.",
+              "hi": "मेरी उम्र {patient.age_years} साल है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "occupation",
+            "intent": "Work and occupation",
+            "examples": [
+              "Work and occupation"
+            ],
+            "answer": {
+              "en": "I work as a schoolteacher.",
+              "hi": "मैं स्कूल शिक्षक हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "sex",
+            "intent": "Sex recorded for the patient",
+            "examples": [
+              "Sex recorded for the patient"
+            ],
+            "answer": {
+              "en": "I am male.",
+              "hi": "मैं पुरुष हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "body_size",
+            "intent": "Height and weight",
+            "examples": [
+              "Height and weight"
+            ],
+            "answer": {
+              "en": "I am {patient.height_cm} cm tall and weigh {patient.weight_kg} kg.",
+              "hi": "मेरी लंबाई {patient.height_cm} सेंटीमीटर और वज़न {patient.weight_kg} किलो है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "complaint",
+            "intent": "Main complaint; why the patient came today",
+            "examples": [
+              "What brings you here?",
+              "क्या तकलीफ़ है?"
+            ],
+            "answer": {
+              "en": "I feel more tired, and my ankles have been swelling.",
+              "hi": "मैं अधिक थकान महसूस कर रहा हूँ और टखनों में सूजन है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "duration",
+            "intent": "When symptoms began; duration and frequency",
+            "examples": [
+              "When symptoms began; duration and frequency"
+            ],
+            "answer": {
+              "en": "The tiredness and swelling have increased over the past two weeks.",
+              "hi": "पिछले दो हफ़्तों में थकान और सूजन बढ़ी है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "symptom_details",
+            "intent": "Symptom location, character, triggers and relief",
+            "examples": [
+              "Symptom location, character, triggers and relief"
+            ],
+            "answer": {
+              "en": "Both ankles swell towards evening. I was told my kidney function was reduced six months ago.",
+              "hi": "शाम तक दोनों टखने सूज जाते हैं। छह महीने पहले बताया गया था कि गुर्दों का काम कम हो रहा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated",
+            "intent": "Other associated symptoms and relevant negative symptoms",
+            "examples": [
+              "Other associated symptoms and relevant negative symptoms"
+            ],
+            "answer": {
+              "en": "My urine sometimes looks foamy. I have no pain when passing urine and no visible blood.",
+              "hi": "कभी-कभी पेशाब में झाग दिखता है। पेशाब करते समय दर्द या दिखने वाला खून नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "past_history",
+            "intent": "Previous illnesses and diagnoses",
+            "examples": [
+              "Previous illnesses and diagnoses"
+            ],
+            "answer": {
+              "en": "I was told about reduced kidney function six months ago and high blood pressure two years ago. I have not had dialysis.",
+              "hi": "छह महीने पहले गुर्दों का काम कम होने और दो साल पहले बढ़े रक्तचाप के बारे में बताया गया था। डायलिसिस नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "surgeries",
+            "intent": "Previous operations or surgery",
+            "examples": [
+              "Previous operations or surgery"
+            ],
+            "answer": {
+              "en": "I have not had any operations.",
+              "hi": "मेरा कोई ऑपरेशन नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "medications",
+            "intent": "Current medicines, inhalers, tablets and doses",
+            "examples": [
+              "Current medicines, inhalers, tablets and doses"
+            ],
+            "answer": {
+              "en": "I take a prescribed blood-pressure tablet daily, but I do not remember the name or strength.",
+              "hi": "मैं रोज़ रक्तचाप की निर्धारित गोली लेता हूँ, लेकिन उसका नाम या मात्रा याद नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "allergies",
+            "intent": "Allergies or previous allergic reactions",
+            "examples": [
+              "Allergies or previous allergic reactions"
+            ],
+            "answer": {
+              "en": "I have no known allergies.",
+              "hi": "मुझे कोई ज्ञात एलर्जी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "family_history",
+            "intent": "Illnesses in close relatives",
+            "examples": [
+              "Illnesses in close relatives"
+            ],
+            "answer": {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "social_history",
+            "intent": "Smoking, alcohol or home background",
+            "examples": [
+              "Smoking, alcohol or home background"
+            ],
+            "answer": {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "temperature",
+            "intent": "Measured temperature or fever reading",
+            "examples": [
+              "Measured temperature or fever reading"
+            ],
+            "answer": {
+              "en": "I was told my temperature is {vitals.temperature_c} degrees Celsius.",
+              "hi": "मुझे बताया गया कि मेरा तापमान {vitals.temperature_c} डिग्री सेल्सियस है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "heart_rate",
+            "intent": "Measured heart rate or heartbeat",
+            "examples": [
+              "Measured heart rate or heartbeat"
+            ],
+            "answer": {
+              "en": "I was told my heart rate is {vitals.heart_rate_bpm} beats per minute.",
+              "hi": "मुझे बताया गया कि मेरी हृदय गति {vitals.heart_rate_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pulse",
+            "intent": "Measured peripheral pulse rate",
+            "examples": [
+              "Measured peripheral pulse rate"
+            ],
+            "answer": {
+              "en": "I was told my pulse is {vitals.pulse_bpm} per minute.",
+              "hi": "मुझे बताया गया कि मेरी नाड़ी {vitals.pulse_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "blood_pressure",
+            "intent": "Measured systolic and diastolic blood pressure",
+            "examples": [
+              "Measured systolic and diastolic blood pressure"
+            ],
+            "answer": {
+              "en": "I was told my blood pressure is {vitals.systolic_mmhg} over {vitals.diastolic_mmhg} mmHg.",
+              "hi": "मुझे बताया गया कि मेरा रक्तचाप {vitals.systolic_mmhg} पर {vitals.diastolic_mmhg} मिलीमीटर पारा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "breathing_rate",
+            "intent": "Measured respiratory or breathing rate",
+            "examples": [
+              "Measured respiratory or breathing rate"
+            ],
+            "answer": {
+              "en": "I was told I am breathing {vitals.respirations_per_minute} times per minute.",
+              "hi": "मुझे बताया गया कि मेरी साँसों की दर {vitals.respirations_per_minute} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "oxygen",
+            "intent": "Measured oxygen saturation or SpO2",
+            "examples": [
+              "Measured oxygen saturation or SpO2"
+            ],
+            "answer": {
+              "en": "I was told my oxygen saturation is {vitals.spo2_percent} percent.",
+              "hi": "मुझे बताया गया कि मेरा ऑक्सीजन स्तर {vitals.spo2_percent} प्रतिशत है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pain_score",
+            "intent": "Current pain severity on a zero-to-ten scale",
+            "examples": [
+              "Current pain severity on a zero-to-ten scale"
+            ],
+            "answer": {
+              "en": "My pain right now is {vitals.pain_0_10} out of ten.",
+              "hi": "अभी मेरा दर्द दस में से {vitals.pain_0_10} है।"
+            },
+            "disclosure": "on_question"
+          }
+        ]
+      },
+      "instructor": {
+        "objectives": [
+          "Practise a structured, respectful patient interview.",
+          "Ask about onset, associated symptoms, history, medicines and allergies."
+        ],
+        "notes": "Synthetic development practice template. Not clinically approved. No treatment recommendation or diagnostic confirmation is supplied.",
+        "rubric": [
+          {
+            "id": "introduction",
+            "description": "Introduce self and confirm patient identity."
+          },
+          {
+            "id": "history",
+            "description": "Explore the presenting complaint and relevant history."
+          },
+          {
+            "id": "medicines",
+            "description": "Check medicines and allergies without inventing unknown details."
+          }
+        ]
+      },
+      "fact_disclosure": {
+        "patient.age_years": "on_question",
+        "patient.height_cm": "on_question",
+        "patient.weight_kg": "on_question",
+        "patient.name": "volunteered",
+        "vitals.temperature_c": "on_question",
+        "vitals.heart_rate_bpm": "on_question",
+        "vitals.pulse_bpm": "on_question",
+        "vitals.systolic_mmhg": "on_question",
+        "vitals.diastolic_mmhg": "on_question",
+        "vitals.respirations_per_minute": "on_question",
+        "vitals.spo2_percent": "on_question",
+        "vitals.pain_0_10": "on_question"
+      }
+    }
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000507",
+    "code": "alex_wheeze",
+    "category_id": "00000000-0000-4000-8000-000000000303",
+    "patient_identity_id": "00000000-0000-4000-8000-000000000401",
+    "title_hi": "साँस में सीटी की आवाज़",
+    "document": {
+      "version": 2,
+      "code": "alex_wheeze",
+      "title": "Wheeze interview",
+      "learner_label": "Interview Alex",
+      "specialty": "Respiratory Medicine",
+      "patient": {
+        "name": "Alex",
+        "age_years": 35,
+        "sex": "male",
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        },
+        "height_cm": 175.0,
+        "weight_kg": 75.0
+      },
+      "presentation": {
+        "chief_complaint": {
+          "en": "I have wheezing and my breathing feels tight.",
+          "hi": "साँस में सीटी जैसी आवाज़ है और साँस लेने में जकड़न लगती है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "Dust seems to trigger it. My reliever inhaler helps for a while.",
+              "hi": "धूल से यह बढ़ता लगता है। राहत वाला इनहेलर कुछ समय के लिए मदद करता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I have a dry cough. I have not had a fever or coughed up blood.",
+              "hi": "सूखी खाँसी है। बुखार या खाँसी में खून नहीं आया है।"
+            },
+            "disclosure": "on_question"
+          }
+        ],
+        "onset": {
+          "en": "This episode started two days ago and is worse at night.",
+          "hi": "यह दो दिन पहले शुरू हुआ और रात में अधिक होता है।"
+        },
+        "duration": {
+          "en": "This episode started two days ago and is worse at night.",
+          "hi": "यह दो दिन पहले शुरू हुआ और रात में अधिक होता है।"
+        }
+      },
+      "history": {
+        "past_conditions": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I have had asthma since my teenage years. I have never needed a breathing machine.",
+              "hi": "किशोरावस्था से दमा है। कभी साँस की मशीन की ज़रूरत नहीं पड़ी।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "surgeries": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "medications": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I use a blue reliever inhaler when needed. I cannot recall its name or the dose.",
+              "hi": "ज़रूरत पर नीला राहत वाला इनहेलर इस्तेमाल करता हूँ। उसका नाम या खुराक याद नहीं है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "allergies": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "family": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "social": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            }
+          ],
+          "disclosure": "on_question"
+        }
+      },
+      "vitals": {
+        "temperature_c": 37.0,
+        "heart_rate_bpm": 102.0,
+        "pulse_bpm": 102.0,
+        "systolic_mmhg": 124.0,
+        "diastolic_mmhg": 80.0,
+        "respirations_per_minute": 22.0,
+        "spo2_percent": 96.0,
+        "pain_0_10": 2.0
+      },
+      "dialogue": {
+        "greeting": {
+          "en": "Hello, my name is {patient.name}.",
+          "hi": "नमस्ते, मेरा नाम {patient.name} है।"
+        },
+        "clarification": {
+          "en": "I am not sure about that. Could you ask me about my symptoms or history?",
+          "hi": "मुझे इस बारे में पता नहीं है। क्या आप मेरी तकलीफ़ या पिछली जानकारी के बारे में पूछ सकते हैं?"
+        },
+        "topics": [
+          {
+            "id": "name",
+            "intent": "Patient name or introduction",
+            "examples": [
+              "What is your name?",
+              "आपका नाम क्या है?"
+            ],
+            "answer": {
+              "en": "My name is {patient.name}.",
+              "hi": "मेरा नाम {patient.name} है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "age",
+            "intent": "Patient age",
+            "examples": [
+              "Patient age"
+            ],
+            "answer": {
+              "en": "I am {patient.age_years} years old.",
+              "hi": "मेरी उम्र {patient.age_years} साल है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "occupation",
+            "intent": "Work and occupation",
+            "examples": [
+              "Work and occupation"
+            ],
+            "answer": {
+              "en": "I work as a schoolteacher.",
+              "hi": "मैं स्कूल शिक्षक हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "sex",
+            "intent": "Sex recorded for the patient",
+            "examples": [
+              "Sex recorded for the patient"
+            ],
+            "answer": {
+              "en": "I am male.",
+              "hi": "मैं पुरुष हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "body_size",
+            "intent": "Height and weight",
+            "examples": [
+              "Height and weight"
+            ],
+            "answer": {
+              "en": "I am {patient.height_cm} cm tall and weigh {patient.weight_kg} kg.",
+              "hi": "मेरी लंबाई {patient.height_cm} सेंटीमीटर और वज़न {patient.weight_kg} किलो है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "complaint",
+            "intent": "Main complaint; why the patient came today",
+            "examples": [
+              "What brings you here?",
+              "क्या तकलीफ़ है?"
+            ],
+            "answer": {
+              "en": "I have wheezing and my breathing feels tight.",
+              "hi": "साँस में सीटी जैसी आवाज़ है और साँस लेने में जकड़न लगती है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "duration",
+            "intent": "When symptoms began; duration and frequency",
+            "examples": [
+              "When symptoms began; duration and frequency"
+            ],
+            "answer": {
+              "en": "This episode started two days ago and is worse at night.",
+              "hi": "यह दो दिन पहले शुरू हुआ और रात में अधिक होता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "symptom_details",
+            "intent": "Symptom location, character, triggers and relief",
+            "examples": [
+              "Symptom location, character, triggers and relief"
+            ],
+            "answer": {
+              "en": "Dust seems to trigger it. My reliever inhaler helps for a while.",
+              "hi": "धूल से यह बढ़ता लगता है। राहत वाला इनहेलर कुछ समय के लिए मदद करता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated",
+            "intent": "Other associated symptoms and relevant negative symptoms",
+            "examples": [
+              "Other associated symptoms and relevant negative symptoms"
+            ],
+            "answer": {
+              "en": "I have a dry cough. I have not had a fever or coughed up blood.",
+              "hi": "सूखी खाँसी है। बुखार या खाँसी में खून नहीं आया है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "past_history",
+            "intent": "Previous illnesses and diagnoses",
+            "examples": [
+              "Previous illnesses and diagnoses"
+            ],
+            "answer": {
+              "en": "I have had asthma since my teenage years. I have never needed a breathing machine.",
+              "hi": "किशोरावस्था से दमा है। कभी साँस की मशीन की ज़रूरत नहीं पड़ी।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "surgeries",
+            "intent": "Previous operations or surgery",
+            "examples": [
+              "Previous operations or surgery"
+            ],
+            "answer": {
+              "en": "I have not had any operations.",
+              "hi": "मेरा कोई ऑपरेशन नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "medications",
+            "intent": "Current medicines, inhalers, tablets and doses",
+            "examples": [
+              "Current medicines, inhalers, tablets and doses"
+            ],
+            "answer": {
+              "en": "I use a blue reliever inhaler when needed. I cannot recall its name or the dose.",
+              "hi": "ज़रूरत पर नीला राहत वाला इनहेलर इस्तेमाल करता हूँ। उसका नाम या खुराक याद नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "allergies",
+            "intent": "Allergies or previous allergic reactions",
+            "examples": [
+              "Allergies or previous allergic reactions"
+            ],
+            "answer": {
+              "en": "I have no known allergies.",
+              "hi": "मुझे कोई ज्ञात एलर्जी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "family_history",
+            "intent": "Illnesses in close relatives",
+            "examples": [
+              "Illnesses in close relatives"
+            ],
+            "answer": {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "social_history",
+            "intent": "Smoking, alcohol or home background",
+            "examples": [
+              "Smoking, alcohol or home background"
+            ],
+            "answer": {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "temperature",
+            "intent": "Measured temperature or fever reading",
+            "examples": [
+              "Measured temperature or fever reading"
+            ],
+            "answer": {
+              "en": "I was told my temperature is {vitals.temperature_c} degrees Celsius.",
+              "hi": "मुझे बताया गया कि मेरा तापमान {vitals.temperature_c} डिग्री सेल्सियस है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "heart_rate",
+            "intent": "Measured heart rate or heartbeat",
+            "examples": [
+              "Measured heart rate or heartbeat"
+            ],
+            "answer": {
+              "en": "I was told my heart rate is {vitals.heart_rate_bpm} beats per minute.",
+              "hi": "मुझे बताया गया कि मेरी हृदय गति {vitals.heart_rate_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pulse",
+            "intent": "Measured peripheral pulse rate",
+            "examples": [
+              "Measured peripheral pulse rate"
+            ],
+            "answer": {
+              "en": "I was told my pulse is {vitals.pulse_bpm} per minute.",
+              "hi": "मुझे बताया गया कि मेरी नाड़ी {vitals.pulse_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "blood_pressure",
+            "intent": "Measured systolic and diastolic blood pressure",
+            "examples": [
+              "Measured systolic and diastolic blood pressure"
+            ],
+            "answer": {
+              "en": "I was told my blood pressure is {vitals.systolic_mmhg} over {vitals.diastolic_mmhg} mmHg.",
+              "hi": "मुझे बताया गया कि मेरा रक्तचाप {vitals.systolic_mmhg} पर {vitals.diastolic_mmhg} मिलीमीटर पारा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "breathing_rate",
+            "intent": "Measured respiratory or breathing rate",
+            "examples": [
+              "Measured respiratory or breathing rate"
+            ],
+            "answer": {
+              "en": "I was told I am breathing {vitals.respirations_per_minute} times per minute.",
+              "hi": "मुझे बताया गया कि मेरी साँसों की दर {vitals.respirations_per_minute} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "oxygen",
+            "intent": "Measured oxygen saturation or SpO2",
+            "examples": [
+              "Measured oxygen saturation or SpO2"
+            ],
+            "answer": {
+              "en": "I was told my oxygen saturation is {vitals.spo2_percent} percent.",
+              "hi": "मुझे बताया गया कि मेरा ऑक्सीजन स्तर {vitals.spo2_percent} प्रतिशत है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pain_score",
+            "intent": "Current pain severity on a zero-to-ten scale",
+            "examples": [
+              "Current pain severity on a zero-to-ten scale"
+            ],
+            "answer": {
+              "en": "My pain right now is {vitals.pain_0_10} out of ten.",
+              "hi": "अभी मेरा दर्द दस में से {vitals.pain_0_10} है।"
+            },
+            "disclosure": "on_question"
+          }
+        ]
+      },
+      "instructor": {
+        "objectives": [
+          "Practise a structured, respectful patient interview.",
+          "Ask about onset, associated symptoms, history, medicines and allergies."
+        ],
+        "notes": "Synthetic development practice template. Not clinically approved. No treatment recommendation or diagnostic confirmation is supplied.",
+        "rubric": [
+          {
+            "id": "introduction",
+            "description": "Introduce self and confirm patient identity."
+          },
+          {
+            "id": "history",
+            "description": "Explore the presenting complaint and relevant history."
+          },
+          {
+            "id": "medicines",
+            "description": "Check medicines and allergies without inventing unknown details."
+          }
+        ]
+      },
+      "fact_disclosure": {
+        "patient.age_years": "on_question",
+        "patient.height_cm": "on_question",
+        "patient.weight_kg": "on_question",
+        "patient.name": "volunteered",
+        "vitals.temperature_c": "on_question",
+        "vitals.heart_rate_bpm": "on_question",
+        "vitals.pulse_bpm": "on_question",
+        "vitals.systolic_mmhg": "on_question",
+        "vitals.diastolic_mmhg": "on_question",
+        "vitals.respirations_per_minute": "on_question",
+        "vitals.spo2_percent": "on_question",
+        "vitals.pain_0_10": "on_question"
+      }
+    }
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000508",
+    "code": "alex_dry_cough",
+    "category_id": "00000000-0000-4000-8000-000000000303",
+    "patient_identity_id": "00000000-0000-4000-8000-000000000401",
+    "title_hi": "लगातार सूखी खाँसी",
+    "document": {
+      "version": 2,
+      "code": "alex_dry_cough",
+      "title": "Persistent dry cough interview",
+      "learner_label": "Interview Alex",
+      "specialty": "Respiratory Medicine",
+      "patient": {
+        "name": "Alex",
+        "age_years": 35,
+        "sex": "male",
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        },
+        "height_cm": 175.0,
+        "weight_kg": 75.0
+      },
+      "presentation": {
+        "chief_complaint": {
+          "en": "I have a dry cough that is not going away.",
+          "hi": "सूखी खाँसी है जो ठीक नहीं हो रही है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "My throat feels tickly. The cough is worse when I talk for a long time.",
+              "hi": "गले में गुदगुदी जैसी लगती है। देर तक बात करने पर खाँसी बढ़ती है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I do not bring up phlegm or blood. I have no fever or breathlessness.",
+              "hi": "बलगम या खून नहीं आता। बुखार या साँस फूलना नहीं है।"
+            },
+            "disclosure": "on_question"
+          }
+        ],
+        "onset": {
+          "en": "The cough has lasted three weeks. It began after a cold.",
+          "hi": "खाँसी तीन हफ़्तों से है। यह ज़ुकाम के बाद शुरू हुई।"
+        },
+        "duration": {
+          "en": "The cough has lasted three weeks. It began after a cold.",
+          "hi": "खाँसी तीन हफ़्तों से है। यह ज़ुकाम के बाद शुरू हुई।"
+        }
+      },
+      "history": {
+        "past_conditions": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "surgeries": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "medications": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I tried an over-the-counter cough syrup for two nights without much benefit. I do not remember the name.",
+              "hi": "दो रात बिना पर्चे वाला खाँसी का सिरप लिया, खास लाभ नहीं हुआ। उसका नाम याद नहीं है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "allergies": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "family": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "social": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            }
+          ],
+          "disclosure": "on_question"
+        }
+      },
+      "vitals": {
+        "temperature_c": 36.7,
+        "heart_rate_bpm": 80.0,
+        "pulse_bpm": 80.0,
+        "systolic_mmhg": 120.0,
+        "diastolic_mmhg": 78.0,
+        "respirations_per_minute": 16.0,
+        "spo2_percent": 98.0,
+        "pain_0_10": 0.0
+      },
+      "dialogue": {
+        "greeting": {
+          "en": "Hello, my name is {patient.name}.",
+          "hi": "नमस्ते, मेरा नाम {patient.name} है।"
+        },
+        "clarification": {
+          "en": "I am not sure about that. Could you ask me about my symptoms or history?",
+          "hi": "मुझे इस बारे में पता नहीं है। क्या आप मेरी तकलीफ़ या पिछली जानकारी के बारे में पूछ सकते हैं?"
+        },
+        "topics": [
+          {
+            "id": "name",
+            "intent": "Patient name or introduction",
+            "examples": [
+              "What is your name?",
+              "आपका नाम क्या है?"
+            ],
+            "answer": {
+              "en": "My name is {patient.name}.",
+              "hi": "मेरा नाम {patient.name} है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "age",
+            "intent": "Patient age",
+            "examples": [
+              "Patient age"
+            ],
+            "answer": {
+              "en": "I am {patient.age_years} years old.",
+              "hi": "मेरी उम्र {patient.age_years} साल है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "occupation",
+            "intent": "Work and occupation",
+            "examples": [
+              "Work and occupation"
+            ],
+            "answer": {
+              "en": "I work as a schoolteacher.",
+              "hi": "मैं स्कूल शिक्षक हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "sex",
+            "intent": "Sex recorded for the patient",
+            "examples": [
+              "Sex recorded for the patient"
+            ],
+            "answer": {
+              "en": "I am male.",
+              "hi": "मैं पुरुष हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "body_size",
+            "intent": "Height and weight",
+            "examples": [
+              "Height and weight"
+            ],
+            "answer": {
+              "en": "I am {patient.height_cm} cm tall and weigh {patient.weight_kg} kg.",
+              "hi": "मेरी लंबाई {patient.height_cm} सेंटीमीटर और वज़न {patient.weight_kg} किलो है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "complaint",
+            "intent": "Main complaint; why the patient came today",
+            "examples": [
+              "What brings you here?",
+              "क्या तकलीफ़ है?"
+            ],
+            "answer": {
+              "en": "I have a dry cough that is not going away.",
+              "hi": "सूखी खाँसी है जो ठीक नहीं हो रही है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "duration",
+            "intent": "When symptoms began; duration and frequency",
+            "examples": [
+              "When symptoms began; duration and frequency"
+            ],
+            "answer": {
+              "en": "The cough has lasted three weeks. It began after a cold.",
+              "hi": "खाँसी तीन हफ़्तों से है। यह ज़ुकाम के बाद शुरू हुई।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "symptom_details",
+            "intent": "Symptom location, character, triggers and relief",
+            "examples": [
+              "Symptom location, character, triggers and relief"
+            ],
+            "answer": {
+              "en": "My throat feels tickly. The cough is worse when I talk for a long time.",
+              "hi": "गले में गुदगुदी जैसी लगती है। देर तक बात करने पर खाँसी बढ़ती है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated",
+            "intent": "Other associated symptoms and relevant negative symptoms",
+            "examples": [
+              "Other associated symptoms and relevant negative symptoms"
+            ],
+            "answer": {
+              "en": "I do not bring up phlegm or blood. I have no fever or breathlessness.",
+              "hi": "बलगम या खून नहीं आता। बुखार या साँस फूलना नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "past_history",
+            "intent": "Previous illnesses and diagnoses",
+            "examples": [
+              "Previous illnesses and diagnoses"
+            ],
+            "answer": {
+              "en": "I have no known previous medical conditions.",
+              "hi": "पहले से कोई ज्ञात बीमारी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "surgeries",
+            "intent": "Previous operations or surgery",
+            "examples": [
+              "Previous operations or surgery"
+            ],
+            "answer": {
+              "en": "I have not had any operations.",
+              "hi": "मेरा कोई ऑपरेशन नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "medications",
+            "intent": "Current medicines, inhalers, tablets and doses",
+            "examples": [
+              "Current medicines, inhalers, tablets and doses"
+            ],
+            "answer": {
+              "en": "I tried an over-the-counter cough syrup for two nights without much benefit. I do not remember the name.",
+              "hi": "दो रात बिना पर्चे वाला खाँसी का सिरप लिया, खास लाभ नहीं हुआ। उसका नाम याद नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "allergies",
+            "intent": "Allergies or previous allergic reactions",
+            "examples": [
+              "Allergies or previous allergic reactions"
+            ],
+            "answer": {
+              "en": "I have no known allergies.",
+              "hi": "मुझे कोई ज्ञात एलर्जी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "family_history",
+            "intent": "Illnesses in close relatives",
+            "examples": [
+              "Illnesses in close relatives"
+            ],
+            "answer": {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "social_history",
+            "intent": "Smoking, alcohol or home background",
+            "examples": [
+              "Smoking, alcohol or home background"
+            ],
+            "answer": {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "temperature",
+            "intent": "Measured temperature or fever reading",
+            "examples": [
+              "Measured temperature or fever reading"
+            ],
+            "answer": {
+              "en": "I was told my temperature is {vitals.temperature_c} degrees Celsius.",
+              "hi": "मुझे बताया गया कि मेरा तापमान {vitals.temperature_c} डिग्री सेल्सियस है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "heart_rate",
+            "intent": "Measured heart rate or heartbeat",
+            "examples": [
+              "Measured heart rate or heartbeat"
+            ],
+            "answer": {
+              "en": "I was told my heart rate is {vitals.heart_rate_bpm} beats per minute.",
+              "hi": "मुझे बताया गया कि मेरी हृदय गति {vitals.heart_rate_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pulse",
+            "intent": "Measured peripheral pulse rate",
+            "examples": [
+              "Measured peripheral pulse rate"
+            ],
+            "answer": {
+              "en": "I was told my pulse is {vitals.pulse_bpm} per minute.",
+              "hi": "मुझे बताया गया कि मेरी नाड़ी {vitals.pulse_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "blood_pressure",
+            "intent": "Measured systolic and diastolic blood pressure",
+            "examples": [
+              "Measured systolic and diastolic blood pressure"
+            ],
+            "answer": {
+              "en": "I was told my blood pressure is {vitals.systolic_mmhg} over {vitals.diastolic_mmhg} mmHg.",
+              "hi": "मुझे बताया गया कि मेरा रक्तचाप {vitals.systolic_mmhg} पर {vitals.diastolic_mmhg} मिलीमीटर पारा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "breathing_rate",
+            "intent": "Measured respiratory or breathing rate",
+            "examples": [
+              "Measured respiratory or breathing rate"
+            ],
+            "answer": {
+              "en": "I was told I am breathing {vitals.respirations_per_minute} times per minute.",
+              "hi": "मुझे बताया गया कि मेरी साँसों की दर {vitals.respirations_per_minute} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "oxygen",
+            "intent": "Measured oxygen saturation or SpO2",
+            "examples": [
+              "Measured oxygen saturation or SpO2"
+            ],
+            "answer": {
+              "en": "I was told my oxygen saturation is {vitals.spo2_percent} percent.",
+              "hi": "मुझे बताया गया कि मेरा ऑक्सीजन स्तर {vitals.spo2_percent} प्रतिशत है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pain_score",
+            "intent": "Current pain severity on a zero-to-ten scale",
+            "examples": [
+              "Current pain severity on a zero-to-ten scale"
+            ],
+            "answer": {
+              "en": "My pain right now is {vitals.pain_0_10} out of ten.",
+              "hi": "अभी मेरा दर्द दस में से {vitals.pain_0_10} है।"
+            },
+            "disclosure": "on_question"
+          }
+        ]
+      },
+      "instructor": {
+        "objectives": [
+          "Practise a structured, respectful patient interview.",
+          "Ask about onset, associated symptoms, history, medicines and allergies."
+        ],
+        "notes": "Synthetic development practice template. Not clinically approved. No treatment recommendation or diagnostic confirmation is supplied.",
+        "rubric": [
+          {
+            "id": "introduction",
+            "description": "Introduce self and confirm patient identity."
+          },
+          {
+            "id": "history",
+            "description": "Explore the presenting complaint and relevant history."
+          },
+          {
+            "id": "medicines",
+            "description": "Check medicines and allergies without inventing unknown details."
+          }
+        ]
+      },
+      "fact_disclosure": {
+        "patient.age_years": "on_question",
+        "patient.height_cm": "on_question",
+        "patient.weight_kg": "on_question",
+        "patient.name": "volunteered",
+        "vitals.temperature_c": "on_question",
+        "vitals.heart_rate_bpm": "on_question",
+        "vitals.pulse_bpm": "on_question",
+        "vitals.systolic_mmhg": "on_question",
+        "vitals.diastolic_mmhg": "on_question",
+        "vitals.respirations_per_minute": "on_question",
+        "vitals.spo2_percent": "on_question",
+        "vitals.pain_0_10": "on_question"
+      }
+    }
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000509",
+    "code": "alex_fever_cough",
+    "category_id": "00000000-0000-4000-8000-000000000303",
+    "patient_identity_id": "00000000-0000-4000-8000-000000000401",
+    "title_hi": "बुखार और बलगम वाली खाँसी",
+    "document": {
+      "version": 2,
+      "code": "alex_fever_cough",
+      "title": "Fever and productive cough interview",
+      "learner_label": "Interview Alex",
+      "specialty": "Respiratory Medicine",
+      "patient": {
+        "name": "Alex",
+        "age_years": 35,
+        "sex": "male",
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        },
+        "height_cm": 175.0,
+        "weight_kg": 75.0
+      },
+      "presentation": {
+        "chief_complaint": {
+          "en": "I have a fever and a cough with phlegm.",
+          "hi": "बुखार और बलगम वाली खाँसी है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "The phlegm looks yellow. The right side of my chest hurts when I take a deep breath.",
+              "hi": "बलगम पीला दिखता है। गहरी साँस लेने पर सीने के दाहिने हिस्से में दर्द होता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I feel tired and slightly short of breath when walking. I have not coughed up blood.",
+              "hi": "थकान है और चलते समय थोड़ी साँस फूलती है। खाँसी में खून नहीं आया है।"
+            },
+            "disclosure": "on_question"
+          }
+        ],
+        "onset": {
+          "en": "The fever and cough started three days ago.",
+          "hi": "बुखार और खाँसी तीन दिन पहले शुरू हुए।"
+        },
+        "duration": {
+          "en": "The fever and cough started three days ago.",
+          "hi": "बुखार और खाँसी तीन दिन पहले शुरू हुए।"
+        }
+      },
+      "history": {
+        "past_conditions": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "surgeries": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "medications": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I took a fever tablet last night. I do not remember its name or strength. I have not taken antibiotics.",
+              "hi": "कल रात बुखार की एक गोली ली थी। नाम या मात्रा याद नहीं है। एंटीबायोटिक नहीं ली है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "allergies": {
+          "knowledge": "none",
+          "entries": [],
+          "disclosure": "on_question"
+        },
+        "family": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            }
+          ],
+          "disclosure": "on_question"
+        },
+        "social": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            }
+          ],
+          "disclosure": "on_question"
+        }
+      },
+      "vitals": {
+        "temperature_c": 38.5,
+        "heart_rate_bpm": 104.0,
+        "pulse_bpm": 104.0,
+        "systolic_mmhg": 118.0,
+        "diastolic_mmhg": 76.0,
+        "respirations_per_minute": 22.0,
+        "spo2_percent": 96.0,
+        "pain_0_10": 4.0
+      },
+      "dialogue": {
+        "greeting": {
+          "en": "Hello, my name is {patient.name}.",
+          "hi": "नमस्ते, मेरा नाम {patient.name} है।"
+        },
+        "clarification": {
+          "en": "I am not sure about that. Could you ask me about my symptoms or history?",
+          "hi": "मुझे इस बारे में पता नहीं है। क्या आप मेरी तकलीफ़ या पिछली जानकारी के बारे में पूछ सकते हैं?"
+        },
+        "topics": [
+          {
+            "id": "name",
+            "intent": "Patient name or introduction",
+            "examples": [
+              "What is your name?",
+              "आपका नाम क्या है?"
+            ],
+            "answer": {
+              "en": "My name is {patient.name}.",
+              "hi": "मेरा नाम {patient.name} है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "age",
+            "intent": "Patient age",
+            "examples": [
+              "Patient age"
+            ],
+            "answer": {
+              "en": "I am {patient.age_years} years old.",
+              "hi": "मेरी उम्र {patient.age_years} साल है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "occupation",
+            "intent": "Work and occupation",
+            "examples": [
+              "Work and occupation"
+            ],
+            "answer": {
+              "en": "I work as a schoolteacher.",
+              "hi": "मैं स्कूल शिक्षक हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "sex",
+            "intent": "Sex recorded for the patient",
+            "examples": [
+              "Sex recorded for the patient"
+            ],
+            "answer": {
+              "en": "I am male.",
+              "hi": "मैं पुरुष हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "body_size",
+            "intent": "Height and weight",
+            "examples": [
+              "Height and weight"
+            ],
+            "answer": {
+              "en": "I am {patient.height_cm} cm tall and weigh {patient.weight_kg} kg.",
+              "hi": "मेरी लंबाई {patient.height_cm} सेंटीमीटर और वज़न {patient.weight_kg} किलो है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "complaint",
+            "intent": "Main complaint; why the patient came today",
+            "examples": [
+              "What brings you here?",
+              "क्या तकलीफ़ है?"
+            ],
+            "answer": {
+              "en": "I have a fever and a cough with phlegm.",
+              "hi": "बुखार और बलगम वाली खाँसी है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "duration",
+            "intent": "When symptoms began; duration and frequency",
+            "examples": [
+              "When symptoms began; duration and frequency"
+            ],
+            "answer": {
+              "en": "The fever and cough started three days ago.",
+              "hi": "बुखार और खाँसी तीन दिन पहले शुरू हुए।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "symptom_details",
+            "intent": "Symptom location, character, triggers and relief",
+            "examples": [
+              "Symptom location, character, triggers and relief"
+            ],
+            "answer": {
+              "en": "The phlegm looks yellow. The right side of my chest hurts when I take a deep breath.",
+              "hi": "बलगम पीला दिखता है। गहरी साँस लेने पर सीने के दाहिने हिस्से में दर्द होता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "associated",
+            "intent": "Other associated symptoms and relevant negative symptoms",
+            "examples": [
+              "Other associated symptoms and relevant negative symptoms"
+            ],
+            "answer": {
+              "en": "I feel tired and slightly short of breath when walking. I have not coughed up blood.",
+              "hi": "थकान है और चलते समय थोड़ी साँस फूलती है। खाँसी में खून नहीं आया है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "past_history",
+            "intent": "Previous illnesses and diagnoses",
+            "examples": [
+              "Previous illnesses and diagnoses"
+            ],
+            "answer": {
+              "en": "I have no known previous medical conditions.",
+              "hi": "पहले से कोई ज्ञात बीमारी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "surgeries",
+            "intent": "Previous operations or surgery",
+            "examples": [
+              "Previous operations or surgery"
+            ],
+            "answer": {
+              "en": "I have not had any operations.",
+              "hi": "मेरा कोई ऑपरेशन नहीं हुआ है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "medications",
+            "intent": "Current medicines, inhalers, tablets and doses",
+            "examples": [
+              "Current medicines, inhalers, tablets and doses"
+            ],
+            "answer": {
+              "en": "I took a fever tablet last night. I do not remember its name or strength. I have not taken antibiotics.",
+              "hi": "कल रात बुखार की एक गोली ली थी। नाम या मात्रा याद नहीं है। एंटीबायोटिक नहीं ली है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "allergies",
+            "intent": "Allergies or previous allergic reactions",
+            "examples": [
+              "Allergies or previous allergic reactions"
+            ],
+            "answer": {
+              "en": "I have no known allergies.",
+              "hi": "मुझे कोई ज्ञात एलर्जी नहीं है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "family_history",
+            "intent": "Illnesses in close relatives",
+            "examples": [
+              "Illnesses in close relatives"
+            ],
+            "answer": {
+              "en": "My father has high blood pressure.",
+              "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "social_history",
+            "intent": "Smoking, alcohol or home background",
+            "examples": [
+              "Smoking, alcohol or home background"
+            ],
+            "answer": {
+              "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+              "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "temperature",
+            "intent": "Measured temperature or fever reading",
+            "examples": [
+              "Measured temperature or fever reading"
+            ],
+            "answer": {
+              "en": "I was told my temperature is {vitals.temperature_c} degrees Celsius.",
+              "hi": "मुझे बताया गया कि मेरा तापमान {vitals.temperature_c} डिग्री सेल्सियस है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "heart_rate",
+            "intent": "Measured heart rate or heartbeat",
+            "examples": [
+              "Measured heart rate or heartbeat"
+            ],
+            "answer": {
+              "en": "I was told my heart rate is {vitals.heart_rate_bpm} beats per minute.",
+              "hi": "मुझे बताया गया कि मेरी हृदय गति {vitals.heart_rate_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pulse",
+            "intent": "Measured peripheral pulse rate",
+            "examples": [
+              "Measured peripheral pulse rate"
+            ],
+            "answer": {
+              "en": "I was told my pulse is {vitals.pulse_bpm} per minute.",
+              "hi": "मुझे बताया गया कि मेरी नाड़ी {vitals.pulse_bpm} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "blood_pressure",
+            "intent": "Measured systolic and diastolic blood pressure",
+            "examples": [
+              "Measured systolic and diastolic blood pressure"
+            ],
+            "answer": {
+              "en": "I was told my blood pressure is {vitals.systolic_mmhg} over {vitals.diastolic_mmhg} mmHg.",
+              "hi": "मुझे बताया गया कि मेरा रक्तचाप {vitals.systolic_mmhg} पर {vitals.diastolic_mmhg} मिलीमीटर पारा है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "breathing_rate",
+            "intent": "Measured respiratory or breathing rate",
+            "examples": [
+              "Measured respiratory or breathing rate"
+            ],
+            "answer": {
+              "en": "I was told I am breathing {vitals.respirations_per_minute} times per minute.",
+              "hi": "मुझे बताया गया कि मेरी साँसों की दर {vitals.respirations_per_minute} प्रति मिनट है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "oxygen",
+            "intent": "Measured oxygen saturation or SpO2",
+            "examples": [
+              "Measured oxygen saturation or SpO2"
+            ],
+            "answer": {
+              "en": "I was told my oxygen saturation is {vitals.spo2_percent} percent.",
+              "hi": "मुझे बताया गया कि मेरा ऑक्सीजन स्तर {vitals.spo2_percent} प्रतिशत है।"
+            },
+            "disclosure": "on_question"
+          },
+          {
+            "id": "pain_score",
+            "intent": "Current pain severity on a zero-to-ten scale",
+            "examples": [
+              "Current pain severity on a zero-to-ten scale"
+            ],
+            "answer": {
+              "en": "My pain right now is {vitals.pain_0_10} out of ten.",
+              "hi": "अभी मेरा दर्द दस में से {vitals.pain_0_10} है।"
+            },
+            "disclosure": "on_question"
+          }
+        ]
+      },
+      "instructor": {
+        "objectives": [
+          "Practise a structured, respectful patient interview.",
+          "Ask about onset, associated symptoms, history, medicines and allergies."
+        ],
+        "notes": "Synthetic development practice template. Not clinically approved. No treatment recommendation or diagnostic confirmation is supplied.",
+        "rubric": [
+          {
+            "id": "introduction",
+            "description": "Introduce self and confirm patient identity."
+          },
+          {
+            "id": "history",
+            "description": "Explore the presenting complaint and relevant history."
+          },
+          {
+            "id": "medicines",
+            "description": "Check medicines and allergies without inventing unknown details."
+          }
+        ]
+      },
+      "fact_disclosure": {
+        "patient.age_years": "on_question",
+        "patient.height_cm": "on_question",
+        "patient.weight_kg": "on_question",
+        "patient.name": "volunteered",
+        "vitals.temperature_c": "on_question",
+        "vitals.heart_rate_bpm": "on_question",
+        "vitals.pulse_bpm": "on_question",
+        "vitals.systolic_mmhg": "on_question",
+        "vitals.diastolic_mmhg": "on_question",
+        "vitals.respirations_per_minute": "on_question",
+        "vitals.spo2_percent": "on_question",
+        "vitals.pain_0_10": "on_question"
+      }
+    }
+  }
+]

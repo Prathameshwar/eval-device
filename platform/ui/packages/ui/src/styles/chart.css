@@ -1,0 +1,91 @@
+/*
+ * @pms/ui — chart chrome: plot frame, gridlines, axis ticks, value annotations and
+ * the legend. Series colour comes from --pms-chart-1..8, assigned by index.
+ *
+ * Contains no colour values — every colour reads a --pms-* token.
+ */
+
+/* ---------- frame ---------- */
+/* `.pms-chart` itself needs no box styles — it is the hook the series slot hangs off. */
+
+/* Intrinsic width/height attributes on the <svg> give the aspect ratio; `height: auto`
+ * then lets the card set the width and the chart scale with it, with no JS measuring. */
+.pms-chart__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- gridlines & axis ---------- */
+/* Solid hairlines, one step off the surface: a grid is a reference, never data ink.
+ * `non-scaling-stroke` keeps them 1px however far the viewBox is scaled up. */
+
+.pms-chart__gridline,
+.pms-chart__axis {
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.pms-chart__gridline {
+  stroke: var(--pms-chart-grid);
+}
+/* the zero line — a shade firmer than the grid, because bars grow out of it */
+.pms-chart__axis {
+  stroke: var(--pms-chart-axis);
+}
+
+/* ---------- text ---------- */
+
+/* Ticks and the annotation are *text*, at 12.5px, so they owe 4.5:1 — not the 3:1 a line
+ * or a bar owes. `--pms-chart-axis` is scaled for a graphic (it measured 2.62:1 in light)
+ * and the annotation is the only money value on the picture, so both read `--pms-ink-soft`
+ * (5.84 light / 6.96 dark / 7.13 ledger). The zero line and gridlines keep the chart tokens:
+ * those are graphics, and they are the reason `--pms-chart-axis` exists. */
+.pms-chart__tick,
+.pms-chart__annotation {
+  fill: var(--pms-ink-soft);
+  font-family: var(--pms-font-body);
+  font-size: var(--pms-text-xs);
+}
+.pms-chart__annotation {
+  font-weight: 500;
+}
+
+/* ---------- bars ---------- */
+/*
+ * Series colour is assigned by index: the call site picks a slot,
+ * these rules own the token. One series, so no legend — the card title names it.
+ */
+.pms-chart__bar {
+  fill: var(--pms-chart-1);
+  transition: opacity var(--pms-dur-fast) var(--pms-ease);
+}
+.pms-chart__bar:hover {
+  opacity: 0.82;
+}
+
+.pms-chart[data-series='1'] .pms-chart__bar { fill: var(--pms-chart-1); }
+.pms-chart[data-series='2'] .pms-chart__bar { fill: var(--pms-chart-2); }
+.pms-chart[data-series='3'] .pms-chart__bar { fill: var(--pms-chart-3); }
+.pms-chart[data-series='4'] .pms-chart__bar { fill: var(--pms-chart-4); }
+.pms-chart[data-series='5'] .pms-chart__bar { fill: var(--pms-chart-5); }
+.pms-chart[data-series='6'] .pms-chart__bar { fill: var(--pms-chart-6); }
+.pms-chart[data-series='7'] .pms-chart__bar { fill: var(--pms-chart-7); }
+.pms-chart[data-series='8'] .pms-chart__bar { fill: var(--pms-chart-8); }
+
+/* ---------- empty ---------- */
+
+.pms-chart__empty {
+  margin: 0;
+  padding: var(--pms-space-6) 0;
+  text-align: center;
+  color: var(--pms-ink-soft);
+  font-size: var(--pms-text-sm);
+}
+
+/* The chart itself never animates; the hover response is the only transition, and it
+ * stops here as well as at the root, so this file is honest on its own. */
+@media (prefers-reduced-motion: reduce) {
+  .pms-chart__bar {
+    transition: none;
+  }
+}

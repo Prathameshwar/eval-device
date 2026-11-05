@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "fixture": "Fictional Alex starter, original or richer background; unchanged clinical facts.",
+  "questions": [
+    {"question":"What is your pulse?","expected":"84 beats per minute."},
+    {"question":"What is your blood pressure?","expected":"128 systolic and 82 diastolic, mmHg; both values."},
+    {"question":"What is your temperature?","expected":"36.8 degrees Celsius."},
+    {"question":"How fast are you breathing?","expected":"18 breaths per minute."},
+    {"question":"What is your oxygen saturation?","expected":"98 percent."},
+    {"question":"How old are you?","expected":"35 years."},
+    {"question":"How tall are you?","expected":"175 centimetres."},
+    {"question":"What is your weight?","expected":"75 kilograms."},
+    {"question":"Do you smoke?","expected":"Explicitly does not smoke."},
+    {"question":"How much alcohol do you drink?","expected":"Rarely; no invented quantity."},
+    {"question":"What is diabetes?","expected":"General definition involving high blood glucose and insulin; do not claim the patient has it."},
+    {"question":"What does fever mean?","expected":"General definition of elevated body temperature, not the patient's negative finding."},
+    {"question":"What is evaporation?","expected":"Liquid turns into gas; general knowledge."},
+    {"question":"What is twenty-one plus nineteen?","expected":"40."},
+    {"question":"How do you boil an egg?","expected":"Put egg in water, boil/simmer until cooked; generic procedure."},
+    {"question":"How old is bob?","expected":"Unknown even with lowercase naming; patient age cannot be attributed to another person."},
+    {"question":"What is your mother's name?","expected":"Unknown; patient name is not the mother's name."},
+    {"question":"When did you start taking antibiotics?","expected":"Unknown; current medication status is not a past treatment event."},
+    {"question":"What do you do for exercise?","expected":"Market walks most days and no other regular exercise."},
+    {"question":"How often?","expected":"Resolve exercise follow-up from the preceding completed pair: most days, no invented frequency."},
+    {"question":"How many letters are in the English alphabet?","expected":"26; unqualified general quantity question."},
+    {"question":"Who wrote Hamlet?","expected":"William Shakespeare; unqualified general author question."},
+    {"question":"Where is Japan?","expected":"East Asia, an island country in the Pacific Ocean; general geography."},
+    {"question":"How does a rainbow form?","expected":"Sunlight refracts, reflects and separates into colours in water droplets; general mechanism."},
+    {"question":"Can you explain condensation?","expected":"Gas or water vapour becomes liquid, normally on cooling; 'you' addresses the speaker, not a personal experience."}
+  ],
+  "acceptance":"Inspect all 25 actual answers, preserving measurements, source ownership, general definitions, unknown past treatments, an actual history follow-up and who/where/how-many/mechanism/explanation questions. Same timing and 2048-token limits as the other matrices."
+}

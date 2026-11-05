@@ -1,0 +1,53 @@
+{
+  "name": "@pms/ui",
+  "version": "0.1.1",
+  "private": true,
+  "description": "Reusable React components, themes, and presentation utilities.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles/tokens.css": "./src/styles/tokens.css",
+    "./styles/theme-light.css": "./src/styles/theme-light.css",
+    "./styles/theme-dark.css": "./src/styles/theme-dark.css",
+    "./styles/theme-ledger.css": "./src/styles/theme-ledger.css",
+    "./styles/theme.css": "./src/styles/theme.css",
+    "./styles/shell.css": "./src/styles/shell.css",
+    "./styles/data.css": "./src/styles/data.css",
+    "./styles/search-select.css": "./src/styles/search-select.css",
+    "./styles/overlay.css": "./src/styles/overlay.css",
+    "./styles/table.css": "./src/styles/table.css",
+    "./styles/file-upload.css": "./src/styles/file-upload.css",
+    "./styles/chart.css": "./src/styles/chart.css",
+    "./styles/ui.css": "./src/styles/ui.css",
+    "./styles.css": "./src/styles/index.css"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0 || ^19.0.0",
+    "react-dom": "^18.2.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.0",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^2.1.8",
+    "jsdom": "^25.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.8"
+  },
+  "files": [
+    "src"
+  ]
+}

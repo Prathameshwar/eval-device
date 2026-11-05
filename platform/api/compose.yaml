@@ -1,0 +1,30 @@
+# Provision PostgreSQL/runtime grants first; this compose file runs application processes only.
+services:
+  api:
+    build:
+      context: ../..
+      dockerfile: platform/api/Dockerfile
+    image: pms-api:local
+    env_file: .env
+    environment:
+      PMS_BIND_HOST: 0.0.0.0
+    ports: ['127.0.0.1:8000:8000']
+    volumes: ['media:/workspace/platform/api/.local/media']
+    restart: unless-stopped
+  worker:
+    image: pms-api:local
+    env_file: .env
+    command: ['pms-worker']
+    volumes: ['media:/workspace/platform/api/.local/media']
+    healthcheck:
+      disable: true
+    restart: unless-stopped
+  retention:
+    image: pms-api:local
+    env_file: .env
+    command: ['pms-worker', '--retention']
+    healthcheck:
+      disable: true
+    restart: unless-stopped
+volumes:
+  media:

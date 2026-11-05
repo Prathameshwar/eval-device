@@ -1,0 +1,96 @@
+/*
+ * PMS — DARK palette. Same key set as theme-light.css, same identity: indigo, but
+ * lifted so it reads on a dark surface (a #34478f link on #151a23 would fail contrast).
+ *
+ * Elevation is a light-theme idiom — a shadow on near-black is invisible. Dark buys
+ * separation with a higher-contrast `--pms-line` and a lifted `--pms-surface`
+ * instead of bigger shadows.
+ */
+
+[data-theme='dark'] {
+  /* — Surfaces — */
+  --pms-paper: #0e1117;
+  --pms-surface: #151a23;
+  --pms-surface-2: #1b212c;
+  --pms-overlay: #232b3a; /* lifted clear of `surface`: a shadow cannot separate a menu on near-black */
+  --pms-panel: #151a23;
+  --pms-panel-2: #10151d;
+  --pms-hover: #1f2733;
+  --pms-active: #26303e;
+  --pms-selected: #1b2340;
+  --pms-disabled-surface: #1a202a;
+  --pms-disabled-ink: #8f98ad; /* 4.9:1 on `overlay` too — a disabled option in a popover */
+  --pms-scrim: rgba(4, 7, 12, 0.66);
+
+  /* — Ink — */
+  --pms-ink: #e7eaf1;
+  --pms-ink-soft: #9aa4b8;
+  --pms-ink-faint: #8b93a6; /* 4.6:1 on every dark surface, `overlay` included */
+  --pms-ink-invert: #ffffff;
+
+  /* — Brand: lifted for contrast; the mark itself stays invariant — */
+  --pms-brand: #8b9cf0;
+  --pms-brand-strong: #a4b2f5;
+  --pms-brand-bright: #b3befa;
+  --pms-brand-ink: #ccd4f8;
+  --pms-brand-tint: #1b2340;
+  --pms-brand-line: #303c68;
+  --pms-brand-glow: rgba(139, 156, 240, 0.14);
+
+  /* — Lines & structure — */
+  --pms-line: #2d3648;
+  --pms-line-strong: #54658c; /* 3:1 on `surface` — dark leans on this where light leans on a shadow */
+  --pms-control-line: #5f7099;
+
+  /* — Signals — */
+  --pms-success-ink: #4ec98a;
+  --pms-success-tint: #10241b;
+  --pms-success-line: #214532;
+  --pms-warn-ink: #e2a83f;
+  --pms-warn-tint: #26200f;
+  --pms-warn-line: #46391b;
+  --pms-danger-ink: #f27f70;
+  --pms-danger-tint: #2a1614;
+  --pms-danger-line: #4d2620;
+  --pms-info-ink: #6fa8e8;
+  --pms-info-tint: #101f2c;
+  --pms-info-line: #1e3a54;
+  --pms-neutral-ink: #9aa4b8;
+  --pms-neutral-tint: #1b212c;
+  --pms-neutral-line: #2b3442;
+
+  /* — Gradients: the mark is deliberately identical across themes — */
+  --pms-grad-action: linear-gradient(180deg, #4a5fc0 0%, #3a4fb0 100%);
+  --pms-grad-action-press: linear-gradient(180deg, #3a4fb0 0%, #2c3c8c 100%);
+  --pms-grad-panel: linear-gradient(168deg, #171d27 0%, #11161f 100%);
+
+  /* — Focus — */
+  --pms-focus: #9dabee;
+  --pms-focus-ring: 0 0 0 2px var(--pms-focus), 0 0 0 5px rgba(157, 171, 238, 0.32);
+  --pms-focus-ring-danger: 0 0 0 2px var(--pms-danger-ink), 0 0 0 5px rgba(242, 127, 112, 0.3);
+
+  /* — Elevation — */
+  --pms-shadow-action: 0 1px 1px rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.45);
+  --pms-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --pms-shadow-popover: 0 10px 28px rgba(0, 0, 0, 0.55);
+
+  /* — Components with no other home — */
+  --pms-meter-track: #262f3d;
+  --pms-meter-fill: #8b9cf0;
+  --pms-spinner-track: rgba(255, 255, 255, 0.3);
+  --pms-spinner-head: #ffffff;
+
+  /* — Charts: the same eight hues re-stepped for a dark surface, not flipped. Worst
+   *   adjacent pair ΔE 8.6 under deuteranopia (gate 8.0), 18.9 normal, all ≥ 3:1 against
+   *   `--pms-surface`. Verify with --mode dark --surface "#151a23". — */
+  --pms-chart-1: #5f83d4; /* indigo */
+  --pms-chart-2: #c0851f; /* amber */
+  --pms-chart-3: #008f90; /* teal */
+  --pms-chart-4: #c55865; /* rose */
+  --pms-chart-5: #469bd1; /* sky */
+  --pms-chart-6: #667815; /* olive */
+  --pms-chart-7: #a763ab; /* plum */
+  --pms-chart-8: #985521; /* bronze */
+  --pms-chart-grid: #232b38;
+  --pms-chart-axis: #7c8497;
+}

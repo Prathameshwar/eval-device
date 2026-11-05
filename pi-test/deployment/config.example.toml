@@ -1,0 +1,29 @@
+# Secrets are enrolled interactively and saved separately with private permissions.
+app_root = "/var/lib/pi-test"
+control_dir = "/run/pi-test"
+pms_url = "https://platform.example.com"
+use_pms_models = true
+speaker_output = true
+# Exact PortAudio names from `pi-test audio-devices`. Unset uses the OS default.
+# microphone_name = "USB Audio Device: Audio (hw:1,0)"
+# speaker_device_name = "USB Audio Device: Audio (hw:1,0)"
+camera_backend = "none" # none, usb, csi; capture still requires camera-start
+camera_index = 0
+camera_width = 640
+camera_height = 480
+camera_fps = 10
+video_quota_mb = 512
+video_min_free_mb = 256
+session_sync_max_bytes = 536870912
+session_sync_background = false
+min_free_mb = 256
+# Local inference means a separate GPU machine, never inference on this Pi.
+# These must match details.inference on the platform device record.
+# inference_url = "https://gpu.example.lan:8791"
+# inference_host_id = "00000000-0000-4000-8000-000000000001"
+# inference_ca_file = "/etc/pi-test/gpu-ca.pem"
+stream_audio = false # true streams during capture; ASR still waits for a clean end
+listen_on_begin = false # optional listening only after an explicit successful begin
+# microphone_native_rate = 48000 # optional; normalized to mono PCM16 at 16 kHz
+# camera_device = "/dev/v4l/by-id/usb-CAMERA-video-index0" # USB identity across reboots
+processing_video_seconds = 10 # 1..30, further limited by the platform policy

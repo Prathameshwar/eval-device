@@ -1,0 +1,82 @@
+.page { min-width: 0; }
+.page :global(.pms-page-header__actions) { gap: 10px; }
+.page :global(.pms-btn) { gap: 7px; }
+.importLink { text-decoration: none; }
+.directory, .profile, .capabilities { border: 1px solid var(--pms-line); border-radius: 16px; background: var(--pms-surface); min-width: 0; }
+.directoryHeading, .profileHeader { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px; }
+.directoryHeading h2, .profileHeader h2, .capabilities h2 { font-size: 17px; font-weight: 650; letter-spacing: -.015em; margin: 0; }
+.directoryHeading p, .profileHeader p, .capabilities p { color: var(--pms-ink-soft); font-size: 13px; line-height: 1.6; margin: 6px 0 0; }
+.historyLink { font-size: 13px; font-weight: 600; color: var(--pms-brand-ink); flex-shrink: 0; text-underline-offset: 4px; }
+.filters { display: grid; grid-template-columns: minmax(220px, 1.7fr) repeat(3, minmax(130px, 1fr)); align-items: start; gap: 14px; padding: 0 24px 24px; }
+.filters > :global(.pms-field) + :global(.pms-field), .editorForm > :global(.pms-field) + :global(.pms-field) { margin-top: 0; }
+.filters > *, .search, .identity > div { min-width: 0; }
+.resultsBar { border-block: 1px solid var(--pms-line); background: var(--pms-surface-2); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.resultsSummary { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--pms-ink-soft); }
+.resultsSummary > svg { flex: none; }
+.resultsSummary > button { padding: 5px 9px; min-height: 32px; font-size: 12px; }
+.sortControls { display: flex; align-items: center; gap: 12px; }
+.sortControls > :global(.pms-field), .sortControls > :global(.pms-field) + :global(.pms-field) { margin: 0; }
+.sortControls select { min-height: 36px; padding-block: 6px; font-size: 13px; }
+.directory > :global(.pms-table-shell) { border: 0; border-radius: 0; margin: 0; }
+.directory :global(.pms-table) { font-size: 14px; }
+.directory :global(.pms-table) td { padding-block: 18px; vertical-align: middle; overflow-wrap: anywhere; }
+.directory :global(.pms-table) th { padding-block: 13px; }
+.directory :global(.pms-table) :is(th, td):first-child { padding-inline-start: 24px; }
+.directory :global(.pms-table) :is(th, td):last-child { padding-inline-end: 24px; }
+.identity { display: flex; align-items: center; gap: 12px; }
+.identity a { font-weight: 600; color: var(--pms-ink); text-decoration: none; }
+.identity a:hover { color: var(--pms-brand-ink); text-decoration: underline; text-underline-offset: 3px; }
+.avatar { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border: 1px solid var(--pms-brand-line); border-radius: 12px; background: var(--pms-brand-tint); color: var(--pms-brand-ink); font-size: 13px; font-weight: 650; }
+.email { display: block; margin-top: 4px; color: var(--pms-ink-soft); font-size: 12px; overflow-wrap: anywhere; }
+.you { display: inline-block; font-size: 11px; margin-top: 4px; color: var(--pms-ink-soft); }
+.rowActions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; white-space: nowrap; }
+.rowActions > button { min-height: 36px; }
+.detailActions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.profile > .detailActions { padding: 0 24px 22px; }
+.detailActions :global(.pms-hint) { flex-basis: 100%; }
+.pagination { padding: 8px 24px; border-top: 1px solid var(--pms-line); }
+.pagination :global(.pms-pager) { margin: 0; border: 0; padding-inline: 0; }
+.profileHeader p { overflow-wrap: anywhere; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; border-top: 1px solid var(--pms-line); padding: 24px; margin: 0; }
+.facts dt { color: var(--pms-ink-soft); font-size: 12px; margin-bottom: 7px; }
+.facts dd { margin: 0; font-size: 14px; line-height: 1.6; overflow-wrap: anywhere; }
+.capabilities { padding: 24px; }
+.capabilities ul { padding: 0; margin: 20px 0 0; list-style: none; }
+.capabilities li { padding: 14px 0; border-top: 1px solid var(--pms-line); font-size: 13px; line-height: 1.8; }
+.capabilities li :global(.pms-hint) { display: block; }
+.editorForm { display: grid; gap: 18px; }
+.editorIntro { padding: 16px; background: var(--pms-surface-2); border: 1px solid var(--pms-line); border-radius: 10px; }
+.editorIntro h3 { margin: 0 0 7px; font-size: 15px; font-weight: 600; }
+.editorIntro p { margin: 0; font-size: 13px; line-height: 1.65; color: var(--pms-ink-soft); }
+@media (max-width: 1100px) {
+  .filters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .search { grid-column: 1 / -1; }
+}
+@media (max-width: 52rem) {
+  .directory :global(.pms-table--stack) tbody tr { padding: 18px 16px; }
+  .directory :global(.pms-table--stack) tbody td { grid-template-columns: 88px minmax(0, 1fr); padding: 7px 0; align-items: center; }
+  .directory :global(.pms-table--stack) tbody td:first-child { grid-template-columns: minmax(0, 1fr); padding: 0 0 14px; }
+  .directory :global(.pms-table--stack) tbody td:first-child::before { content: none; }
+  .directory :global(.pms-table--stack) tbody td:last-child { padding-inline: 0; }
+  .directory :global(.pms-badge) { justify-self: start; max-width: 100%; white-space: normal; }
+  .rowActions { justify-content: flex-start; }
+}
+@media (max-width: 700px) {
+  .directoryHeading, .profileHeader { align-items: flex-start; flex-direction: column; gap: 12px; padding: 20px 16px; }
+  .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 10px; padding: 0 16px 20px; }
+  .filters > :last-child { grid-column: 1 / -1; }
+  .resultsBar { padding: 12px 16px; }
+  .sortControls { flex-wrap: wrap; gap: 8px; }
+  .resultsSummary { flex-wrap: wrap; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 20px 16px; gap: 20px; }
+  .capabilities { padding: 20px 16px; }
+  .profile > .detailActions { padding: 0 16px 20px; }
+  .pagination { padding: 8px 16px; }
+  .rowActions { justify-content: flex-start; }
+  .directory :global(.pms-table) :is(th, td):first-child { padding-inline-start: 16px; }
+  .directory :global(.pms-table) :is(th, td):last-child { padding-inline-end: 16px; }
+}
+@media (max-width: 380px) {
+  .filters, .facts { grid-template-columns: minmax(0, 1fr); }
+  .page :global(.pms-page-header__actions) { display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; }
+}

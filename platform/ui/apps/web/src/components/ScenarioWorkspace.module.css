@@ -1,0 +1,62 @@
+.editor {
+  width: min(100%, 72rem);
+  margin-inline: auto;
+  min-width: 0;
+}
+.creation { width: min(100%, 46rem); margin-inline: auto; min-width: 0; }
+.editor :global(.pms-console__tenant-form) > :global(.pms-workflow-steps) { margin-bottom: 0; }
+.editor :global(.pms-console__tenant-form) > :global(.pms-meta) { margin: 0; }
+.editor :is(input, select, textarea, button) { scroll-margin-block-end: 6rem; }
+.reviewFields { display: grid; gap: var(--pms-space-3); }
+.reviewFields p { margin: 0; }
+.backgroundSection { border: 0; padding: 0; margin: 0; min-width: 0; }
+.backgroundSection > legend { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.form {
+  display: grid;
+  gap: var(--pms-space-4);
+  max-width: 38rem;
+}
+
+.formFields { display: grid; gap: var(--pms-space-4); border: 0; padding: 0; margin: 0; min-width: 0; }
+.stepHeading { margin: 0; font-size: var(--pms-text-lg); scroll-margin-block: var(--pms-space-5); }
+.stepHeading:focus { outline: none; }
+.saveBar {
+  position: sticky;
+  bottom: var(--pms-space-2);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pms-space-3);
+  flex-wrap: wrap;
+  padding: var(--pms-space-3) var(--pms-space-4);
+  background: var(--pms-surface);
+  border: 1px solid var(--pms-line);
+  border-radius: var(--pms-radius-md);
+  box-shadow: 0 4px 16px rgb(0 0 0 / .12);
+}
+.saveBar span { font-size: var(--pms-text-sm); }
+
+.form h2,
+.review h2 { margin: 0; font-size: var(--pms-text-lg); }
+
+.review { display: grid; gap: var(--pms-space-4); }
+
+.summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--pms-space-3); margin: 0; }
+.summary > div {
+  min-width: 0;
+  padding: var(--pms-space-3);
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: var(--pms-radius-md);
+}
+.summary dt { font-size: var(--pms-text-sm); opacity: .72; }
+.summary dd { margin: var(--pms-space-1) 0 0; overflow-wrap: anywhere; }
+
+.actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--pms-space-2); }
+
+@media (max-width: 640px) {
+  .summary { grid-template-columns: 1fr; }
+  .actions { flex-direction: column; }
+  .actions > * { width: 100%; }
+}

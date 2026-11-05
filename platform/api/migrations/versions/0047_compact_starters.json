@@ -1,0 +1,902 @@
+[
+  {
+    "id": "00000000-0000-4000-8000-000000000501",
+    "previous": {
+      "code": "alex_chest_discomfort",
+      "title": "Chest discomfort interview",
+      "vitals": {
+        "pain_0_10": 0.0,
+        "pulse_bpm": 84.0,
+        "spo2_percent": 98.0,
+        "systolic_mmhg": 128.0,
+        "temperature_c": 36.8,
+        "diastolic_mmhg": 82.0,
+        "heart_rate_bpm": 84.0,
+        "respirations_per_minute": 18.0
+      },
+      "history": {
+        "family": {
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "My father has high blood pressure.",
+                "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+              }
+            }
+          ],
+          "knowledge": "present"
+        },
+        "social": {
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+                "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+              }
+            }
+          ],
+          "knowledge": "present"
+        },
+        "allergies": {
+          "entries": [],
+          "knowledge": "none"
+        },
+        "surgeries": {
+          "entries": [],
+          "knowledge": "none"
+        },
+        "medications": {
+          "entries": [],
+          "knowledge": "none"
+        },
+        "past_conditions": {
+          "entries": [],
+          "knowledge": "none"
+        }
+      },
+      "patient": {
+        "sex": "male",
+        "name": "Alex",
+        "age_years": 35,
+        "height_cm": 175.0,
+        "weight_kg": 75.0,
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        }
+      },
+      "version": 4,
+      "specialty": "Cardiology",
+      "presentation": {
+        "onset": {
+          "en": "It began two days ago. Each episode lasts about five minutes.",
+          "hi": "यह दो दिन पहले शुरू हुआ। हर बार लगभग पाँच मिनट रहता है।"
+        },
+        "duration": {
+          "en": "It began two days ago. Each episode lasts about five minutes.",
+          "hi": "यह दो दिन पहले शुरू हुआ। हर बार लगभग पाँच मिनट रहता है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "The tightness is in the centre of my chest. Rest usually helps.",
+              "hi": "कसाव सीने के बीच में होता है। आम तौर पर आराम करने से कम होता है।"
+            }
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I get a little breathless during an episode. I have not fainted or had a fever.",
+              "hi": "उस समय थोड़ी साँस फूलती है। मैं बेहोश नहीं हुआ हूँ और बुखार नहीं हुआ है।"
+            }
+          }
+        ],
+        "chief_complaint": {
+          "en": "I get tightness in my chest when I walk uphill.",
+          "hi": "चढ़ाई पर चलते समय मेरे सीने में कसाव होता है।"
+        }
+      },
+      "learner_label": "Interview Alex",
+      "localizations": {},
+      "source_language": "en"
+    },
+    "document": {
+      "code": "alex_chest_discomfort",
+      "title": "Chest discomfort interview",
+      "vitals": {
+        "pain_0_10": 0.0,
+        "pulse_bpm": 84.0,
+        "spo2_percent": 98.0,
+        "systolic_mmhg": 128.0,
+        "temperature_c": 36.8,
+        "diastolic_mmhg": 82.0,
+        "heart_rate_bpm": 84.0,
+        "respirations_per_minute": 18.0
+      },
+      "history": {
+        "family": {
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "My father has high blood pressure.",
+                "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+              }
+            },
+            {
+              "id": "similar_condition",
+              "text": {
+                "en": "I do not know whether relatives have similar chest symptoms.",
+                "hi": "मुझे नहीं पता कि रिश्तेदारों को ऐसे सीने के लक्षण हैं या नहीं।"
+              }
+            }
+          ],
+          "knowledge": "present"
+        },
+        "social": {
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+                "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+              }
+            }
+          ],
+          "knowledge": "present"
+        },
+        "allergies": {
+          "entries": [],
+          "knowledge": "none"
+        },
+        "surgeries": {
+          "entries": [],
+          "knowledge": "none"
+        },
+        "medications": {
+          "entries": [],
+          "knowledge": "none"
+        },
+        "past_conditions": {
+          "entries": [],
+          "knowledge": "none"
+        }
+      },
+      "patient": {
+        "sex": "male",
+        "name": "Alex",
+        "age_years": 35,
+        "height_cm": 175.0,
+        "weight_kg": 75.0,
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        }
+      },
+      "version": 5,
+      "specialty": "Cardiology",
+      "presentation": {
+        "onset": {
+          "en": "It started two days ago.",
+          "hi": "यह दो दिन पहले शुरू हुआ।"
+        },
+        "duration": {
+          "en": "Each episode lasts about five minutes.",
+          "hi": "हर बार यह लगभग पाँच मिनट रहता है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "The tightness is in the centre of my chest. Rest usually helps.",
+              "hi": "कसाव सीने के बीच में होता है। आम तौर पर आराम करने से कम होता है।"
+            }
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I get a little breathless during an episode. I have not fainted or had a fever.",
+              "hi": "उस समय थोड़ी साँस फूलती है। मैं बेहोश नहीं हुआ हूँ और बुखार नहीं हुआ है।"
+            }
+          }
+        ],
+        "chief_complaint": {
+          "en": "I get tightness in my chest when I walk uphill.",
+          "hi": "चढ़ाई पर चलते समय मेरे सीने में कसाव होता है।"
+        },
+        "severity": {
+          "en": "The tightness is mild during episodes. I have no chest pain while resting now.",
+          "hi": "दौरों के दौरान जकड़न हल्की होती है। अभी आराम करते समय सीने में दर्द नहीं है।"
+        }
+      },
+      "learner_label": "Interview Alex",
+      "localizations": {},
+      "source_language": "en",
+      "background": [
+        {
+          "id": "food_drink",
+          "text": {
+            "en": "I usually eat home-cooked rice, lentils and vegetables. I prefer vegetarian food.",
+            "hi": "मैं आम तौर पर घर का बना चावल, दाल और सब्ज़ियाँ खाता हूँ। मुझे शाकाहारी भोजन पसंद है।"
+          }
+        },
+        {
+          "id": "sleep_activity",
+          "text": {
+            "en": "I usually sleep from 10 pm to 6 am. I walk for 20 minutes most days.",
+            "hi": "मैं आम तौर पर रात 10 बजे से सुबह 6 बजे तक सोता हूँ। मैं अधिकतर दिनों में 20 मिनट चलता हूँ।"
+          }
+        },
+        {
+          "id": "work_home",
+          "text": {
+            "en": "I have a bachelor degree and a teaching qualification. I work at school Monday to Friday. I teach four hours per school day.",
+            "hi": "मेरे पास स्नातक की डिग्री और शिक्षण योग्यता है। मैं सोमवार से शुक्रवार स्कूल में काम करता हूँ। मैं हर स्कूल के दिन चार घंटे पढ़ाता हूँ।"
+          }
+        },
+        {
+          "id": "additional",
+          "text": {
+            "en": "These vital signs were measured at rest during this interview.",
+            "hi": "ये जीवन संकेत इस साक्षात्कार के दौरान आराम की अवस्था में मापे गए थे।"
+          }
+        }
+      ]
+    },
+    "publication": {
+      "version": 5,
+      "code": "alex_chest_discomfort",
+      "title": "Chest discomfort interview",
+      "learner_label": "Interview Alex",
+      "specialty": "Cardiology",
+      "source_language": "en",
+      "patient": {
+        "name": "Alex",
+        "age_years": 35,
+        "sex": "male",
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        },
+        "height_cm": 175.0,
+        "weight_kg": 75.0
+      },
+      "presentation": {
+        "chief_complaint": {
+          "en": "I get tightness in my chest when I walk uphill.",
+          "hi": "चढ़ाई पर चलते समय मेरे सीने में कसाव होता है।"
+        },
+        "onset": {
+          "en": "It started two days ago.",
+          "hi": "यह दो दिन पहले शुरू हुआ।"
+        },
+        "duration": {
+          "en": "Each episode lasts about five minutes.",
+          "hi": "हर बार यह लगभग पाँच मिनट रहता है।"
+        },
+        "severity": {
+          "en": "The tightness is mild during episodes. I have no chest pain while resting now.",
+          "hi": "दौरों के दौरान जकड़न हल्की होती है। अभी आराम करते समय सीने में दर्द नहीं है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "The tightness is in the centre of my chest. Rest usually helps.",
+              "hi": "कसाव सीने के बीच में होता है। आम तौर पर आराम करने से कम होता है।"
+            }
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I get a little breathless during an episode. I have not fainted or had a fever.",
+              "hi": "उस समय थोड़ी साँस फूलती है। मैं बेहोश नहीं हुआ हूँ और बुखार नहीं हुआ है।"
+            }
+          }
+        ]
+      },
+      "history": {
+        "past_conditions": {
+          "knowledge": "none",
+          "entries": []
+        },
+        "surgeries": {
+          "knowledge": "none",
+          "entries": []
+        },
+        "medications": {
+          "knowledge": "none",
+          "entries": []
+        },
+        "allergies": {
+          "knowledge": "none",
+          "entries": []
+        },
+        "family": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "My father has high blood pressure.",
+                "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+              }
+            },
+            {
+              "id": "similar_condition",
+              "text": {
+                "en": "I do not know whether relatives have similar chest symptoms.",
+                "hi": "मुझे नहीं पता कि रिश्तेदारों को ऐसे सीने के लक्षण हैं या नहीं।"
+              }
+            }
+          ]
+        },
+        "social": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+                "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+              }
+            }
+          ]
+        }
+      },
+      "vitals": {
+        "temperature_c": 36.8,
+        "heart_rate_bpm": 84.0,
+        "pulse_bpm": 84.0,
+        "systolic_mmhg": 128.0,
+        "diastolic_mmhg": 82.0,
+        "respirations_per_minute": 18.0,
+        "spo2_percent": 98.0,
+        "pain_0_10": 0.0
+      },
+      "localizations": {
+        "en": {
+          "revision": 1,
+          "source_hash": "d991a33fec4e7560a538badd7cb1496d54d6463cb1ff24501509054c2a2f168c",
+          "content_hash": "d991a33fec4e7560a538badd7cb1496d54d6463cb1ff24501509054c2a2f168c",
+          "status": "system_starter"
+        },
+        "hi": {
+          "revision": 1,
+          "source_hash": "d991a33fec4e7560a538badd7cb1496d54d6463cb1ff24501509054c2a2f168c",
+          "content_hash": "26dcf0f2baa2e32d34c5b9551361f73af7cf8f5a3edf649016dfe5488dded4fb",
+          "status": "system_starter"
+        }
+      },
+      "background": [
+        {
+          "id": "food_drink",
+          "text": {
+            "en": "I usually eat home-cooked rice, lentils and vegetables. I prefer vegetarian food.",
+            "hi": "मैं आम तौर पर घर का बना चावल, दाल और सब्ज़ियाँ खाता हूँ। मुझे शाकाहारी भोजन पसंद है।"
+          },
+          "allow_variation": false,
+          "choices": []
+        },
+        {
+          "id": "sleep_activity",
+          "text": {
+            "en": "I usually sleep from 10 pm to 6 am. I walk for 20 minutes most days.",
+            "hi": "मैं आम तौर पर रात 10 बजे से सुबह 6 बजे तक सोता हूँ। मैं अधिकतर दिनों में 20 मिनट चलता हूँ।"
+          },
+          "allow_variation": false,
+          "choices": []
+        },
+        {
+          "id": "work_home",
+          "text": {
+            "en": "I have a bachelor degree and a teaching qualification. I work at school Monday to Friday. I teach four hours per school day.",
+            "hi": "मेरे पास स्नातक की डिग्री और शिक्षण योग्यता है। मैं सोमवार से शुक्रवार स्कूल में काम करता हूँ। मैं हर स्कूल के दिन चार घंटे पढ़ाता हूँ।"
+          },
+          "allow_variation": false,
+          "choices": []
+        },
+        {
+          "id": "additional",
+          "text": {
+            "en": "These vital signs were measured at rest during this interview.",
+            "hi": "ये जीवन संकेत इस साक्षात्कार के दौरान आराम की अवस्था में मापे गए थे।"
+          },
+          "allow_variation": false,
+          "choices": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000507",
+    "previous": {
+      "code": "alex_wheeze",
+      "title": "Wheeze interview",
+      "vitals": {
+        "pain_0_10": 2.0,
+        "pulse_bpm": 102.0,
+        "spo2_percent": 96.0,
+        "systolic_mmhg": 124.0,
+        "temperature_c": 37.0,
+        "diastolic_mmhg": 80.0,
+        "heart_rate_bpm": 102.0,
+        "respirations_per_minute": 22.0
+      },
+      "history": {
+        "family": {
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "My father has high blood pressure.",
+                "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+              }
+            }
+          ],
+          "knowledge": "present"
+        },
+        "social": {
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+                "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+              }
+            }
+          ],
+          "knowledge": "present"
+        },
+        "allergies": {
+          "entries": [],
+          "knowledge": "none"
+        },
+        "surgeries": {
+          "entries": [],
+          "knowledge": "none"
+        },
+        "medications": {
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "I use a blue reliever inhaler when needed. I cannot recall its name or the dose.",
+                "hi": "ज़रूरत पर नीला राहत वाला इनहेलर इस्तेमाल करता हूँ। उसका नाम या खुराक याद नहीं है।"
+              }
+            }
+          ],
+          "knowledge": "present"
+        },
+        "past_conditions": {
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "I have had asthma since my teenage years. I have never needed a breathing machine.",
+                "hi": "किशोरावस्था से दमा है। कभी साँस की मशीन की ज़रूरत नहीं पड़ी।"
+              }
+            }
+          ],
+          "knowledge": "present"
+        }
+      },
+      "patient": {
+        "sex": "male",
+        "name": "Alex",
+        "age_years": 35,
+        "height_cm": 175.0,
+        "weight_kg": 75.0,
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        }
+      },
+      "version": 4,
+      "specialty": "Respiratory Medicine",
+      "presentation": {
+        "onset": {
+          "en": "This episode started two days ago and is worse at night.",
+          "hi": "यह दो दिन पहले शुरू हुआ और रात में अधिक होता है।"
+        },
+        "duration": {
+          "en": "This episode started two days ago and is worse at night.",
+          "hi": "यह दो दिन पहले शुरू हुआ और रात में अधिक होता है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "Dust seems to trigger it. My reliever inhaler helps for a while.",
+              "hi": "धूल से यह बढ़ता लगता है। राहत वाला इनहेलर कुछ समय के लिए मदद करता है।"
+            }
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I have a dry cough. I have not had a fever or coughed up blood.",
+              "hi": "सूखी खाँसी है। बुखार या खाँसी में खून नहीं आया है।"
+            }
+          }
+        ],
+        "chief_complaint": {
+          "en": "I have wheezing and my breathing feels tight.",
+          "hi": "साँस में सीटी जैसी आवाज़ है और साँस लेने में जकड़न लगती है।"
+        }
+      },
+      "learner_label": "Interview Alex",
+      "localizations": {},
+      "source_language": "en"
+    },
+    "document": {
+      "code": "alex_wheeze",
+      "title": "Wheeze interview",
+      "vitals": {
+        "pain_0_10": 2.0,
+        "pulse_bpm": 102.0,
+        "spo2_percent": 96.0,
+        "systolic_mmhg": 124.0,
+        "temperature_c": 37.0,
+        "diastolic_mmhg": 80.0,
+        "heart_rate_bpm": 102.0,
+        "respirations_per_minute": 22.0
+      },
+      "history": {
+        "family": {
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "My father has high blood pressure.",
+                "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+              }
+            },
+            {
+              "id": "similar_condition",
+              "text": {
+                "en": "I do not know whether relatives have asthma or similar wheezing.",
+                "hi": "मुझे नहीं पता कि रिश्तेदारों को अस्थमा या ऐसी घरघराहट है या नहीं।"
+              }
+            }
+          ],
+          "knowledge": "present"
+        },
+        "social": {
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+                "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+              }
+            }
+          ],
+          "knowledge": "present"
+        },
+        "allergies": {
+          "entries": [],
+          "knowledge": "none"
+        },
+        "surgeries": {
+          "entries": [],
+          "knowledge": "none"
+        },
+        "medications": {
+          "entries": [
+            {
+              "id": "reliever",
+              "text": {
+                "en": "I use a blue reliever inhaler when wheezy; it helps briefly.",
+                "hi": "घरघराहट होने पर नीला राहत वाला इनहेलर लेता हूँ; थोड़ी देर राहत मिलती है।"
+              }
+            },
+            {
+              "id": "prescriber",
+              "text": {
+                "en": "A doctor prescribed my reliever inhaler.",
+                "hi": "डॉक्टर ने मेरा राहत वाला इनहेलर लिखा था।"
+              }
+            },
+            {
+              "id": "recall",
+              "text": {
+                "en": "I cannot recall the inhaler name, dose or exact frequency.",
+                "hi": "इनहेलर का नाम, मात्रा या सही आवृत्ति याद नहीं है।"
+              }
+            }
+          ],
+          "knowledge": "present"
+        },
+        "past_conditions": {
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "I have had asthma since my teenage years. I have never needed a breathing machine.",
+                "hi": "किशोरावस्था से दमा है। कभी साँस की मशीन की ज़रूरत नहीं पड़ी।"
+              }
+            }
+          ],
+          "knowledge": "present"
+        }
+      },
+      "patient": {
+        "sex": "male",
+        "name": "Alex",
+        "age_years": 35,
+        "height_cm": 175.0,
+        "weight_kg": 75.0,
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        }
+      },
+      "version": 5,
+      "specialty": "Respiratory Medicine",
+      "presentation": {
+        "onset": {
+          "en": "It started two days ago.",
+          "hi": "यह दो दिन पहले शुरू हुआ।"
+        },
+        "duration": {
+          "en": "The wheeze comes and goes over these two days, especially at night.",
+          "hi": "इन दो दिनों में घरघराहट आती-जाती है, खासकर रात में।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "Dust seems to trigger it. My reliever inhaler helps for a while.",
+              "hi": "धूल से यह बढ़ता लगता है। राहत वाला इनहेलर कुछ समय के लिए मदद करता है।"
+            }
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I have a dry cough. I have not had a fever or coughed up blood.",
+              "hi": "सूखी खाँसी है। बुखार या खाँसी में खून नहीं आया है।"
+            }
+          }
+        ],
+        "chief_complaint": {
+          "en": "I have wheezing and my breathing feels tight.",
+          "hi": "साँस में सीटी जैसी आवाज़ है और साँस लेने में जकड़न लगती है।"
+        },
+        "severity": {
+          "en": "I can speak in full sentences but feel breathless when walking.",
+          "hi": "मैं पूरे वाक्य बोल सकता हूँ, लेकिन चलते समय साँस फूलती है।"
+        }
+      },
+      "learner_label": "Interview Alex",
+      "localizations": {},
+      "source_language": "en",
+      "background": [
+        {
+          "id": "food_drink",
+          "text": {
+            "en": "I usually eat home-cooked rice, lentils and vegetables. I prefer vegetarian food.",
+            "hi": "मैं आम तौर पर घर का बना चावल, दाल और सब्ज़ियाँ खाता हूँ। मुझे शाकाहारी भोजन पसंद है।"
+          }
+        },
+        {
+          "id": "sleep_activity",
+          "text": {
+            "en": "I usually sleep from 10 pm to 6 am. I walk for 20 minutes most days.",
+            "hi": "मैं आम तौर पर रात 10 बजे से सुबह 6 बजे तक सोता हूँ। मैं अधिकतर दिनों में 20 मिनट चलता हूँ।"
+          }
+        },
+        {
+          "id": "work_home",
+          "text": {
+            "en": "I have a bachelor degree and a teaching qualification. I work at school Monday to Friday. I teach four hours per school day.",
+            "hi": "मेरे पास स्नातक की डिग्री और शिक्षण योग्यता है। मैं सोमवार से शुक्रवार स्कूल में काम करता हूँ। मैं हर स्कूल के दिन चार घंटे पढ़ाता हूँ।"
+          }
+        },
+        {
+          "id": "additional",
+          "text": {
+            "en": "These vital signs were measured at rest during this interview.",
+            "hi": "ये जीवन संकेत इस साक्षात्कार के दौरान आराम की अवस्था में मापे गए थे।"
+          }
+        }
+      ]
+    },
+    "publication": {
+      "version": 5,
+      "code": "alex_wheeze",
+      "title": "Wheeze interview",
+      "learner_label": "Interview Alex",
+      "specialty": "Respiratory Medicine",
+      "source_language": "en",
+      "patient": {
+        "name": "Alex",
+        "age_years": 35,
+        "sex": "male",
+        "occupation": {
+          "en": "Schoolteacher",
+          "hi": "स्कूल शिक्षक"
+        },
+        "height_cm": 175.0,
+        "weight_kg": 75.0
+      },
+      "presentation": {
+        "chief_complaint": {
+          "en": "I have wheezing and my breathing feels tight.",
+          "hi": "साँस में सीटी जैसी आवाज़ है और साँस लेने में जकड़न लगती है।"
+        },
+        "onset": {
+          "en": "It started two days ago.",
+          "hi": "यह दो दिन पहले शुरू हुआ।"
+        },
+        "duration": {
+          "en": "The wheeze comes and goes over these two days, especially at night.",
+          "hi": "इन दो दिनों में घरघराहट आती-जाती है, खासकर रात में।"
+        },
+        "severity": {
+          "en": "I can speak in full sentences but feel breathless when walking.",
+          "hi": "मैं पूरे वाक्य बोल सकता हूँ, लेकिन चलते समय साँस फूलती है।"
+        },
+        "symptoms": [
+          {
+            "id": "main_symptoms",
+            "description": {
+              "en": "Dust seems to trigger it. My reliever inhaler helps for a while.",
+              "hi": "धूल से यह बढ़ता लगता है। राहत वाला इनहेलर कुछ समय के लिए मदद करता है।"
+            }
+          },
+          {
+            "id": "associated_symptoms",
+            "description": {
+              "en": "I have a dry cough. I have not had a fever or coughed up blood.",
+              "hi": "सूखी खाँसी है। बुखार या खाँसी में खून नहीं आया है।"
+            }
+          }
+        ]
+      },
+      "history": {
+        "past_conditions": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "I have had asthma since my teenage years. I have never needed a breathing machine.",
+                "hi": "किशोरावस्था से दमा है। कभी साँस की मशीन की ज़रूरत नहीं पड़ी।"
+              }
+            }
+          ]
+        },
+        "surgeries": {
+          "knowledge": "none",
+          "entries": []
+        },
+        "medications": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "id": "reliever",
+              "text": {
+                "en": "I use a blue reliever inhaler when wheezy; it helps briefly.",
+                "hi": "घरघराहट होने पर नीला राहत वाला इनहेलर लेता हूँ; थोड़ी देर राहत मिलती है।"
+              }
+            },
+            {
+              "id": "prescriber",
+              "text": {
+                "en": "A doctor prescribed my reliever inhaler.",
+                "hi": "डॉक्टर ने मेरा राहत वाला इनहेलर लिखा था।"
+              }
+            },
+            {
+              "id": "recall",
+              "text": {
+                "en": "I cannot recall the inhaler name, dose or exact frequency.",
+                "hi": "इनहेलर का नाम, मात्रा या सही आवृत्ति याद नहीं है।"
+              }
+            }
+          ]
+        },
+        "allergies": {
+          "knowledge": "none",
+          "entries": []
+        },
+        "family": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "My father has high blood pressure.",
+                "hi": "मेरे पिता का रक्तचाप बढ़ा रहता है।"
+              }
+            },
+            {
+              "id": "similar_condition",
+              "text": {
+                "en": "I do not know whether relatives have asthma or similar wheezing.",
+                "hi": "मुझे नहीं पता कि रिश्तेदारों को अस्थमा या ऐसी घरघराहट है या नहीं।"
+              }
+            }
+          ]
+        },
+        "social": {
+          "knowledge": "present",
+          "entries": [
+            {
+              "id": "entry_1",
+              "text": {
+                "en": "I do not smoke. I rarely drink alcohol and live with my family.",
+                "hi": "मैं धूम्रपान नहीं करता। कभी-कभार शराब लेता हूँ और परिवार के साथ रहता हूँ।"
+              }
+            }
+          ]
+        }
+      },
+      "vitals": {
+        "temperature_c": 37.0,
+        "heart_rate_bpm": 102.0,
+        "pulse_bpm": 102.0,
+        "systolic_mmhg": 124.0,
+        "diastolic_mmhg": 80.0,
+        "respirations_per_minute": 22.0,
+        "spo2_percent": 96.0,
+        "pain_0_10": 2.0
+      },
+      "localizations": {
+        "en": {
+          "revision": 1,
+          "source_hash": "3ba69e816d4ec38aede45bb35b282965422b92a9c076f7576a429916ad50ae87",
+          "content_hash": "3ba69e816d4ec38aede45bb35b282965422b92a9c076f7576a429916ad50ae87",
+          "status": "system_starter"
+        },
+        "hi": {
+          "revision": 1,
+          "source_hash": "3ba69e816d4ec38aede45bb35b282965422b92a9c076f7576a429916ad50ae87",
+          "content_hash": "26eecd56d2084341376c86d0082be296328eacc8c97ac2750de2057bb3a4a027",
+          "status": "system_starter"
+        }
+      },
+      "background": [
+        {
+          "id": "food_drink",
+          "text": {
+            "en": "I usually eat home-cooked rice, lentils and vegetables. I prefer vegetarian food.",
+            "hi": "मैं आम तौर पर घर का बना चावल, दाल और सब्ज़ियाँ खाता हूँ। मुझे शाकाहारी भोजन पसंद है।"
+          },
+          "allow_variation": false,
+          "choices": []
+        },
+        {
+          "id": "sleep_activity",
+          "text": {
+            "en": "I usually sleep from 10 pm to 6 am. I walk for 20 minutes most days.",
+            "hi": "मैं आम तौर पर रात 10 बजे से सुबह 6 बजे तक सोता हूँ। मैं अधिकतर दिनों में 20 मिनट चलता हूँ।"
+          },
+          "allow_variation": false,
+          "choices": []
+        },
+        {
+          "id": "work_home",
+          "text": {
+            "en": "I have a bachelor degree and a teaching qualification. I work at school Monday to Friday. I teach four hours per school day.",
+            "hi": "मेरे पास स्नातक की डिग्री और शिक्षण योग्यता है। मैं सोमवार से शुक्रवार स्कूल में काम करता हूँ। मैं हर स्कूल के दिन चार घंटे पढ़ाता हूँ।"
+          },
+          "allow_variation": false,
+          "choices": []
+        },
+        {
+          "id": "additional",
+          "text": {
+            "en": "These vital signs were measured at rest during this interview.",
+            "hi": "ये जीवन संकेत इस साक्षात्कार के दौरान आराम की अवस्था में मापे गए थे।"
+          },
+          "allow_variation": false,
+          "choices": []
+        }
+      ]
+    }
+  }
+]

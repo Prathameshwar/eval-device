@@ -1,0 +1,444 @@
+/*
+ * The authentication split-screen.
+ *
+ * It lives in this app rather than in `@pms/ui` on the package's own instruction — `shell.css`
+ * states that the shell is shared because every authenticated screen needs it, and that "the auth
+ * split-screen stays in its own app because nothing else will ever want it".
+ *
+ * Rules that hold throughout, and that `tests/auth-css.test.ts` enforces:
+ *   - no colour literal — every colour is a `--pms-*` token, so light, dark and ledger all work
+ *     from this one set of rules;
+ *   - no `z-index` literal — the decorative washes are pseudo-elements behind a positioned
+ *     content layer, which needs no stacking context of its own.
+ */
+
+/* Programmatic step announcements focus a heading, not an interactive control. */
+.pms-setup__heading:focus { outline: none; }
+.pms-setup__form .pms-strength + .pms-field { margin-top: var(--pms-space-4); }
+
+.pms-setup__steps {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--pms-space-2);
+  list-style: none;
+  margin: 0 0 var(--pms-space-6);
+  padding: 0;
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-faint);
+}
+
+.pms-setup__steps li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pms-space-2);
+}
+
+.pms-setup__steps [aria-current='step'] {
+  color: var(--pms-brand);
+  font-weight: 600;
+}
+
+.pms-setup__steps span {
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 1px solid currentColor;
+  border-radius: var(--pms-radius-pill);
+}
+
+.pms-setup__review { margin: 0; }
+.pms-setup__review div { padding: var(--pms-space-3) 0; border-bottom: 1px solid var(--pms-line); }
+.pms-setup__review dt { color: var(--pms-ink-soft); font-size: var(--pms-text-sm); }
+.pms-setup__review dd { margin: var(--pms-space-1) 0 0; overflow-wrap: anywhere; }
+
+/* ---------- frame ---------- */
+
+.pms-auth {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  /* The panel takes slightly more than half: it carries the display type, and an even split
+     left the claim wrapping mid-phrase at common laptop widths. */
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  background: var(--pms-paper);
+}
+
+/* ---------- brand panel ---------- */
+
+.pms-auth__panel {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  padding: var(--pms-space-8) var(--pms-space-7);
+  background: var(--pms-grad-panel);
+  border-inline-end: 1px solid var(--pms-line);
+}
+
+/*
+ * Two decorative washes, both drawn from brand tokens so they follow the palette:
+ * a soft radial lift behind the lockup, and a very faint diagonal ruling that gives the
+ * flat gradient something to catch. `color-mix` keeps the ruling proportional to the brand
+ * hue instead of pinning it to an alpha black that muddies the ledger palette.
+ */
+.pms-auth__panel::before {
+  content: '';
+  position: absolute;
+  inset: -20% 25% 40% -15%;
+  background: radial-gradient(closest-side, var(--pms-brand-glow), transparent 100%);
+  pointer-events: none;
+}
+
+.pms-auth__panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    116deg,
+    transparent 0 22px,
+    color-mix(in srgb, var(--pms-brand) 5%, transparent) 22px 23px
+  );
+  pointer-events: none;
+}
+
+.pms-auth__panel-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-7);
+  width: 100%;
+  max-width: 33rem;
+  margin-inline: auto;
+}
+
+/*
+ * The claim takes the space the panel has spare, and centres itself in it. Left to the normal
+ * flow it sat directly under the lockup with a third of the panel empty beneath it, which read
+ * as a page that had failed to finish loading.
+ */
+.pms-auth__pitch {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* The claim, and the only place on the page that uses the display step of the type scale. */
+.pms-auth__claim {
+  margin: 0;
+  font-family: var(--pms-font-display);
+  font-size: var(--pms-text-2xl);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  color: var(--pms-ink);
+  max-width: 24ch;
+}
+
+.pms-auth__rule {
+  width: 72px;
+  height: 3px;
+  margin-top: var(--pms-space-4);
+  border-radius: var(--pms-radius-pill);
+  background: linear-gradient(90deg, var(--pms-brand) 0%, var(--pms-brand-bright) 100%);
+}
+
+.pms-auth__claim-sub {
+  margin: var(--pms-space-4) 0 0;
+  color: var(--pms-ink-soft);
+  font-size: var(--pms-text-md);
+  max-width: 44ch;
+}
+
+/* Points and trust line: the part of the panel that is argument rather than identity, and so
+   the part that a narrow viewport drops. */
+.pms-auth__aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-6);
+}
+
+.pms-auth__points {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-4);
+}
+
+.pms-auth__point {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pms-space-3);
+  font-size: var(--pms-text-sm);
+  color: var(--pms-ink-soft);
+}
+
+.pms-auth__point-icon {
+  flex: none;
+  display: flex;
+  margin-top: 1px;
+  color: var(--pms-brand);
+}
+
+.pms-auth__point-title {
+  display: block;
+  font-weight: 600;
+  color: var(--pms-ink);
+}
+
+.pms-auth__trust {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  padding-top: var(--pms-space-5);
+  border-top: 1px solid var(--pms-line);
+  color: var(--pms-ink-faint);
+  font-size: var(--pms-text-xs);
+}
+
+.pms-auth__trust svg {
+  flex: none;
+  color: var(--pms-brand);
+}
+
+/* ---------- form column ---------- */
+
+.pms-auth__main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--pms-space-5) var(--pms-space-6) var(--pms-space-6);
+}
+
+.pms-auth__bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--pms-space-3);
+  min-height: var(--pms-topbar-h);
+}
+
+.pms-auth__body {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding-block: var(--pms-space-5);
+}
+
+.pms-auth__card {
+  width: 100%;
+  max-width: 25.5rem;
+  padding: var(--pms-space-6);
+  background: var(--pms-surface);
+  border: 1px solid var(--pms-line);
+  border-radius: var(--pms-radius-md);
+  box-shadow: var(--pms-shadow-card);
+}
+
+.pms-auth__head {
+  margin-bottom: var(--pms-space-5);
+}
+
+/* Not `.pms-lede`: that one is sized for a page header at 17px, which overpowers a 15px form
+   three lines below it. */
+.pms-auth__sub {
+  margin: var(--pms-space-2) 0 0;
+  color: var(--pms-ink-soft);
+  font-size: var(--pms-text-base);
+}
+
+.pms-auth__alert {
+  margin-bottom: var(--pms-space-4);
+}
+
+/* The remember-me row. `.pms-field + .pms-field` owns the gap between the two inputs; this row
+   is not a field, so it states its own. */
+.pms-auth__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pms-space-3);
+  margin-top: var(--pms-space-4);
+  flex-wrap: wrap;
+}
+
+.pms-auth__submit {
+  margin-top: var(--pms-space-5);
+}
+
+.pms-auth__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+  margin-top: var(--pms-space-5);
+  color: var(--pms-ink-faint);
+  font-size: var(--pms-text-xs);
+}
+
+.pms-auth__divider::before,
+.pms-auth__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--pms-line);
+}
+
+.pms-auth__social {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--pms-space-3);
+  margin-top: var(--pms-space-4);
+}
+
+.pms-auth__alt {
+  margin: var(--pms-space-5) 0 0;
+  text-align: center;
+  font-size: var(--pms-text-sm);
+  color: var(--pms-ink-soft);
+}
+
+/*
+ * The demo-account picker. A dashed edge rather than the card's hairline: everything else on this
+ * screen is the product, and this block is scaffolding that leaves with the real sign-in. It
+ * should not look like a feature.
+ */
+.pms-auth__demo {
+  margin-top: var(--pms-space-5);
+  padding: var(--pms-space-4);
+  border: 1px dashed var(--pms-line-strong);
+  border-radius: var(--pms-radius-sm);
+  background: var(--pms-surface-2);
+}
+
+.pms-auth__demo-list {
+  margin: var(--pms-space-2) 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-1);
+}
+
+.pms-auth__demo-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pms-space-3);
+  width: 100%;
+  padding: var(--pms-space-2);
+  border: none;
+  border-radius: var(--pms-radius-sm);
+  background: transparent;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.pms-auth__demo-item:hover {
+  background: var(--pms-hover);
+}
+
+.pms-auth__demo-item:focus-visible {
+  outline: none;
+  box-shadow: var(--pms-focus-ring);
+}
+
+.pms-auth__demo-role {
+  font-size: var(--pms-text-sm);
+  font-weight: 500;
+  color: var(--pms-ink);
+  white-space: nowrap;
+}
+
+/* The address is the long part and the part that may not fit; it truncates, not the role. */
+.pms-auth__demo-email {
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pms-auth__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: var(--pms-space-4);
+}
+
+.pms-auth__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pms-space-3);
+  margin-top: auto;
+  padding-top: var(--pms-space-5);
+}
+
+/* ---------- narrow viewports ---------- */
+
+/*
+ * Under 960px the panel becomes a header band: the identity and the claim survive, the argument
+ * and the trust line go. Hiding the whole panel would lose the gradient that makes the screen
+ * this product rather than a default form on grey.
+ */
+@media (max-width: 959px) {
+  .pms-auth {
+    grid-template-columns: 1fr;
+  }
+
+  .pms-auth__panel {
+    padding: var(--pms-space-5);
+    border-inline-end: none;
+    border-block-end: 1px solid var(--pms-line);
+  }
+
+  .pms-auth__panel-inner {
+    gap: var(--pms-space-4);
+  }
+
+  /* The masthead lockup lies down in a band; stacked, it is taller than the claim beside it. */
+  .pms-auth__panel .pms-brand {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--pms-space-3);
+  }
+
+  .pms-auth__claim {
+    font-size: var(--pms-text-lg);
+    max-width: none;
+  }
+
+  .pms-auth__rule,
+  .pms-auth__claim-sub,
+  .pms-auth__aside {
+    display: none;
+  }
+
+  .pms-auth__main {
+    padding: var(--pms-space-3) var(--pms-space-5) var(--pms-space-6);
+  }
+}
+
+@media (max-width: 479px) {
+  /* The card's border and shadow separate it from the paper. At this width the card *is* the
+     page, so the separation is describing a boundary that no longer exists. */
+  .pms-auth__card {
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+
+  .pms-auth__main {
+    padding-inline: var(--pms-space-4);
+  }
+
+  .pms-auth__social {
+    grid-template-columns: 1fr;
+  }
+}

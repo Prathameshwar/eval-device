@@ -1,0 +1,170 @@
+{
+  "voices": {
+    "en-male": {
+      "language": "en",
+      "gender": "male",
+      "label": "Ryan (US English, male)",
+      "archive": "vits-piper-en_US-ryan-medium.tar.bz2",
+      "archive_prefix": "vits-piper-en_US-ryan-medium",
+      "bytes": 67213100,
+      "sha256": "c546af78b6395b4e7c4ce1ed899438b64426a362f5d4ec5fecd090ded9ad7505",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-en_US-ryan-medium.tar.bz2",
+      "model": "en_US-ryan-medium.onnx",
+      "config": "en_US-ryan-medium.onnx.json",
+      "files": {
+        "en_US-ryan-medium.onnx": {
+          "bytes": 63149198,
+          "sha256": "7194c57359c49aaa1abb9c66d6d30d376475859f4ffdfd9c0415be8e032565f9"
+        },
+        "en_US-ryan-medium.onnx.json": {
+          "bytes": 4883,
+          "sha256": "44034c056cb15681b2ad494307c7f3f2e4499d1253c700c711fa0a4607ffe78d"
+        }
+      },
+      "default": true,
+      "synthesis": {
+        "length_scale": 1.05,
+        "noise_w_scale": 0.9
+      }
+    },
+    "en-female": {
+      "language": "en",
+      "gender": "female",
+      "label": "Lessac (US English, female)",
+      "archive": "vits-piper-en_US-lessac-medium.tar.bz2",
+      "archive_prefix": "vits-piper-en_US-lessac-medium",
+      "bytes": 67230653,
+      "sha256": "9e3febfacf0abf4270172d2958bcec246032b7e88efc2720840cc80c93de334e",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-en_US-lessac-medium.tar.bz2",
+      "model": "en_US-lessac-medium.onnx",
+      "config": "en_US-lessac-medium.onnx.json",
+      "files": {
+        "en_US-lessac-medium.onnx": {
+          "bytes": 63149198,
+          "sha256": "4ba07d8549906668ee855fd9abf9faf66c5db74742712ff026a159f7277fca9f"
+        },
+        "en_US-lessac-medium.onnx.json": {
+          "bytes": 4885,
+          "sha256": "efe19c417bed055f2d69908248c6ba650fa135bc868b0e6abb3da181dab690a0"
+        }
+      },
+      "default": true,
+      "synthesis": {
+        "length_scale": 1.05,
+        "noise_w_scale": 0.9
+      }
+    },
+    "en-male-gb": {
+      "language": "en",
+      "gender": "male",
+      "label": "Alan (British English, male)",
+      "archive": "vits-piper-en_GB-alan-medium.tar.bz2",
+      "archive_prefix": "vits-piper-en_GB-alan-medium",
+      "bytes": 67220121,
+      "sha256": "a48d4017da0f77668b27bed63fe6e04dd64c6397e1fadad4f460efb0ef7c9012",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-en_GB-alan-medium.tar.bz2",
+      "model": "en_GB-alan-medium.onnx",
+      "config": "en_GB-alan-medium.onnx.json",
+      "files": {
+        "en_GB-alan-medium.onnx": {
+          "bytes": 63201430,
+          "sha256": "d907c48857000940104a9ad3248a94617df917d1a525c9495490fdbf87fd54b2"
+        },
+        "en_GB-alan-medium.onnx.json": {
+          "bytes": 4888,
+          "sha256": "c0f0d124e5895c00e7c03b35dcc8287f319a6998a365b182deb5c8e752ee8c1e"
+        }
+      },
+      "default": false,
+      "synthesis": {
+        "length_scale": 1.05,
+        "noise_w_scale": 0.9
+      }
+    },
+    "en-female-gb": {
+      "language": "en",
+      "gender": "female",
+      "label": "Jenny (British English, female)",
+      "archive": "vits-piper-en_GB-jenny_dioco-medium.tar.bz2",
+      "archive_prefix": "vits-piper-en_GB-jenny_dioco-medium",
+      "bytes": 67225842,
+      "sha256": "a0888024569bafbefc05a4b48ddf8419d8dbbf3205f4af37cf7c6f1a87cc20c5",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-en_GB-jenny_dioco-medium.tar.bz2",
+      "model": "en_GB-jenny_dioco-medium.onnx",
+      "config": "en_GB-jenny_dioco-medium.onnx.json",
+      "files": {
+        "en_GB-jenny_dioco-medium.onnx": {
+          "bytes": 63201430,
+          "sha256": "bd5207a2752d8766a8b771437776fd7575031a9f9876eaf13b8db778b150993a"
+        },
+        "en_GB-jenny_dioco-medium.onnx.json": {
+          "bytes": 4895,
+          "sha256": "a9a7a93a317c9a3cb6563e37eb057df9ef09c06188a8a4341b0fcb58cba54dd4"
+        }
+      },
+      "default": false,
+      "synthesis": {
+        "length_scale": 1.05,
+        "noise_w_scale": 0.9
+      }
+    },
+    "hi-male": {
+      "language": "hi",
+      "gender": "male",
+      "label": "Rohan (Hindi, male)",
+      "archive": "vits-piper-hi_IN-rohan-medium.tar.bz2",
+      "archive_prefix": "vits-piper-hi_IN-rohan-medium",
+      "bytes": 67221139,
+      "sha256": "f0bb7781724951e9c90c49f68abfe821cffcbc198a9ae0031366d045a6ad5488",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-hi_IN-rohan-medium.tar.bz2",
+      "model": "hi_IN-rohan-medium.onnx",
+      "config": "hi_IN-rohan-medium.onnx.json",
+      "files": {
+        "hi_IN-rohan-medium.onnx": {
+          "bytes": 62946428,
+          "sha256": "353d2a20bdb6dd03b74e1aff82b7a10a1646f677f8474c6c81fd606705536224"
+        },
+        "hi_IN-rohan-medium.onnx.json": {
+          "bytes": 5041,
+          "sha256": "07b9ae19bd0bac7fbbc99f7ee69c91245eb5470e926632c31fc0c50ba653c817"
+        }
+      },
+      "license": "Upstream model card references IIT Madras IndicTTS Hindi Mono Male dataset terms: https://www.iitm.ac.in/donlab/indictts/downloads/license.pdf",
+      "source": "https://huggingface.co/rhasspy/piper-voices/blob/b75a4d669179940fa44b21a03b2bf0ee3b621817/hi/hi_IN/rohan/medium/MODEL_CARD",
+      "default": true,
+      "synthesis": {
+        "length_scale": 1.05,
+        "noise_w_scale": 0.9
+      }
+    },
+    "hi-female": {
+      "language": "hi",
+      "gender": "female",
+      "label": "Priyamvada (Hindi, female)",
+      "archive": "vits-piper-hi_IN-priyamvada-medium.tar.bz2",
+      "archive_prefix": "vits-piper-hi_IN-priyamvada-medium",
+      "bytes": 67240610,
+      "sha256": "399d91cc97eb288725633261f26b715f9a971e3bf7ec4fa1d7910cd0080d37eb",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-hi_IN-priyamvada-medium.tar.bz2",
+      "model": "hi_IN-priyamvada-medium.onnx",
+      "config": "hi_IN-priyamvada-medium.onnx.json",
+      "files": {
+        "hi_IN-priyamvada-medium.onnx": {
+          "bytes": 63145178,
+          "sha256": "8871f3e07adb6ca490f8dbcd3956a8647c53c35b5d0a1c2a8d097b3bf721a31b"
+        },
+        "hi_IN-priyamvada-medium.onnx.json": {
+          "bytes": 4973,
+          "sha256": "5efc0ccf7529f3528996d46e0fac1f969f681d44a8e55bfa6236ff8841b5d52d"
+        }
+      },
+      "license": "Upstream dataset license: CC BY-NC-SA 4.0 (noncommercial); see MODEL_CARD in the pinned archive",
+      "source": "https://huggingface.co/rhasspy/piper-voices/blob/main/hi/hi_IN/priyamvada/medium/MODEL_CARD",
+      "default": true,
+      "synthesis": {
+        "length_scale": 1.05,
+        "noise_w_scale": 0.9
+      }
+    }
+  }
+}

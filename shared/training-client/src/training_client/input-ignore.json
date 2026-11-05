@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "languages": {
+    "en": {
+      "enabled": true,
+      "repeat_last_letter": true,
+      "fillers": [
+        "hm",
+        "hmm",
+        "mm",
+        "mmm",
+        "um",
+        "umm",
+        "uh",
+        "uhh",
+        "erm",
+        "er"
+      ],
+      "acknowledgements": [
+        "ok",
+        "okay",
+        "alright",
+        "all right",
+        "right",
+        "got it",
+        "understood",
+        "i see",
+        "okay then",
+        "thank",
+        "thanks",
+        "thank you",
+        "thankyou",
+        "thanks a lot",
+        "thanks very much",
+        "thank you very much",
+        "many thanks",
+        "thank you so much",
+        "thanks so much",
+        "much appreciated"
+      ]
+    }
+  }
+}

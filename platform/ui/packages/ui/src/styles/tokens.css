@@ -1,0 +1,75 @@
+/*
+ * PMS design tokens — NON-COLOUR ONLY.
+ *
+ * Type, space, radius, motion, layout dimensions and stacking order are the same in
+ * every theme, so they live here once. Colour lives in `theme-light.css`,
+ * `theme-dark.css` and `theme-ledger.css`, selected by `data-theme` on <html>.
+ *
+ * Import order in every app's root layout:
+ *   tokens.css → theme-*.css (all three) → ui.css → shell.css → data.css
+ */
+
+
+:root {
+  /* — Type families — */
+  --pms-font-display: 'Segoe UI', system-ui, sans-serif;
+  --pms-font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  /* A system stack on purpose: a second webfont for a `USD` badge isn't worth the request. */
+  --pms-font-mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', 'SF Mono', Menlo, monospace;
+
+  /* — Type scale: modular ~1.25, per Elements of Typographic Style — */
+  --pms-text-overline: 0.6875rem; /* 11px — letterspaced section labels */
+  --pms-text-xs: 0.78rem; /* 12.5px fine print */
+  --pms-text-sm: 0.8125rem; /* 13px labels */
+  --pms-text-base: 0.9375rem; /* 15px inputs & body */
+  --pms-text-md: 1.0625rem; /* 17px */
+  --pms-text-lg: 1.375rem; /* 22px ledger total, card titles */
+  --pms-text-xl: 1.875rem; /* 30px h1 */
+  --pms-text-2xl: 2.4rem; /* 38px display h1 */
+
+  /* Figures in stat tiles — the number is the content, so it gets its own steps */
+  --pms-figure-sm: 1.5rem; /* 24px — a tile nested inside a card */
+  --pms-figure-lg: 2.125rem; /* 34px — a top-level KPI tile */
+
+  /* — Space (8pt-ish) — */
+  --pms-space-1: 0.25rem;
+  --pms-space-2: 0.5rem;
+  --pms-space-3: 0.75rem;
+  --pms-space-4: 1rem;
+  --pms-space-5: 1.5rem;
+  --pms-space-6: 2rem;
+  --pms-space-7: 3rem;
+  --pms-space-8: 4rem;
+
+  /* — Radius: tight and functional, never one big radius on everything.
+   *   Cards take `md` (6px) — the ledger radius, deliberately tighter than the
+   *   softer 10–12px of comparable consoles, so the console reads as the same
+   *   product as the auth screens. — */
+  --pms-radius-sm: 4px;
+  --pms-radius-md: 6px;
+  --pms-radius-pill: 999px;
+
+  /* — Motion — */
+  --pms-dur-fast: 120ms;
+  --pms-dur: 180ms;
+  --pms-ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+
+  /* — Layout dimensions — */
+  --pms-rail-w: 288px;
+  --pms-rail-w-collapsed: 72px;
+  /* rem, not px: the type scale is rem, so a px band clips its own text when the user
+   * raises their default font size (WCAG 1.4.4). */
+  --pms-topbar-h: 3.75rem;
+  --pms-page-gutter: 2rem;
+  --pms-page-max: 1600px;
+
+  /* — Stacking order, declared once so nothing invents a z-index — */
+  --pms-z-topbar: 20;
+  --pms-z-rail: 30;
+  --pms-z-scrim: 40;
+  --pms-z-drawer: 50;
+  --pms-z-popover: 60;
+  --pms-z-tooltip: 70;
+  /* Above everything: a toast reporting a failed save must not be hidden behind an open menu. */
+  --pms-z-toast: 80;
+}

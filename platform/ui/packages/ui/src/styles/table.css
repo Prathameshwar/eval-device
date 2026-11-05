@@ -1,0 +1,772 @@
+/*
+ * @pms/ui — `DataTable` and its query controls.
+ *
+ * Three structural rules the rest of this file depends on:
+ *
+ * 1. **The table region is the one nested scroller the design system allows.** `main` is otherwise
+ *    the page's single vertical scroller (shell.css) — but a table that scrolls horizontally *is* a
+ *    scroll container on both axes, because setting `overflow-x: auto` computes `overflow-y` from
+ *    `visible` to `auto`. A sticky `<thead>` inside it therefore resolves against the shell's own
+ *    scrollport, not `main`'s. So the shell takes a height cap and owns its vertical scrolling:
+ *    that is not decoration, it is what makes the frozen header work at all. `--pms-table-max-h`
+ *    is the knob, and the cap applies only when the header is actually sticky.
+ * 2. **Gridlines are container decoration, not controls.** They read `--pms-line` at ~1.3:1;
+ *    anything interactive inside a cell uses `--pms-control-line` at 3:1.
+ * 3. **`z-index` inside the shell is local.** The frozen header and the pinned column stack against
+ *    each other only, inside a scroll container that creates its own context — nothing here
+ *    competes with the `--pms-z-*` layers, which belong to portalled overlays.
+ *
+ * Contains no colour values — every colour reads a --pms-* token.
+ */
+
+/* ---------- shell ---------- */
+
+.pms-table-shell {
+  /* Keep the hidden row-count announcement inside the table's scrollport. */
+  position: relative;
+  /* Roughly two thirds of a laptop viewport: enough rows to read, short enough that the page's
+   * own header and the pager below it stay on screen while scrolling the body. */
+  --pms-table-max-h: 68dvh;
+  /*
+   * The width of a leading control column — the selection checkbox, the expand toggle. Fixed rather
+   * than content-sized, and that is load-bearing: `DataTable` computes each pinned cell's sticky
+   * offset as this times its place in the run, so a measured width would mean a layout pass and a
+   * frame of cells overlapping. Wide enough for an 18px box or a 28px icon button plus padding.
+   */
+  --pms-table-ctrl-w: 2.75rem;
+  overflow-x: auto;
+  background: var(--pms-surface);
+  border: 1px solid var(--pms-line);
+  border-radius: var(--pms-radius-md);
+  box-shadow: var(--pms-shadow-card);
+}
+
+.pms-table-shell[data-sticky='true'] {
+  max-height: var(--pms-table-max-h);
+  overflow-y: auto;
+}
+
+/*
+ * The shell carries a tab stop, because it scrolls (`DataTable`) — so it owes a focus indicator.
+ * Inset, not the shared `--pms-focus-ring`: that ring is drawn outside the box, and this box is a
+ * scrollport whose own overflow would clip it into a sliver along one edge.
+ */
+.pms-table-shell:focus-visible {
+  outline: 2px solid var(--pms-focus);
+  outline-offset: -2px;
+}
+
+.pms-table {
+  width: 100%;
+  /*
+   * `separate`, not `collapse`. A collapsed border belongs to the table rather than to the cell, so
+   * it does not travel with a `position: sticky` header — the heading row scrolls away from its own
+   * bottom rule. `border-spacing: 0` keeps the hairlines looking collapsed regardless.
+   */
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--pms-text-sm);
+  color: var(--pms-ink);
+}
+
+/* ---------- heading row ---------- */
+
+.pms-table thead th {
+  padding: var(--pms-space-3) var(--pms-space-4);
+  background: var(--pms-surface-2);
+  border-bottom: 1px solid var(--pms-line-strong);
+  font-size: var(--pms-text-overline);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pms-ink-soft);
+  text-align: start;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+.pms-table--sticky thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* The column currently ordering the list reads as ink rather than as a caption. */
+.pms-table thead th[data-sorted] {
+  color: var(--pms-ink);
+}
+
+/*
+ * A sortable heading is a button, not a click handler on the cell: it has to be reachable by tab
+ * and it has to be the thing that shows the focus ring. It fills the cell so the whole heading is
+ * the target, and inherits the row's type so pressing it does not restyle the column name.
+ */
+.pms-table__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+/* The glyph trails the name on a start-aligned column and leads it on an end-aligned one, so it
+ * never sits between the figures and the column they belong to. */
+.pms-table th[data-align='end'] .pms-table__sort {
+  flex-direction: row-reverse;
+}
+.pms-table th[data-align='center'] .pms-table__sort {
+  justify-content: center;
+}
+.pms-table__sort:hover {
+  color: var(--pms-ink);
+}
+.pms-table__sort:focus-visible {
+  outline: none;
+  border-radius: var(--pms-radius-sm);
+  box-shadow: var(--pms-focus-ring);
+}
+
+/*
+ * Faint until the column is the sort key, but never hidden: an affordance that only appears on
+ * hover does not exist for a touch reader, and this one is how a column says it can be sorted.
+ */
+.pms-table__sort-icon {
+  display: inline-flex;
+  flex: none;
+  color: var(--pms-ink-faint);
+}
+.pms-table th[data-sorted] .pms-table__sort-icon,
+.pms-table__sort:hover .pms-table__sort-icon {
+  color: var(--pms-ink-soft);
+}
+
+/* ---------- body ---------- */
+
+.pms-table tbody td {
+  padding: var(--pms-space-3) var(--pms-space-4);
+  border-bottom: 1px solid var(--pms-line);
+  vertical-align: middle;
+}
+/* The shell already draws the closing edge; a second rule inside it reads as an empty row. */
+.pms-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.pms-table tbody tr:hover td {
+  background: var(--pms-hover);
+}
+
+/* A row that can no longer be changed sits back a step, and says why through its marker. */
+.pms-table tbody tr[data-locked='true'] td {
+  background: var(--pms-surface-2);
+}
+.pms-table tbody tr[data-locked='true']:hover td {
+  background: var(--pms-hover);
+}
+
+/* `margin-inline-end`, like every other offset in this file: the marker leads the row's first value,
+ * and under a right-to-left script "leads" is the other side. */
+.pms-table__lock {
+  display: inline-flex;
+  align-items: center;
+  margin-inline-end: var(--pms-space-2);
+  color: var(--pms-ink-faint);
+  vertical-align: -2px;
+}
+
+/* ---------- alignment ---------- */
+
+.pms-table th[data-align='end'],
+.pms-table td[data-align='end'] {
+  text-align: end;
+}
+.pms-table th[data-align='center'],
+.pms-table td[data-align='center'] {
+  text-align: center;
+}
+
+/* Tabular figures let columns of numeric values line
+ * up on its decimal point. Same declarations as `.pms-figure`, applied by type rather than by
+ * asking every call site to remember the class. */
+.pms-table td[data-figure='true'] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* A missing value is content-shaped but is not content: the em dash recedes so a scan down the
+ * column reads the values, not the gaps. */
+.pms-table td[data-empty='true'] {
+  color: var(--pms-ink-faint);
+}
+
+/* ---------- pinned first column ---------- */
+
+/*
+ * Order matters here. The body cell sits above the scrolling content (1); the frozen header above
+ * that (2); and the cell that is both must beat both (3), or the first column paints over its own
+ * heading. An opaque background is not optional — a sticky cell has scrolled content passing
+ * underneath it.
+ */
+/*
+ * `inset-inline-start`, not `left`: `DataTable` sets this property inline for each cell past the
+ * first in the pinned run, and the two must be the same property or the inline value would not
+ * override this one under a right-to-left script.
+ */
+.pms-table td[data-pinned='true'] {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background: var(--pms-surface);
+}
+.pms-table tbody tr:hover td[data-pinned='true'] {
+  background: var(--pms-hover);
+}
+.pms-table tbody tr[data-locked='true'] td[data-pinned='true'] {
+  background: var(--pms-surface-2);
+}
+.pms-table th[data-pinned='true'] {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 3;
+}
+
+/* The separating edge, drawn outside the cell so it does not eat a pixel of padding — and drawn by
+ * the last cell of the run only, or the frozen control columns print hairlines between themselves. */
+.pms-table th[data-pin-edge='true'],
+.pms-table td[data-pin-edge='true'] {
+  box-shadow: 1px 0 0 0 var(--pms-line);
+}
+
+/* ---------- selection, expansion and the control columns ---------- */
+
+/*
+ * A control cell is furniture: fixed width, centred on its control, and never the thing the eye
+ * lands on first. `padding-inline` is trimmed from the body default so the box lines up under the
+ * heading's box rather than being pushed off by two lots of cell padding.
+ */
+.pms-table th.pms-table__ctrl,
+.pms-table td.pms-table__ctrl {
+  width: var(--pms-table-ctrl-w);
+  padding-inline: var(--pms-space-3);
+  text-align: start;
+  white-space: nowrap;
+}
+
+/*
+ * A selected row is tinted, and the tint survives hover — the row is in a set that a bulk verb is
+ * about to act on, which outranks "the pointer is here". `--pms-brand-tint` is the same surface
+ * the brand uses elsewhere, so nothing new is introduced for it.
+ */
+.pms-table tbody tr[data-selected='true'] td {
+  background: var(--pms-brand-tint);
+}
+.pms-table tbody tr[data-selected='true']:hover td {
+  background: var(--pms-brand-tint);
+}
+.pms-table tbody tr[data-selected='true'] td[data-pinned='true'] {
+  background: var(--pms-brand-tint);
+}
+
+/* The panel under an expanded row. Inset from the row's own left edge so it reads as belonging to
+ * it, and on the second surface so the boundary is visible without another rule. */
+.pms-table tbody tr.pms-table__detail-row td {
+  background: var(--pms-surface-2);
+}
+.pms-table__detail {
+  padding: var(--pms-space-4) var(--pms-space-5);
+}
+
+/* ---------- bulk action bar ---------- */
+
+/*
+ * Sits between the filter bar and the table, and is only present while something is selected — so it
+ * inserts itself into the page rather than reserving a strip that is empty most of the time.
+ */
+.pms-bulk-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pms-space-3);
+  margin-bottom: var(--pms-space-3);
+  padding: var(--pms-space-2) var(--pms-space-4);
+  background: var(--pms-brand-tint);
+  border: 1px solid var(--pms-brand-line);
+  border-radius: var(--pms-radius-md);
+}
+
+.pms-bulk-bar__count {
+  margin: 0;
+  font-size: var(--pms-text-sm);
+  font-weight: 600;
+  color: var(--pms-ink);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* A `<fieldset>`, because `disabled` on one holds every control inside it — so the browser's own
+ * default frame, padding and margin have to be given up here. */
+.pms-bulk-bar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pms-space-2);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* ---------- density ---------- */
+
+.pms-table[data-density='compact'] thead th,
+.pms-table[data-density='compact'] tbody td {
+  padding: var(--pms-space-2) var(--pms-space-3);
+}
+
+/* ---------- cell content ---------- */
+
+/*
+ * Truncation needs an element of its own: `text-overflow` on a `<td>` does nothing under
+ * `table-layout: auto`, because the cell is sized by its content rather than sizing it.
+ */
+.pms-table__ellipsis {
+  display: block;
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Codes and masked values are mono: character width is meaning in a reference or an account tail. */
+.pms-table__code,
+.pms-table__masked {
+  font-family: var(--pms-font-mono);
+  font-size: var(--pms-text-xs);
+  letter-spacing: 0.02em;
+}
+
+/* The currency code beside an amount not in the company's own currency. Quiet, but never absent —
+ * it is the difference between two amounts that otherwise look comparable. */
+.pms-table__ccy {
+  /* Logical, so the code trails the amount rather than crossing to the far side of it in RTL. */
+  margin-inline-start: var(--pms-space-2);
+  font-family: var(--pms-font-mono);
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+}
+
+.pms-table__chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pms-space-1);
+}
+/* `help` rather than `default`: the count carries the rest of the list in its tooltip. */
+.pms-table__chips-more {
+  font-size: var(--pms-text-xs);
+  font-weight: 600;
+  color: var(--pms-ink-soft);
+  cursor: help;
+}
+
+.pms-table__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pms-space-1);
+}
+
+/* The bar sits inside a cell rather than under a list row, so it drops the row's top margin. */
+.pms-table td .pms-meter {
+  margin-top: 0;
+}
+
+/* ---------- empty, error and loading ---------- */
+
+.pms-table__state {
+  padding: var(--pms-space-5);
+  border-bottom: 0;
+}
+/*
+ * A dashed panel inside a bordered shell is a border inside a border, so the empty state gives up
+ * its own frame here. The error state keeps its solid danger tint — inside the body it reads as a
+ * banner where the rows would have been, which is the intent.
+ */
+.pms-table__state .pms-state:not(.pms-state--error) {
+  border-color: transparent;
+  background: transparent;
+}
+
+/* ---------- stacked layout ---------- */
+
+/*
+ * Below this width the table stops being a grid and each row becomes a labelled block. 52rem is
+ * where a six-column ledger stops fitting without sideways scrolling, and it is a `rem` so the
+ * switch follows the reader's font size rather than a device.
+ *
+ * `DataTable` restates the ARIA roles whenever `stack` is on, because `display: block` here strips
+ * the implicit table roles. That is also why the heading row is *clipped* rather than
+ * `display: none` — the column headers must stay in the accessibility tree while `::before`
+ * repeats them visually per cell.
+ */
+@media (max-width: 52rem) {
+  /*
+   * The height cap goes with the frozen header it exists for. The heading row is clipped here, so
+   * the nested scroller would trap a phone reader inside two thirds of their own viewport for no
+   * benefit — the one case where the shell is not the scrollport anything needs.
+   *
+   * Only the cap is lifted. `overflow-y: visible` would be a lie in this file's own terms — the
+   * `overflow-x: auto` above computes it back to `auto` — and it is not needed: an uncapped box
+   * never has anything to scroll.
+   */
+  .pms-table-shell[data-stack='true'] {
+    max-height: none;
+  }
+
+  /* `thead` is in this list too: leaving it a `table-header-group` inside a `display: block` table
+   * makes the browser wrap it in an anonymous table box, which is a layout nobody wrote. */
+  .pms-table--stack,
+  .pms-table--stack thead,
+  .pms-table--stack tbody,
+  .pms-table--stack tr,
+  .pms-table--stack td {
+    display: block;
+    width: auto;
+  }
+
+  /* Same recipe as `.pms-visually-hidden`, which cannot be applied as a class from a query. */
+  .pms-table--stack thead th {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .pms-table--stack tbody tr {
+    padding: var(--pms-space-3) var(--pms-space-4);
+    border-bottom: 1px solid var(--pms-line);
+  }
+  .pms-table--stack tbody tr:last-child {
+    border-bottom: 0;
+  }
+  /*
+   * An expanded row and its panel are one block, not two cards. Stacked, every row draws its own
+   * closing rule — which would print a line between a row and the detail that belongs to it, making
+   * the panel read as the next record. `:has()` because the row that must give up its rule is the
+   * one *before* the detail, and there is no previous-sibling combinator.
+   */
+  .pms-table--stack tbody tr:has(+ .pms-table__detail-row) {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+  .pms-table--stack tbody tr.pms-table__detail-row {
+    padding-top: 0;
+  }
+
+  .pms-table--stack tbody td {
+    display: grid;
+    grid-template-columns: minmax(6rem, 38%) minmax(0, 1fr);
+    align-items: baseline;
+    gap: var(--pms-space-3);
+    padding: var(--pms-space-1) 0;
+    border-bottom: 0;
+  }
+  /* Alignment was a column property; stacked, every value sits beside its own label. Specificity
+   * rather than `!important`, so the wide rules still read as the default. */
+  .pms-table--stack tbody td[data-align='end'],
+  .pms-table--stack tbody td[data-align='center'] {
+    text-align: start;
+  }
+
+  .pms-table--stack tbody td::before {
+    content: attr(data-label);
+    font-size: var(--pms-text-xs);
+    font-weight: 600;
+    color: var(--pms-ink-soft);
+  }
+  /* A cell with no heading — the row's kebab — spans the block instead of leaving a hole. */
+  .pms-table--stack tbody td:not([data-label]) {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: end;
+  }
+  .pms-table--stack tbody td:not([data-label])::before {
+    content: none;
+  }
+
+  /* Neither freeze means anything once the row is a block, and both would misplace the cell. */
+  .pms-table--stack th[data-pinned='true'],
+  .pms-table--stack td[data-pinned='true'],
+  .pms-table--stack th[data-pin-edge='true'],
+  .pms-table--stack td[data-pin-edge='true'] {
+    /* `static` also settles the offset `DataTable` sets inline: an inset does not apply to a cell
+     * that is not positioned, so the inline style cannot outlive the layout it was for. */
+    position: static;
+    box-shadow: none;
+  }
+
+  /*
+   * A control cell keeps its label-less layout but leads the block instead of hanging off its end:
+   * the checkbox and the expand toggle belong at the start of a row that is now a card, where the
+   * reader's eye enters it. The fixed column width goes with the columns.
+   */
+  .pms-table--stack tbody td.pms-table__ctrl,
+  .pms-table--stack tbody td.pms-table__detail {
+    width: auto;
+    padding-inline: 0;
+    justify-items: start;
+  }
+  /* Nothing scrolls sideways any more, so a clipped value is just a lost one. */
+  .pms-table--stack .pms-table__ellipsis {
+    max-width: none;
+    white-space: normal;
+  }
+  .pms-table--stack .pms-table__state {
+    padding: var(--pms-space-4) 0;
+  }
+}
+
+/* ---------- filter bar ---------- */
+
+.pms-filter-bar {
+  --pms-filter-control-height: 2.75rem;
+  --pms-filter-label-height: 1.5rem;
+  container: pms-filters / inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-3);
+  margin-bottom: var(--pms-space-4);
+}
+
+/* The filter's bottom margin already provides the gap to its table. */
+.pms-page > .pms-filter-bar + .pms-table-shell {
+  margin-top: 0;
+}
+
+.pms-filter-bar__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--pms-space-3);
+}
+
+/* Align fields from the label down so help/error messages do not lift neighbouring inputs. */
+.pms-filter-bar__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--pms-space-3);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.pms-filter-bar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  flex: none;
+  align-items: flex-end;
+  gap: var(--pms-space-3);
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Only list filters receive these dimensions; stacked forms, pagers and chips keep
+ * their own layout. A plain TextField may use the search wrapper without adopting
+ * TableSearch's debounce/trim behaviour. */
+.pms-filter-bar__controls > .pms-field {
+  flex: 1 1 12rem;
+  min-width: 0;
+  max-width: 15rem;
+}
+.pms-filter-bar__controls .pms-field {
+  margin-top: 0;
+  min-width: 0;
+}
+.pms-filter-bar__controls .pms-field__row {
+  min-height: var(--pms-filter-label-height);
+  margin-bottom: var(--pms-space-2);
+}
+.pms-filter-bar__controls .pms-label {
+  overflow-wrap: anywhere;
+}
+.pms-filter-bar__controls .pms-input {
+  height: var(--pms-filter-control-height);
+  min-width: 0;
+  max-width: 100%;
+}
+.pms-filter-bar__controls > .pms-btn,
+.pms-filter-bar__actions > .pms-btn {
+  min-height: var(--pms-filter-control-height);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.pms-filter-bar__controls > .pms-btn {
+  margin-top: calc(var(--pms-filter-label-height) + var(--pms-space-2));
+}
+.pms-filter-bar__controls > .pms-table-search {
+  flex: 2 1 16rem;
+  min-width: 0;
+  max-width: 26rem;
+}
+
+/* Container width also covers tenant dialogs and layouts with an expanded rail. */
+@container pms-filters (max-width: 36rem) {
+  .pms-filter-bar__controls > .pms-field,
+  .pms-filter-bar__controls > .pms-table-search {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+  .pms-filter-bar__controls > .pms-btn {
+    margin-top: 0;
+  }
+  .pms-filter-bar__controls > .pms-btn,
+  .pms-filter-bar__actions,
+  .pms-filter-bar__actions > .pms-btn {
+    width: 100%;
+  }
+}
+
+.pms-filter-bar__chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pms-space-2);
+}
+
+/* "Clear all" is the row's quietest control — it ends a query, and a prominent button there
+ * invites the reader to lose the filters they just set. Quiet is about weight, not about size:
+ * 1.5rem is the floor every target in this system keeps, and an icon button is 34px. */
+.pms-filter-bar__clear {
+  padding: 0.15rem var(--pms-space-2);
+  font-size: var(--pms-text-xs);
+  min-height: 1.5rem;
+}
+
+/* ---------- table search ---------- */
+
+/* Wide enough for an invoice number plus a customer name, and it gives way first when the bar
+ * wraps — a search box is the one control that reads fine at half width. */
+.pms-table-search {
+  flex: 1 1 18rem;
+  max-width: 26rem;
+  min-width: 10rem;
+}
+
+/* The clear button is the shared in-input control (`pms-input__toggle`), which is sized for a
+ * word rather than a glyph — so here it centres an icon instead. */
+.pms-table-search .pms-input__toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem;
+}
+
+/* ---------- pager ---------- */
+
+.pms-pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pms-space-3);
+  margin-top: var(--pms-space-3);
+}
+
+/*
+ * The range, not a count: keyset paging returns no total, so this
+ * says "Showing 51–100" and never "of 1,240". Tabular figures, because the numbers change under
+ * the reader's eye as they step and a shifting digit width reads as movement.
+ */
+.pms-pager__range {
+  margin: 0;
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+.pms-pager__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+}
+
+/* ---------- applied-filter chips ---------- */
+
+/*
+ * Distinct from `.pms-chip` (shell.css), which is a static context label. This one is a
+ * dismissible statement about the query, so it carries an operator and a remove button, and it
+ * takes the neutral tint rather than the brand's — a filter is a fact, not an emphasis.
+ */
+.pms-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pms-space-1);
+  max-width: 22rem;
+  padding: 0.15rem 0.2rem 0.15rem var(--pms-space-2);
+  background: var(--pms-surface-2);
+  border: 1px solid var(--pms-line-strong);
+  border-radius: var(--pms-radius-sm);
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink);
+  white-space: nowrap;
+}
+
+.pms-filter-chip__label {
+  font-weight: 600;
+}
+
+/* The operator is the quiet connective — present, readable, not competing with the value. */
+.pms-filter-chip__op {
+  color: var(--pms-ink-soft);
+}
+
+/* The value is what the user scans for, so it is the only part allowed to truncate. */
+.pms-filter-chip__value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*
+ * Painted small, hit large. The visible box is sized to the chip — a 24px button inside a chip whose
+ * type is `--pms-text-xs` would be the chip — but 1.15rem is 18px, under the target-size floor,
+ * and dismissing a filter by mistake means re-deriving a query. The pseudo-element extends the
+ * pointer target to ~26px without moving a pixel of paint or of layout.
+ */
+.pms-filter-chip__remove {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 0;
+  border-radius: var(--pms-radius-sm);
+  background: transparent;
+  color: var(--pms-ink-soft);
+  cursor: pointer;
+}
+.pms-filter-chip__remove::after {
+  content: '';
+  position: absolute;
+  inset: -0.25rem;
+}
+.pms-filter-chip__remove:hover {
+  background: var(--pms-hover);
+  color: var(--pms-ink);
+}
+.pms-filter-chip__remove:focus-visible {
+  outline: none;
+  box-shadow: var(--pms-focus-ring);
+}

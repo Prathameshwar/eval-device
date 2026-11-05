@@ -1,0 +1,41 @@
+/* Models only: shared controls retain their keyboard and theme behavior. */
+.direct-model-directory { display: grid; gap: 24px; min-width: 0; }
+.direct-model-heading { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+.direct-model-heading h1 { margin: 0 0 6px; font-size: 26px; }
+.direct-model-heading p, .direct-model-identity p { margin: 0; color: var(--pms-ink-soft); }
+.direct-model-add, .direct-model-flags, .direct-model-row-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.direct-model-add .pms-btn--ghost { border: 1px solid var(--pms-line); background: var(--pms-surface); }
+.direct-model-filters { display: grid; grid-template-columns: minmax(180px, 2fr) repeat(3, minmax(130px, 1fr)); gap: 16px; }
+.direct-model-filters .pms-field { margin: 0; min-width: 0; }
+.direct-model-list { border: 1px solid var(--pms-line); border-radius: 12px; overflow: hidden; background: var(--pms-surface); }
+.direct-model-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 1fr) auto; gap: 20px; align-items: center; padding: 20px; }
+.direct-model-row + .direct-model-row { border-top: 1px solid var(--pms-line); }
+.direct-model-identity { min-width: 0; overflow-wrap: anywhere; }
+.direct-model-identity h2 { margin: 0 0 5px; font-size: 15px; font-weight: 600; }
+.direct-model-identity p { font-size: 13px; }
+.direct-model-empty { padding: 48px 24px; text-align: center; border: 1px solid var(--pms-line); border-radius: 12px; }
+.direct-model-empty h2 { font-size: 18px; }
+.direct-model-fields { display: grid; gap: 20px; padding: 0; margin: 0; border: 0; min-width: 0; }
+.direct-model-fields .pms-field, .direct-model-fields .pms-hint { margin: 0; }
+.direct-device-name { margin: 0 0 20px; font-weight: 600; overflow-wrap: anywhere; }
+.direct-device-models { min-width: 0; }
+.model-mode-control { display: flex; padding: 4px; gap: 4px; border: 1px solid var(--pms-line); border-radius: 9px; background: var(--pms-surface); }
+.model-mode-control button { flex: 1; padding: 10px 16px; min-height: 42px; border: 0; border-radius: 6px; background: transparent; color: var(--pms-ink-soft); font: inherit; font-weight: 600; cursor: pointer; }
+.model-mode-control button[aria-pressed="true"] { background: var(--pms-ink); color: var(--pms-surface); }
+.model-mode-control button:focus-visible { outline: 2px solid var(--pms-ink); outline-offset: 2px; }
+.model-mode-control button:disabled { cursor: default; opacity: .65; }
+.direct-model-options { display: grid; border-top: 1px solid var(--pms-line); padding-top: 16px; }
+.direct-model-options summary { cursor: pointer; font-size: 14px; }
+.direct-model-options summary span { color: var(--pms-ink-soft); margin-left: 8px; font-size: 12px; }
+.direct-model-options[open] > .pms-field { margin-top: 16px; }
+@media (max-width: 760px) {
+  .direct-model-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .direct-model-row { grid-template-columns: minmax(0, 1fr) auto; gap: 12px; padding: 16px; }
+  .direct-model-flags { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-width: 440px) {
+  .direct-model-heading { align-items: stretch; }
+  .direct-model-add { width: 100%; }
+  .direct-model-add > button { flex: 1; padding-inline: 10px; }
+  .direct-model-filters { grid-template-columns: minmax(0, 1fr); }
+}

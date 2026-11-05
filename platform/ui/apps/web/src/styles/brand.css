@@ -1,0 +1,82 @@
+/*
+ * AI Evaluator branding. App-owned, not part of @pms/ui.
+ *
+ * Every value is a `--pms-*` token or a plain geometric number — there is no colour literal in
+ * this file, which is what lets the light, dark and ledger palettes all render the identity
+ * correctly without a second set of rules. `tests/auth-css.test.ts` enforces it.
+ */
+
+/* Vertical: the wordmark under the mark reads as a masthead rather than a navigation item.
+   `auth.css` lies it down in the narrow header band, where the vertical stack is taller than
+   the claim beside it. */
+.pms-brand {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--pms-space-4);
+}
+
+/*
+ * The mark. `--pms-grad-action` is the same indigo in all three palettes by design
+ * (see the gradient comments in the theme files), so the tile is the one element on the page
+ * that does *not* change with the theme — which is what a logo should do.
+ */
+.pms-brand__tile {
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: var(--pms-radius-md);
+  background: var(--pms-grad-action);
+  color: var(--pms-ink-invert);
+  box-shadow: var(--pms-shadow-action);
+}
+
+.pms-brand__glyph {
+  display: block;
+}
+
+/* One line, for a rail or a bar: the stacked masthead is taller than either has to give. */
+.pms-brand--compact {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--pms-space-3);
+}
+
+.pms-brand--compact .pms-brand__wordmark {
+  font-size: var(--pms-text-md);
+}
+
+.pms-brand__wordmark {
+  font-family: var(--pms-font-display);
+  font-size: var(--pms-text-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--pms-ink);
+  white-space: nowrap;
+}
+
+/*
+ * "AI" in the brand gradient. The `color` below is the fallback and is declared first: if
+ * `background-clip: text` is unsupported the two words simply differ in colour, whereas the
+ * reverse order leaves the product name invisible.
+ *
+ * `--pms-brand` → `--pms-brand-bright` rather than `--pms-grad-action`: the action gradient is
+ * a dark indigo built to sit under white text, and on the dark palette it would put near-black
+ * indigo on a near-black panel. Both brand steps are lifted for contrast in every palette.
+ */
+.pms-brand__ai {
+  color: var(--pms-brand);
+  background: linear-gradient(96deg, var(--pms-brand) 0%, var(--pms-brand-bright) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* A gradient clipped to text has no background of its own to meet a contrast ratio against, and
+   Windows high-contrast mode drops the fill entirely. Hand the ink back rather than risk it. */
+@media (forced-colors: active) {
+  .pms-brand__ai {
+    -webkit-text-fill-color: currentColor;
+    background: none;
+  }
+}

@@ -1,0 +1,277 @@
+/*
+ * FileUpload — the drop zone, the rejection notice and the attachment list.
+ *
+ * Its own stylesheet for the same reason `search-select.css` is: this is a control with several
+ * states rather than a primitive, and burying two hundred lines of it in the middle of the
+ * shared field rules makes both harder to read. Every colour here is a token — the file carries
+ * none of its own (tokens.test.ts enforces it).
+ */
+
+.pms-upload {
+  display: block;
+}
+
+/* ---------- the drop zone ---------- */
+
+/*
+ * The wrapper owns the drag events; the `<label>` inside it owns the click. They are separate
+ * elements because a `<label>` is not a reliable drop target across browsers — dragging over its
+ * own text fires leave/enter pairs that a label cannot see the outside of.
+ */
+.pms-upload__drop {
+  position: relative;
+}
+
+.pms-upload__zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pms-space-2);
+  padding: var(--pms-space-5) var(--pms-space-4);
+  text-align: center;
+  /* Dashed, because the boundary is an invitation rather than a field's edge — and it is the
+   * only place in the system that says "put something here". */
+  border: 1px dashed var(--pms-control-line);
+  border-radius: var(--pms-radius-md);
+  background: var(--pms-surface);
+  color: var(--pms-ink-soft);
+  cursor: pointer;
+  transition: border-color var(--pms-dur-fast) var(--pms-ease),
+    background var(--pms-dur-fast) var(--pms-ease);
+}
+.pms-upload__zone:hover {
+  border-color: var(--pms-brand-line);
+  background: var(--pms-hover);
+}
+
+/*
+ * The focus ring is drawn here, on the label, because the control that actually holds focus is
+ * the visually hidden `<input type="file">` immediately before it. Adjacent-sibling is what
+ * projects the ring onto the thing a sighted keyboard user can see — without it the field takes
+ * focus with no visible change at all (WCAG 2.4.7).
+ */
+.pms-upload__input:focus-visible + .pms-upload__zone {
+  outline: none;
+  border-color: var(--pms-focus);
+  box-shadow: var(--pms-focus-ring);
+}
+
+/* Dragging: the same emphasis as focus, since it is the same message — this is the live target. */
+.pms-upload__drop[data-dragging='true'] .pms-upload__zone {
+  border-color: var(--pms-brand);
+  border-style: solid;
+  background: var(--pms-brand-tint);
+  color: var(--pms-brand-ink);
+}
+
+.pms-upload[data-invalid='true'] .pms-upload__zone {
+  border-color: var(--pms-danger-ink);
+}
+.pms-upload[data-disabled='true'] .pms-upload__zone {
+  background: var(--pms-disabled-surface);
+  color: var(--pms-disabled-ink);
+  border-color: var(--pms-line);
+  cursor: not-allowed;
+}
+.pms-upload[data-disabled='true'] .pms-upload__zone:hover {
+  border-color: var(--pms-line);
+  background: var(--pms-disabled-surface);
+}
+
+.pms-upload__icon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--pms-radius-pill);
+  background: var(--pms-brand-tint);
+  color: var(--pms-brand);
+}
+.pms-upload[data-disabled='true'] .pms-upload__icon {
+  background: var(--pms-neutral-tint);
+  color: var(--pms-disabled-ink);
+}
+
+.pms-upload__prompt {
+  font-size: var(--pms-text-sm);
+  font-weight: 500;
+  color: var(--pms-ink);
+}
+.pms-upload[data-disabled='true'] .pms-upload__prompt {
+  color: var(--pms-disabled-ink);
+}
+.pms-upload__constraints {
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-faint);
+}
+
+/* ---------- what was refused ---------- */
+
+.pms-upload__rejects {
+  margin-top: var(--pms-space-3);
+  padding: var(--pms-space-3);
+  border: 1px solid var(--pms-danger-line);
+  border-radius: var(--pms-radius-sm);
+  background: var(--pms-danger-tint);
+  color: var(--pms-danger-ink);
+  font-size: var(--pms-text-xs);
+}
+.pms-upload__reject-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+.pms-upload__reject-head svg {
+  flex: none;
+}
+.pms-upload__rejects ul {
+  margin: var(--pms-space-2) 0 0;
+  padding-left: 1.15rem;
+  list-style: disc;
+}
+.pms-upload__rejects li + li {
+  margin-top: 0.2rem;
+}
+
+/* ---------- the attachment list ---------- */
+
+.pms-upload__list {
+  margin: var(--pms-space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-2);
+}
+
+.pms-upload__item {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+  padding: var(--pms-space-3);
+  border: 1px solid var(--pms-line);
+  border-radius: var(--pms-radius-sm);
+  background: var(--pms-surface);
+  min-width: 0;
+}
+.pms-upload__item[data-status='failed'] {
+  border-color: var(--pms-danger-line);
+  background: var(--pms-danger-tint);
+}
+.pms-upload__item[data-status='done'] {
+  border-color: var(--pms-success-line);
+}
+
+.pms-upload__item-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--pms-ink-faint);
+}
+.pms-upload__item[data-status='done'] .pms-upload__item-icon {
+  color: var(--pms-success-ink);
+}
+.pms-upload__item[data-status='failed'] .pms-upload__item-icon {
+  color: var(--pms-danger-ink);
+}
+
+.pms-upload__item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  /* `min-width: 0` on both the row and this column is what lets the long-name truncation below
+   * actually happen: a flex item's default minimum is its content. */
+  min-width: 0;
+  flex: 1;
+}
+.pms-upload__item-name {
+  font-size: var(--pms-text-sm);
+  color: var(--pms-ink);
+  /* A file name is user data and can be 250 characters. It truncates rather than reflowing the
+   * row, and `title` is not used for it — the full name belongs in the list, not in a tooltip
+   * no touch device can open. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pms-upload__item-meta {
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+}
+.pms-upload__item[data-status='failed'] .pms-upload__item-meta {
+  color: var(--pms-danger-ink);
+}
+
+/* ---------- progress ---------- */
+
+.pms-upload__bar {
+  display: block;
+  height: 4px;
+  margin-top: 0.35rem;
+  border-radius: var(--pms-radius-pill);
+  background: var(--pms-meter-track);
+  overflow: hidden;
+}
+.pms-upload__bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--pms-radius-pill);
+  background: var(--pms-meter-fill);
+  transition: width var(--pms-dur) var(--pms-ease);
+}
+/*
+ * No measurement to draw, so the bar sweeps instead of claiming a width. The reduced-motion
+ * rule in `ui.css` stops the animation; the bar then reads as a full track, which is the
+ * honest static rendering of "in flight, progress unknown".
+ */
+.pms-upload__bar[data-indeterminate='true'] .pms-upload__bar-fill {
+  width: 35%;
+  animation: pms-upload-sweep 1.1s ease-in-out infinite;
+}
+@keyframes pms-upload-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+/* ---------- row actions ---------- */
+
+.pms-upload__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex: none;
+  border: 1px solid var(--pms-control-line);
+  border-radius: var(--pms-radius-sm);
+  background: var(--pms-surface);
+  color: var(--pms-ink-soft);
+  font: inherit;
+  font-size: var(--pms-text-xs);
+  font-weight: 500;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+}
+.pms-upload__action:hover {
+  color: var(--pms-ink);
+  border-color: var(--pms-ink-faint);
+  background: var(--pms-hover);
+}
+.pms-upload__action:focus-visible {
+  outline: none;
+  box-shadow: var(--pms-focus-ring);
+}
+.pms-upload__action:disabled {
+  color: var(--pms-disabled-ink);
+  background: var(--pms-disabled-surface);
+  cursor: not-allowed;
+}
+/* Square, for the one whose glyph is the whole label. */
+.pms-upload__action--icon {
+  padding: 0.3rem;
+}

@@ -1,0 +1,41 @@
+[Unit]
+Description=Headless patient training device
+Wants=network-online.target
+After=network-online.target sound.target
+StartLimitIntervalSec=300
+StartLimitBurst=10
+
+[Service]
+Type=notify
+NotifyAccess=main
+User=pi-test
+Group=pi-test
+SupplementaryGroups=audio video render
+WorkingDirectory=/var/lib/pi-test
+ExecStart=/opt/pi-test/current/bin/pi-test --config /etc/pi-test/config.toml serve
+Restart=on-failure
+RestartSec=10
+WatchdogSec=45
+TimeoutStartSec=60
+TimeoutStopSec=45
+KillMode=control-group
+RuntimeDirectory=pi-test
+RuntimeDirectoryMode=0700
+StateDirectory=pi-test
+StateDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+ReadWritePaths=/var/lib/pi-test /run/pi-test
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

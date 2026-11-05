@@ -1,0 +1,850 @@
+/*
+ * @pms/ui — content and data primitives: cards, stat tiles, list rows, badges,
+ * meters, tabs, toolbars, page headers, empty/error states.
+ *
+ * Contains no colour values — every colour reads a --pms-* token. Tones are data
+ * attributes (`data-tone="warn"`), each resolving to a signal {ink,tint,line} triplet.
+ */
+
+/* ---------- page layout ---------- */
+
+/* Fluid with a gutter, capped so an ultrawide monitor doesn't stretch a table to 3000px. */
+.pms-page {
+  width: 100%;
+  max-width: var(--pms-page-max);
+  margin: 0 auto;
+  padding: var(--pms-space-6) var(--pms-page-gutter) var(--pms-space-8);
+}
+
+/*
+ * Vertical rhythm for a column of page blocks.
+ *
+ * One uniform `gap` is what made the spacing read as arbitrary: a toolbar belongs to the
+ * section heading above it, and the meta line is a caption on that toolbar's current
+ * selection — yet all three sat the same 32px apart as unrelated blocks, and `.pms-meta`'s
+ * own 4px top margin (which it needs inside a card) compounded on top of the gap.
+ *
+ * So spacing is stated per *relationship*, and with margins rather than `gap`, so there is one
+ * mechanism and nothing can compound. Margins don't collapse in a flex column, which makes
+ * these predictable.
+ *
+ * `.pms-page` is one such column; a tab panel nested inside it is another, which is why this
+ * is a utility rather than rules bound to the page.
+ */
+.pms-page,
+.pms-flow {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The default: two unrelated blocks. */
+.pms-page > * + *,
+.pms-flow > * + * {
+  margin-top: var(--pms-space-6);
+}
+
+/* A new section is a bigger break than a block within one. */
+.pms-page > * + .pms-section-header,
+.pms-flow > * + .pms-section-header {
+  margin-top: var(--pms-space-7);
+}
+
+/* …and whatever a section heading introduces sits close under it. */
+.pms-page > .pms-section-header + *,
+.pms-flow > .pms-section-header + * {
+  margin-top: var(--pms-space-4);
+}
+
+/* The tab strip belongs to the page header it filters, not to the content below. */
+.pms-page > .pms-page-header + .pms-tabs,
+.pms-flow > .pms-page-header + .pms-tabs {
+  margin-top: var(--pms-space-5);
+}
+
+/* The meta line captions the toolbar; it is not a block of its own. */
+.pms-page > .pms-toolbar + .pms-meta,
+.pms-flow > .pms-toolbar + .pms-meta {
+  margin-top: var(--pms-space-2);
+}
+.pms-page > .pms-meta + *,
+.pms-flow > .pms-meta + * {
+  margin-top: var(--pms-space-5);
+}
+
+/*
+ * Consecutive bands of cards keep the grid's own gutter, so the space between two rows of
+ * cards matches the space between two cards side by side. At `space-6` the rows read as
+ * separate sections when they are one field of cards.
+ */
+.pms-page > :is(.pms-grid, .pms-stat-row) + :is(.pms-grid, .pms-stat-row),
+.pms-flow > :is(.pms-grid, .pms-stat-row) + :is(.pms-grid, .pms-stat-row) {
+  margin-top: var(--pms-space-4);
+}
+
+.pms-grid {
+  display: grid;
+  gap: var(--pms-space-4);
+}
+
+/* The KPI band: 4-up → 2-up → 1-up. */
+.pms-grid--kpi {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Content beside a sidebar. `minmax(0,…)` on both tracks so a long figure can't force
+ * the column wider than its share — grid's default `min-width:auto` would let it. */
+.pms-grid--split {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+
+@media (max-width: 1100px) {
+  .pms-grid--kpi {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pms-grid--split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .pms-grid--kpi {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* The muted second line under a title, and under a figure: always tabular, because these
+ * are dates, counts and references that should align down a column. */
+.pms-meta {
+  margin: var(--pms-space-1) 0 0;
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+.pms-overline {
+  margin: 0 0 var(--pms-space-2);
+  font-size: var(--pms-text-overline);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pms-ink-faint);
+}
+.pms-overline--brand {
+  color: var(--pms-brand);
+}
+
+/* ---------- page & section headers ---------- */
+
+.pms-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--pms-space-5);
+  flex-wrap: wrap;
+}
+.pms-page-header__text {
+  min-width: 0;
+}
+.pms-page-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  flex-wrap: wrap;
+}
+
+.pms-section-header__row {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+}
+.pms-section-header__icon {
+  display: grid;
+  place-items: center;
+  color: var(--pms-brand);
+}
+.pms-section-header__title {
+  margin: 0;
+  font-family: var(--pms-font-display);
+  font-weight: 600;
+  font-size: var(--pms-text-lg);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--pms-ink);
+}
+/*
+ * Wider than the 80ch prose ceiling on purpose. This is a caption under a heading — one or two
+ * sentences qualifying what the figures below mean — not running body copy, and the sentences
+ * that actually appear here run past 90 characters. Capping it shorter split a single sentence
+ * across two lines with half the page empty beside it. It still wraps once the container
+ * genuinely runs out of room.
+ */
+.pms-section-header__desc {
+  margin: var(--pms-space-2) 0 0;
+  color: var(--pms-ink-soft);
+  font-size: var(--pms-text-sm);
+  max-width: 96ch;
+}
+
+/* ---------- toolbar ---------- */
+
+.pms-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+  flex-wrap: wrap;
+}
+.pms-toolbar__side {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  flex-wrap: wrap;
+  min-width: 0;
+}
+/* `auto` margin rather than `space-between`: a toolbar with only a trailing slot still
+ * sits right, and a wrapped row doesn't spread its own items apart. */
+.pms-toolbar__side--end {
+  margin-left: auto;
+}
+
+/* ---------- tabs ---------- */
+
+/*
+ * The row wraps; it is not a scroll container.
+ *
+ * It used to carry `overflow-x: auto` for narrow widths, which had two side effects. Setting
+ * one axis to `auto` computes the other from `visible` to `auto`, and the selected tab's
+ * underline sits at `bottom: -1px` — so the row overflowed itself by one pixel and grew a
+ * vertical scrollbar down its right edge. The horizontal padding added to keep the focus ring
+ * from being clipped then widened the scrollable area on top of that.
+ *
+ * Wrapping removes the scroll container, so nothing clips the focus ring and the padding
+ * workaround goes with it. Five short labels wrap to a second line only on a phone.
+ */
+.pms-tabs {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pms-space-5);
+  border-bottom: 1px solid var(--pms-line);
+}
+.pms-tabs__tab {
+  position: relative;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: var(--pms-text-sm);
+  font-weight: 500;
+  color: var(--pms-ink-soft);
+  padding: var(--pms-space-3) 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--pms-dur-fast) var(--pms-ease);
+}
+.pms-tabs__tab:hover {
+  color: var(--pms-ink);
+}
+.pms-tabs__tab:focus-visible {
+  outline: none;
+  border-radius: var(--pms-radius-sm);
+  box-shadow: var(--pms-focus-ring);
+}
+.pms-tabs__tab[aria-selected='true'] {
+  color: var(--pms-brand);
+  font-weight: 600;
+}
+/* The 2px brand underline sits *on* the hairline rule, so the row reads as one edge. */
+.pms-tabs__tab[aria-selected='true']::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--pms-brand);
+  border-radius: var(--pms-radius-pill);
+}
+
+/* ---------- card ---------- */
+
+.pms-card {
+  background: var(--pms-surface);
+  border: 1px solid var(--pms-line);
+  border-radius: var(--pms-radius-md);
+  box-shadow: var(--pms-shadow-card);
+  min-width: 0;
+}
+.pms-card--nested {
+  background: var(--pms-surface-2);
+  box-shadow: none;
+}
+.pms-card[data-tone='brand'] {
+  background: var(--pms-brand-tint);
+  border-color: var(--pms-brand-line);
+}
+.pms-card[data-tone='success'] {
+  background: var(--pms-success-tint);
+  border-color: var(--pms-success-line);
+}
+.pms-card[data-tone='warn'] {
+  background: var(--pms-warn-tint);
+  border-color: var(--pms-warn-line);
+}
+.pms-card[data-tone='danger'] {
+  background: var(--pms-danger-tint);
+  border-color: var(--pms-danger-line);
+}
+.pms-card[data-tone='info'] {
+  background: var(--pms-info-tint);
+  border-color: var(--pms-info-line);
+}
+.pms-card[data-tone='neutral'] {
+  background: var(--pms-neutral-tint);
+  border-color: var(--pms-neutral-line);
+}
+
+.pms-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--pms-space-4);
+  padding: var(--pms-space-4) var(--pms-space-5);
+  border-bottom: 1px solid var(--pms-line);
+}
+.pms-card__heading {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pms-space-3);
+  min-width: 0;
+}
+.pms-card__icon {
+  display: grid;
+  place-items: center;
+  color: var(--pms-ink-soft);
+  margin-top: 1px;
+}
+.pms-card__titles {
+  min-width: 0;
+}
+.pms-card__title {
+  margin: 0;
+  font-family: var(--pms-font-display);
+  font-weight: 600;
+  font-size: var(--pms-text-md);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--pms-ink);
+}
+.pms-card__subtitle {
+  margin: var(--pms-space-1) 0 0;
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+}
+.pms-card__aside {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  flex: none;
+}
+.pms-card__body {
+  padding: var(--pms-space-5);
+}
+.pms-card__footer {
+  padding: var(--pms-space-3) var(--pms-space-5);
+  border-top: 1px solid var(--pms-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pms-space-3);
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+}
+
+/* ---------- stat tile ---------- */
+
+.pms-stat-row {
+  display: grid;
+  gap: var(--pms-space-4);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.pms-stat-row[data-columns='3'] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 1100px) {
+  .pms-stat-row,
+  .pms-stat-row[data-columns='3'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 680px) {
+  .pms-stat-row,
+  .pms-stat-row[data-columns='3'] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.pms-stat {
+  background: var(--pms-surface);
+  border: 1px solid var(--pms-line);
+  border-radius: var(--pms-radius-md);
+  box-shadow: var(--pms-shadow-card);
+  padding: var(--pms-space-4) var(--pms-space-5) var(--pms-space-5);
+  min-width: 0;
+}
+.pms-stat__label {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  font-size: var(--pms-text-overline);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pms-ink-soft);
+}
+.pms-stat__icon {
+  display: grid;
+  place-items: center;
+  color: var(--pms-ink-faint);
+}
+.pms-stat__value {
+  margin: var(--pms-space-3) 0 0;
+  font-family: var(--pms-font-display);
+  font-size: var(--pms-figure-lg);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--pms-ink);
+}
+.pms-stat__footnote {
+  margin: var(--pms-space-2) 0 0;
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+}
+
+/* A tile inside a card: quieter surface, no lift, the smaller figure step. */
+.pms-stat--nested {
+  background: var(--pms-surface-2);
+  box-shadow: none;
+  padding: var(--pms-space-4);
+}
+.pms-stat--nested .pms-stat__value {
+  font-size: var(--pms-figure-sm);
+}
+
+/* `tone` colours the figure only … */
+.pms-stat[data-tone='brand'] .pms-stat__value {
+  color: var(--pms-brand-ink);
+}
+.pms-stat[data-tone='success'] .pms-stat__value {
+  color: var(--pms-success-ink);
+}
+.pms-stat[data-tone='warn'] .pms-stat__value {
+  color: var(--pms-warn-ink);
+}
+.pms-stat[data-tone='danger'] .pms-stat__value {
+  color: var(--pms-danger-ink);
+}
+
+/* … `emphasis` adds the rest of the triplet, which is how one tile in a row reads as the
+ * lead metric. `default` has no tint of its own, so it borrows the neutral one. */
+.pms-stat--emphasis[data-tone='default'] {
+  background: var(--pms-neutral-tint);
+  border-color: var(--pms-neutral-line);
+}
+.pms-stat--emphasis[data-tone='brand'] {
+  background: var(--pms-brand-tint);
+  border-color: var(--pms-brand-line);
+}
+.pms-stat--emphasis[data-tone='success'] {
+  background: var(--pms-success-tint);
+  border-color: var(--pms-success-line);
+}
+.pms-stat--emphasis[data-tone='warn'] {
+  background: var(--pms-warn-tint);
+  border-color: var(--pms-warn-line);
+}
+.pms-stat--emphasis[data-tone='danger'] {
+  background: var(--pms-danger-tint);
+  border-color: var(--pms-danger-line);
+}
+
+/* ---------- badge ---------- */
+
+.pms-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pms-space-1);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--pms-radius-pill);
+  border: 1px solid transparent;
+  font-size: var(--pms-text-xs);
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.pms-badge--tint[data-tone='neutral'] {
+  background: var(--pms-neutral-tint);
+  border-color: var(--pms-neutral-line);
+  color: var(--pms-neutral-ink);
+}
+.pms-badge--tint[data-tone='brand'] {
+  background: var(--pms-brand-tint);
+  border-color: var(--pms-brand-line);
+  color: var(--pms-brand-ink);
+}
+.pms-badge--tint[data-tone='success'] {
+  background: var(--pms-success-tint);
+  border-color: var(--pms-success-line);
+  color: var(--pms-success-ink);
+}
+.pms-badge--tint[data-tone='warn'] {
+  background: var(--pms-warn-tint);
+  border-color: var(--pms-warn-line);
+  color: var(--pms-warn-ink);
+}
+.pms-badge--tint[data-tone='danger'] {
+  background: var(--pms-danger-tint);
+  border-color: var(--pms-danger-line);
+  color: var(--pms-danger-ink);
+}
+.pms-badge--tint[data-tone='info'] {
+  background: var(--pms-info-tint);
+  border-color: var(--pms-info-line);
+  color: var(--pms-info-ink);
+}
+
+/* The quiet form: a hairline on the card surface, ink from the tone. */
+.pms-badge--outline {
+  background: var(--pms-surface);
+  border-color: var(--pms-line);
+  color: var(--pms-ink-soft);
+  font-weight: 500;
+}
+.pms-badge--outline[data-tone='brand'] {
+  border-color: var(--pms-brand-line);
+  color: var(--pms-brand-ink);
+}
+.pms-badge--outline[data-tone='success'] {
+  border-color: var(--pms-success-line);
+  color: var(--pms-success-ink);
+}
+.pms-badge--outline[data-tone='warn'] {
+  border-color: var(--pms-warn-line);
+  color: var(--pms-warn-ink);
+}
+.pms-badge--outline[data-tone='danger'] {
+  border-color: var(--pms-danger-line);
+  color: var(--pms-danger-ink);
+}
+.pms-badge--outline[data-tone='info'] {
+  border-color: var(--pms-info-line);
+  color: var(--pms-info-ink);
+}
+
+/* Codes — `INR`, `GSTIN`, a document series. Mono because character width is meaning. */
+.pms-badge--mono {
+  font-family: var(--pms-font-mono);
+  font-size: var(--pms-text-overline);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  border-radius: var(--pms-radius-sm);
+  background: var(--pms-neutral-tint);
+  border-color: var(--pms-neutral-line);
+  color: var(--pms-neutral-ink);
+}
+.pms-badge--mono[data-tone='brand'] {
+  background: var(--pms-brand-tint);
+  border-color: var(--pms-brand-line);
+  color: var(--pms-brand-ink);
+}
+.pms-badge--mono[data-tone='success'] {
+  background: var(--pms-success-tint);
+  border-color: var(--pms-success-line);
+  color: var(--pms-success-ink);
+}
+.pms-badge--mono[data-tone='warn'] {
+  background: var(--pms-warn-tint);
+  border-color: var(--pms-warn-line);
+  color: var(--pms-warn-ink);
+}
+.pms-badge--mono[data-tone='danger'] {
+  background: var(--pms-danger-tint);
+  border-color: var(--pms-danger-line);
+  color: var(--pms-danger-ink);
+}
+.pms-badge--mono[data-tone='info'] {
+  background: var(--pms-info-tint);
+  border-color: var(--pms-info-line);
+  color: var(--pms-info-ink);
+}
+
+/* ---------- list row ---------- */
+
+.pms-list-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pms-space-3);
+  padding: var(--pms-space-3) 0;
+  border-bottom: 1px solid var(--pms-line);
+  min-width: 0;
+}
+.pms-list-row:last-child {
+  border-bottom: 0;
+}
+/* `min-width`, not `width`: a rank of 100 or more is four characters wide and a fixed 1.6rem
+ * simply loses the leading digit. The column still aligns for the common 1–99 case. */
+.pms-list-row__rank {
+  flex: none;
+  min-width: 1.6rem;
+  text-align: right;
+  font-size: var(--pms-text-sm);
+  font-weight: 600;
+  color: var(--pms-ink-faint);
+  line-height: 1.5;
+}
+.pms-list-row__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  margin-top: 1px;
+  color: var(--pms-ink-soft);
+}
+.pms-list-row[data-tone='success'] .pms-list-row__icon {
+  color: var(--pms-success-ink);
+}
+.pms-list-row[data-tone='warn'] .pms-list-row__icon {
+  color: var(--pms-warn-ink);
+}
+.pms-list-row[data-tone='danger'] .pms-list-row__icon {
+  color: var(--pms-danger-ink);
+}
+.pms-list-row[data-tone='info'] .pms-list-row__icon {
+  color: var(--pms-info-ink);
+}
+.pms-list-row[data-tone='brand'] .pms-list-row__icon {
+  color: var(--pms-brand);
+}
+.pms-list-row__main {
+  flex: 1;
+  min-width: 0;
+}
+.pms-list-row__top {
+  display: flex;
+  align-items: baseline;
+  gap: var(--pms-space-3);
+}
+.pms-list-row__primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pms-space-1);
+  font-size: var(--pms-text-sm);
+  font-weight: 500;
+  color: var(--pms-ink);
+  min-width: 0;
+}
+/* A link keeps the brand ink; the plain span stays body ink. */
+a.pms-list-row__primary {
+  color: var(--pms-brand);
+}
+.pms-list-row__primary svg {
+  flex: none;
+  color: var(--pms-ink-faint);
+}
+.pms-list-row__figure {
+  margin-left: auto;
+  flex: none;
+  font-size: var(--pms-text-sm);
+  font-weight: 600;
+  color: var(--pms-ink);
+}
+
+/* ---------- meter ---------- */
+
+.pms-meter {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-3);
+  margin-top: var(--pms-space-2);
+}
+.pms-meter__track {
+  flex: 1;
+  height: 4px;
+  border-radius: var(--pms-radius-pill);
+  background: var(--pms-meter-track);
+  overflow: hidden;
+  min-width: 0;
+}
+.pms-meter__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--pms-radius-pill);
+  background: var(--pms-meter-fill);
+  transition: width var(--pms-dur) var(--pms-ease);
+}
+.pms-meter[data-tone='success'] .pms-meter__fill {
+  background: var(--pms-success-ink);
+}
+.pms-meter[data-tone='warn'] .pms-meter__fill {
+  background: var(--pms-warn-ink);
+}
+.pms-meter[data-tone='danger'] .pms-meter__fill {
+  background: var(--pms-danger-ink);
+}
+.pms-meter[data-tone='info'] .pms-meter__fill {
+  background: var(--pms-info-ink);
+}
+.pms-meter[data-tone='neutral'] .pms-meter__fill {
+  background: var(--pms-neutral-ink);
+}
+/* `100%` is four characters and a `share` of 1 is reachable, so 3ch clipped the value that
+ * matters most. `min-width` keeps the column aligned without capping it. */
+.pms-meter__percent {
+  flex: none;
+  min-width: 4ch;
+  text-align: right;
+  font-size: var(--pms-text-xs);
+  color: var(--pms-ink-soft);
+}
+
+/* ---------- disclosure ---------- */
+
+.pms-disclosure {
+  border-top: 1px solid var(--pms-line);
+}
+.pms-disclosure__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--pms-space-2);
+  padding: var(--pms-space-3) 0;
+  cursor: pointer;
+  font-size: var(--pms-text-sm);
+  font-weight: 500;
+  color: var(--pms-ink);
+  list-style: none;
+}
+/* Both are needed: WebKit uses the pseudo-element, everyone else uses `list-style`. */
+.pms-disclosure__summary::-webkit-details-marker {
+  display: none;
+}
+.pms-disclosure__summary:hover {
+  color: var(--pms-brand);
+}
+.pms-disclosure__summary:focus-visible {
+  outline: none;
+  border-radius: var(--pms-radius-sm);
+  box-shadow: var(--pms-focus-ring);
+}
+.pms-disclosure__caret {
+  display: grid;
+  place-items: center;
+  color: var(--pms-ink-faint);
+  transition: transform var(--pms-dur-fast) var(--pms-ease);
+}
+.pms-disclosure[open] .pms-disclosure__caret {
+  transform: rotate(90deg);
+}
+.pms-disclosure__body {
+  padding-bottom: var(--pms-space-3);
+  font-size: var(--pms-text-sm);
+  color: var(--pms-ink-soft);
+}
+
+/* `Select` lives in `ui.css` with the other form controls — a form field is a framework
+ * primitive, and `data.css` is not imported by every app. */
+
+/* ---------- empty / error states ---------- */
+
+.pms-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--pms-space-1);
+  padding: var(--pms-space-6) var(--pms-space-5);
+  border: 1px dashed var(--pms-line);
+  border-radius: var(--pms-radius-md);
+  background: var(--pms-surface);
+}
+.pms-state__icon {
+  display: grid;
+  place-items: center;
+  color: var(--pms-ink-faint);
+  margin-bottom: var(--pms-space-2);
+}
+.pms-state__title {
+  margin: 0;
+  font-family: var(--pms-font-display);
+  font-weight: 600;
+  font-size: var(--pms-text-md);
+  color: var(--pms-ink);
+}
+.pms-state__body {
+  margin: 0;
+  font-size: var(--pms-text-sm);
+  color: var(--pms-ink-soft);
+  max-width: 46ch;
+}
+.pms-state__detail {
+  margin: var(--pms-space-1) 0 0;
+}
+.pms-state__action {
+  margin-top: var(--pms-space-4);
+}
+
+/* A failure is the danger triplet, plus an icon — never colour alone. */
+.pms-state--error[data-tone='danger'] {
+  border-style: solid;
+  background: var(--pms-danger-tint);
+  border-color: var(--pms-danger-line);
+}
+.pms-state--error[data-tone='danger'] .pms-state__icon,
+.pms-state--error[data-tone='danger'] .pms-state__title {
+  color: var(--pms-danger-ink);
+}
+.pms-state--error[data-tone='danger'] .pms-state__body,
+.pms-state--error[data-tone='danger'] .pms-state__detail {
+  color: var(--pms-danger-ink);
+}
+
+/* ---------- skeleton ---------- */
+
+.pms-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pms-space-2);
+}
+.pms-skeleton__line {
+  display: block;
+  height: 0.75rem;
+  border-radius: var(--pms-radius-sm);
+  background: var(--pms-neutral-tint);
+  background-image: linear-gradient(
+    90deg,
+    var(--pms-neutral-tint) 0%,
+    var(--pms-hover) 50%,
+    var(--pms-neutral-tint) 100%
+  );
+  background-size: 200% 100%;
+  animation: pms-shimmer 1.4s var(--pms-ease) infinite;
+}
+/* The last bar is short: a paragraph's last line is, and the placeholder should look like
+ * the content it stands in for. */
+.pms-skeleton__line:last-child {
+  width: 62%;
+}
+@keyframes pms-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+/* Honoured here as well as at the root: a skeleton can render outside `.pms-root`, and a
+ * looping shimmer is exactly the motion this media query exists for. */
+@media (prefers-reduced-motion: reduce) {
+  .pms-skeleton__line {
+    animation: none;
+  }
+}

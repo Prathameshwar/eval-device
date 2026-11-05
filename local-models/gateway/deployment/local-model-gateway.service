@@ -1,0 +1,23 @@
+[Unit]
+Description=TLS inference gateway
+After=network-online.target local-model-manager.service
+Wants=network-online.target
+[Service]
+Type=simple
+User=local-models
+Group=local-models
+ExecStart=/opt/local-model-gateway/bin/local-model-gateway --config /etc/local-model-gateway/config.toml --cert /etc/local-model-gateway/tls.crt --key /etc/local-model-gateway/tls.key
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=20
+KillMode=control-group
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+StateDirectory=local-model-gateway
+StateDirectoryMode=0700
+ReadWritePaths=/var/lib/local-model-gateway
+[Install]
+WantedBy=multi-user.target

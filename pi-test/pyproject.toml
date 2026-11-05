@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pi-test"
+version = "0.2.0"
+description = "Headless device host for the shared patient training runtime"
+requires-python = ">=3.12,<3.14"
+dependencies = ["training-client[audio,camera]>=0.1.0", "websockets>=15,<16"]
+
+[project.scripts]
+pi-test = "pi_test.__main__:main"
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=0.26,<2", "ruff>=0.11,<1", "mypy>=1.15,<2"]
+
+[tool.uv.sources]
+training-client = {path = "../shared/training-client", editable = true}
+local-model-client = {path = "../local-models/client", editable = true}
+training-contracts = {path = "../shared/training-contracts", editable = true}
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pi_test"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
